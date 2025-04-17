@@ -1,0 +1,187 @@
+openapi: 3.0.4
+info:
+  title: Online Bookstore API
+  description: |-
+    The Online Bookstore API provides a robust platform for managing an online book retail system.
+    
+    It handles book inventory management, enabling seamless tracking and updating of book stock.
+    
+    The API supports purchase processing and dynamic book pricing, ensuring accurate transactions and 
+    flexible pricing strategies. 
+    
+    Additionally, it manages customer loyalty points, rewarding repeat customers with points for purchases, 
+    which can be redeemed for discounts or perks, enhancing user engagement and retention.
+  contact:
+    email: pedraza.miguez@gmail.com
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  version: 0.0.1-SNAPSHOT
+servers:
+  - url: http://localhost:8080
+    description: Local server
+tags:
+  - name: customer
+    description: Customer operations and loyalty points consultation
+  - name: book
+    description: Books and inventory management
+  - name: purchase
+    description: Purchase processing and order management
+paths:
+  /v1/books/{bookId}:
+    get:
+      tags:
+        - book
+      summary: Get book details by ID
+      description: Get book details by ID
+      operationId: getBookById
+      parameters:
+        - name: bookId
+          in: path
+          description: ID of the book to retrieve
+          required: true
+          schema:
+            type: integer
+            format: int64
+          example: 178
+      responses:
+        '200':
+          description: Book details retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Book not found
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+      security:
+        - bookstore_auth:
+            - read:books
+  /v1/books:
+    post:
+      tags:
+        - book
+      summary: Add a new book
+      description: Add a new book to the bookstore
+      operationId: addBook
+      requestBody:
+        $ref: '#/components/requestBodies/Book'
+      responses:
+        '201':
+          description: Book created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+        '400':
+          description: Book structure is malformed
+        '409':
+          description: Book already exists
+        '422':
+          description: Book structure is invalid
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+      security:
+        - bookstore_auth:
+            - write:books
+            - read:books
+components:
+  schemas:
+    Book:
+      required:
+        - title
+        - author
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 178
+        title:
+          type: string
+          example: "Effective Java"
+        author:
+          type: string
+          example: "Joshua Bloch"
+        genre:
+          type: string
+          description: Genre of the book
+          enum:
+            - FICTION
+            - NON_FICTION
+            - MYSTERY
+            - FANTASY
+            - SCIENCE_FICTION
+            - BIOGRAPHY
+            - HISTORY
+            - ROMANCE
+            - THRILLER
+            - CHILDREN
+    BookRequest:
+      required:
+        - title
+        - author
+      type: object
+      properties:
+        title:
+          type: string
+          example: "Effective Java"
+        author:
+          type: string
+          example: "Joshua Bloch"
+        genre:
+          type: string
+          description: Genre of the book
+          enum:
+            - FICTION
+            - NON_FICTION
+            - MYSTERY
+            - FANTASY
+            - SCIENCE_FICTION
+            - BIOGRAPHY
+            - HISTORY
+            - ROMANCE
+            - THRILLER
+            - CHILDREN
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+      required:
+        - code
+        - message
+  requestBodies:
+    Book:
+      description: Book object that needs to be added to the store
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/BookRequest'
+  securitySchemes:
+    bookstore_auth:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: http://localhost/oauth2/authorize
+          scopes:
+            "write:books": modify books
+            "read:books": read books
+    api_key:
+      type: apiKey
+      name: api_key
+      in: header

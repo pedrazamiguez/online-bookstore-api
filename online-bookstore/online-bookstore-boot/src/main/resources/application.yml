@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: "Online Bookstore"
+  profiles:
+    active: "local"
+  jackson:
+    default-property-inclusion: "non_null"
+
+app:
+  version: "@project.version@"
+
+springdoc.swagger-ui:
+  path: "/swagger-ui"
+  url: "/openapi.yml"
