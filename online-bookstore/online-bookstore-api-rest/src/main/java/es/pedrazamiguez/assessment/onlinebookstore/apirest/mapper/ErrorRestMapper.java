@@ -1,6 +1,7 @@
 package es.pedrazamiguez.assessment.onlinebookstore.apirest.mapper;
 
 import es.pedrazamiguez.assessment.onlinebookstore.openapi.model.ErrorDto;
+import jakarta.validation.ConstraintViolationException;
 import org.mapstruct.DecoratedWith;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -14,11 +15,12 @@ import org.springframework.web.context.request.WebRequest;
 public interface ErrorRestMapper {
 
   @Mapping(target = "status", expression = "java( status.name() )")
-  @Mapping(target = "path", expression = "java( request.getDescription(false) )")
   @Mapping(target = "timestamp", expression = "java( java.time.LocalDateTime.now() )")
-  ErrorDto toDto(HttpStatus status, String message, WebRequest request);
+  ErrorDto toDto(HttpStatus status, String message, String path);
 
   ErrorDto toDto(HttpStatus status, Exception e, WebRequest request);
 
   ErrorDto toDto(HttpStatus status, MethodArgumentNotValidException e, WebRequest request);
+
+  ErrorDto toDto(HttpStatus status, ConstraintViolationException e, WebRequest request);
 }

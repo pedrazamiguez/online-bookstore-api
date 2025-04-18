@@ -2,6 +2,7 @@ package es.pedrazamiguez.assessment.onlinebookstore.apirest.exception;
 
 import es.pedrazamiguez.assessment.onlinebookstore.apirest.mapper.ErrorRestMapper;
 import es.pedrazamiguez.assessment.onlinebookstore.openapi.model.ErrorDto;
+import jakarta.validation.ConstraintViolationException;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.NotImplementedException;
 import org.springframework.http.HttpStatus;
@@ -33,8 +34,15 @@ public class BookstoreExceptionHandler {
   }
 
   @ExceptionHandler(HttpMessageNotReadableException.class)
-  public ResponseEntity<ErrorDto> handleHttpMessageNotReadableException(
+  public ResponseEntity<ErrorDto> handleNotReadableException(
       final HttpMessageNotReadableException e, final WebRequest request) {
+    final HttpStatus status = HttpStatus.BAD_REQUEST;
+    return ResponseEntity.status(status).body(this.errorRestMapper.toDto(status, e, request));
+  }
+
+  @ExceptionHandler(ConstraintViolationException.class)
+  public ResponseEntity<ErrorDto> handleConstraintViolationException(
+      final ConstraintViolationException e, final WebRequest request) {
     final HttpStatus status = HttpStatus.BAD_REQUEST;
     return ResponseEntity.status(status).body(this.errorRestMapper.toDto(status, e, request));
   }

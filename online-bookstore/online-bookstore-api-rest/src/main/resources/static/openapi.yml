@@ -43,6 +43,7 @@ paths:
           schema:
             type: integer
             format: int64
+            minimum: 1
           example: 178
       responses:
         '200':
