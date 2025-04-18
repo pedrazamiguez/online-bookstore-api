@@ -1,6 +1,7 @@
 package es.pedrazamiguez.assessment.onlinebookstore.apirest.controller;
 
 import es.pedrazamiguez.assessment.onlinebookstore.apirest.mapper.BookRestMapper;
+import es.pedrazamiguez.assessment.onlinebookstore.domain.entity.Book;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.usecase.book.GetBookDetailsUseCase;
 import es.pedrazamiguez.assessment.onlinebookstore.openapi.api.BookApi;
 import es.pedrazamiguez.assessment.onlinebookstore.openapi.model.BookDto;
@@ -25,10 +26,8 @@ public class BooksController implements BookApi {
 
   @Override
   public ResponseEntity<BookDto> getBookById(Long bookId) {
-    final var bookFound = this.getBookDetailsUseCase.getBookDetails(bookId);
-    return bookFound
-        .map(this.bookRestMapper::toDto)
-        .map(ResponseEntity::ok)
-        .orElseGet(() -> ResponseEntity.notFound().build());
+    final Book bookFound = this.getBookDetailsUseCase.getBookDetails(bookId);
+    final BookDto bookDto = this.bookRestMapper.toDto(bookFound);
+    return ResponseEntity.ok(bookDto);
   }
 }

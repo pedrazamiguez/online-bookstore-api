@@ -9,6 +9,7 @@ import org.mapstruct.MappingConstants;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 @DecoratedWith(ErrorRestMapperDecorator.class)
@@ -23,4 +24,6 @@ public interface ErrorRestMapper {
   ErrorDto toDto(HttpStatus status, MethodArgumentNotValidException e, WebRequest request);
 
   ErrorDto toDto(HttpStatus status, ConstraintViolationException e, WebRequest request);
+
+  ErrorDto toDto(HttpStatus status, MethodArgumentTypeMismatchException e, WebRequest request);
 }

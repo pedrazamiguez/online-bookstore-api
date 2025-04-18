@@ -5,5 +5,5 @@ import java.util.Optional;
 
 @FunctionalInterface
 public interface GetBookDetailsUseCase {
-  Optional<Book> getBookDetails(Long bookId);
+  Book getBookDetails(Long bookId);
 }
