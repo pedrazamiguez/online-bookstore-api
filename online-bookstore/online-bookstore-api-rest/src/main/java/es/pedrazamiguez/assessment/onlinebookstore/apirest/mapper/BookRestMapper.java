@@ -7,7 +7,7 @@ import org.mapstruct.Mapper;
 @Mapper
 public interface BookRestMapper {
 
-    Book toEntity(BookDto bookDto);
+  Book toEntity(BookDto bookDto);
 
-    BookDto toDto(Book book);
+  BookDto toDto(Book book);
 }

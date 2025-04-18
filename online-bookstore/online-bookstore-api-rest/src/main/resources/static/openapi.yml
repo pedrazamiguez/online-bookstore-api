@@ -82,16 +82,48 @@ paths:
                 $ref: '#/components/schemas/Book'
         '400':
           description: Book structure is malformed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                status: "BAD_REQUEST"
+                message: "Book structure is malformed: missing title"
+                path: "uri=/v1/books"
+                timestamp: "2025-04-18T16:19:34.714622"
         '409':
           description: Book already exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                status: "CONFLICT"
+                message: "A book with ISBN 1234567890 already exists"
+                path: "uri=/v1/books"
+                timestamp: "2025-04-18T16:19:34.714622"
         '422':
           description: Book structure is invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                status: "UNPROCESSABLE_ENTITY"
+                message: "Book price must be greater than zero"
+                path: "uri=/v1/books"
+                timestamp: "2025-04-18T16:19:34.714622"
         '500':
           description: Unexpected error
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
+              example:
+                status: "INTERNAL_SERVER_ERROR"
+                message: "An unexpected error occurred"
+                path: "uri=/v1/books"
+                timestamp: "2025-04-18T16:19:34.714622"
       security:
         - bookstore_auth:
             - write:books
@@ -99,9 +131,6 @@ paths:
 components:
   schemas:
     Book:
-      required:
-        - title
-        - author
       type: object
       properties:
         id:
@@ -132,13 +161,16 @@ components:
       required:
         - title
         - author
+        - genre
       type: object
       properties:
         title:
           type: string
+          description: Title of the book
           example: "Effective Java"
         author:
           type: string
+          description: Author of the book
           example: "Joshua Bloch"
         genre:
           type: string
@@ -157,13 +189,19 @@ components:
     Error:
       type: object
       properties:
-        code:
+        status:
           type: string
+          description: HTTP status constant
         message:
           type: string
-      required:
-        - code
-        - message
+          description: Error message
+        path:
+          type: string
+          description: Path of the request
+        timestamp:
+          type: string
+          format: date-time
+          description: Timestamp of the error
   requestBodies:
     Book:
       description: Book object that needs to be added to the store

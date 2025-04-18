@@ -1,9 +1,8 @@
 package es.pedrazamiguez.assessment.onlinebookstore.entity;
 
 import es.pedrazamiguez.assessment.onlinebookstore.enums.Genre;
-import lombok.Data;
-
 import java.math.BigDecimal;
+import lombok.Data;
 
 @Data
 public class Book {
