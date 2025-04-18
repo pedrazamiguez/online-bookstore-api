@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class BooksController implements BookApi {
     @Override
     public ResponseEntity<BookDto> addBook(BookRequestDto bookRequestDto) {
-        return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
+        throw new NotImplementedException("Add book not implemented yet");
     }
 
     @Override
     public ResponseEntity<BookDto> getBookById(Long bookId) {
-        throw new NotImplementedException("Not implemented yet");
+        throw new NotImplementedException("Get book by ID not implemented yet");
     }
 }
