@@ -88,7 +88,7 @@ paths:
                 $ref: '#/components/schemas/Error'
               example:
                 status: "BAD_REQUEST"
-                message: "Book structure is malformed: missing title"
+                message: "author: must not be null"
                 path: "uri=/v1/books"
                 timestamp: "2025-04-18T16:19:34.714622"
         '409':
