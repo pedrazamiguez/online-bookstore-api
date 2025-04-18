@@ -3,6 +3,7 @@ package es.pedrazamiguez.assessment.onlinebookstore.apirest.controller;
 import es.pedrazamiguez.assessment.onlinebookstore.openapi.api.BookApi;
 import es.pedrazamiguez.assessment.onlinebookstore.openapi.model.BookDto;
 import es.pedrazamiguez.assessment.onlinebookstore.openapi.model.BookRequestDto;
+import org.apache.commons.lang3.NotImplementedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,6 +17,6 @@ public class BooksController implements BookApi {
 
     @Override
     public ResponseEntity<BookDto> getBookById(Long bookId) {
-        return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
+        throw new NotImplementedException("Not implemented yet");
     }
 }

@@ -5,7 +5,7 @@ The Online Bookstore API provides a robust platform for managing an online book 
 It handles book inventory management, enabling seamless tracking and updating of book stock.
 
 The API supports purchase processing and dynamic book pricing, ensuring accurate transactions and 
-flexible pricing strategies. 
+flexible pricing strategies.
 
 Additionally, it manages customer loyalty points, rewarding repeat customers with points for purchases, 
 which can be redeemed for discounts or perks, enhancing user engagement and retention.
