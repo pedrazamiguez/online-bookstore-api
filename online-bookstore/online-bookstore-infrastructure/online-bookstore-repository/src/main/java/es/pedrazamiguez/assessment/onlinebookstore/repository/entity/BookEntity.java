@@ -1,6 +1,6 @@
-package es.pedrazamiguez.assessment.onlinebookstore.entity;
+package es.pedrazamiguez.assessment.onlinebookstore.repository.entity;
 
-import es.pedrazamiguez.assessment.onlinebookstore.enums.Genre;
+import es.pedrazamiguez.assessment.onlinebookstore.domain.enums.Genre;
 import jakarta.persistence.*;
 import lombok.Data;
 

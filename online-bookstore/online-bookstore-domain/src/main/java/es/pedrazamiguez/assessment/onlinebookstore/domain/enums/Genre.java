@@ -1,4 +1,4 @@
-package es.pedrazamiguez.assessment.onlinebookstore.enums;
+package es.pedrazamiguez.assessment.onlinebookstore.domain.enums;
 
 public enum Genre {
   FICTION,
