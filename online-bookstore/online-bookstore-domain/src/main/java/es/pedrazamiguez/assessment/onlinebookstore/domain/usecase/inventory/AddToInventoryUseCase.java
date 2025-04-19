@@ -1,3 +1,7 @@
 package es.pedrazamiguez.assessment.onlinebookstore.domain.usecase.inventory;
 
-public interface AddToInventoryUseCase {}
+@FunctionalInterface
+public interface AddToInventoryUseCase {
+
+  void addToInventory(Long bookId, int copies);
+}

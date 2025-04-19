@@ -10,7 +10,7 @@ import org.hibernate.envers.Audited;
 @Entity
 @Audited
 @Table(name = "books")
-public class BookEntity {
+public class BookEntity extends AuditEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE)

@@ -5,7 +5,7 @@ import es.pedrazamiguez.assessment.onlinebookstore.domain.exception.BookAlreadyE
 import es.pedrazamiguez.assessment.onlinebookstore.domain.exception.BookNotFoundException;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.repository.BookRepository;
 import es.pedrazamiguez.assessment.onlinebookstore.repository.entity.BookEntity;
-import es.pedrazamiguez.assessment.onlinebookstore.repository.jpa.BookRepositoryJpa;
+import es.pedrazamiguez.assessment.onlinebookstore.repository.jpa.BookJpaRepository;
 import es.pedrazamiguez.assessment.onlinebookstore.repository.mapper.BookEntityMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,13 +17,13 @@ import org.springframework.stereotype.Repository;
 @RequiredArgsConstructor
 public class BookRepositoryImpl implements BookRepository {
 
-  private final BookRepositoryJpa bookRepositoryJpa;
+  private final BookJpaRepository bookJpaRepository;
 
   private final BookEntityMapper bookEntityMapper;
 
   @Override
   public Book findById(final Long bookId) {
-    return this.bookRepositoryJpa
+    return this.bookJpaRepository
         .findById(bookId)
         .map(this.bookEntityMapper::toDomain)
         .orElseThrow(() -> new BookNotFoundException(bookId));
@@ -38,7 +38,7 @@ public class BookRepositoryImpl implements BookRepository {
 
   private BookEntity saveBookEntity(final BookEntity bookEntity) {
     try {
-      return this.bookRepositoryJpa.save(bookEntity);
+      return this.bookJpaRepository.save(bookEntity);
     } catch (final DataIntegrityViolationException e) {
       log.error("Error saving book entity: {}", e.getMessage());
       throw new BookAlreadyExistsException(bookEntity.getIsbn());

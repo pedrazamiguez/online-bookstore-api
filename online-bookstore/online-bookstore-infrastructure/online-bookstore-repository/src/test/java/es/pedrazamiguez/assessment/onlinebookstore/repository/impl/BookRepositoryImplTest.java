@@ -6,7 +6,7 @@ import static org.mockito.Mockito.*;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.entity.Book;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.exception.BookNotFoundException;
 import es.pedrazamiguez.assessment.onlinebookstore.repository.entity.BookEntity;
-import es.pedrazamiguez.assessment.onlinebookstore.repository.jpa.BookRepositoryJpa;
+import es.pedrazamiguez.assessment.onlinebookstore.repository.jpa.BookJpaRepository;
 import es.pedrazamiguez.assessment.onlinebookstore.repository.mapper.BookEntityMapper;
 import java.util.Optional;
 import org.instancio.Instancio;
@@ -21,7 +21,7 @@ class BookRepositoryImplTest {
 
   @InjectMocks private BookRepositoryImpl bookRepositoryImpl;
 
-  @Mock private BookRepositoryJpa bookRepositoryJpa;
+  @Mock private BookJpaRepository bookJpaRepository;
 
   @Mock private BookEntityMapper bookEntityMapper;
 
@@ -33,7 +33,7 @@ class BookRepositoryImplTest {
     final var book = Instancio.create(Book.class);
 
     // WHEN
-    when(this.bookRepositoryJpa.findById(bookId)).thenReturn(Optional.of(bookEntity));
+    when(this.bookJpaRepository.findById(bookId)).thenReturn(Optional.of(bookEntity));
     when(this.bookEntityMapper.toDomain(bookEntity)).thenReturn(book);
 
     // THEN
@@ -44,7 +44,7 @@ class BookRepositoryImplTest {
     assertEquals(book, result);
 
     // VERIFY
-    verify(this.bookRepositoryJpa, times(1)).findById(bookId);
+    verify(this.bookJpaRepository, times(1)).findById(bookId);
     verify(this.bookEntityMapper, times(1)).toDomain(bookEntity);
   }
 
@@ -54,7 +54,7 @@ class BookRepositoryImplTest {
     final var bookId = Instancio.create(Long.class);
 
     // WHEN
-    when(this.bookRepositoryJpa.findById(bookId)).thenReturn(Optional.empty());
+    when(this.bookJpaRepository.findById(bookId)).thenReturn(Optional.empty());
 
     // THEN
     final BookNotFoundException exceptionThrown =
@@ -64,7 +64,7 @@ class BookRepositoryImplTest {
     assertEquals(String.format("Book with ID %s not found", bookId), exceptionThrown.getMessage());
 
     // VERIFY
-    verify(this.bookRepositoryJpa, times(1)).findById(bookId);
+    verify(this.bookJpaRepository, times(1)).findById(bookId);
     verify(this.bookEntityMapper, never()).toDomain(any());
   }
 }

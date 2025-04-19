@@ -148,10 +148,55 @@ paths:
                 message: "An unexpected error occurred"
                 path: "/v1/books"
                 timestamp: "2025-04-18T16:19:34.714622"
+  /v1/inventory:
+    post:
+      tags:
+        - book
+      summary: Add a new book to the inventory
+      description: Add a new book to the inventory
+      operationId: addBookToInventory
+      requestBody:
+        $ref: '#/components/requestBodies/Inventory'
+      responses:
+        '204':
+          description: Book copies added to inventory successfully
+        '400':
+          description: Inventory structure is malformed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                status: "BAD_REQUEST"
+                message: "copies: must not be null"
+                path: "/v1/inventory"
+                timestamp: "2025-04-18T16:19:34.714622"
+        '404':
+          description: Book not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                status: "NOT_FOUND"
+                message: "Book with ID 792 not found"
+                path: "/v1/inventory"
+                timestamp: "2025-04-19T02:27:08.219446"
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                status: "INTERNAL_SERVER_ERROR"
+                message: "An unexpected error occurred"
+                path: "/v1/inventory"
+                timestamp: "2025-04-18T16:19:34.714622"
       security:
         - bookstore_auth:
-            - write:books
-            - read:books
+            - write:inventory
+            - read:inventory
 components:
   schemas:
     Book:
@@ -265,6 +310,24 @@ components:
             - NEW_RELEASE
             - REGULAR
             - OLD_EDITION
+    InventoryRequest:
+      required:
+        - bookId
+        - copies
+      type: object
+      properties:
+        bookId:
+          type: integer
+          format: int64
+          description: ID of the book to add to inventory
+          example: 178
+        copies:
+          type: integer
+          format: int32
+          description: Number of copies to add to inventory
+          minimum: 1
+          maximum: 1000
+          example: 10
     Error:
       type: object
       properties:
@@ -289,6 +352,13 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/BookRequest'
+    Inventory:
+      description: Inventory object that needs to be added to the store
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InventoryRequest'
   securitySchemes:
     bookstore_auth:
       type: oauth2
