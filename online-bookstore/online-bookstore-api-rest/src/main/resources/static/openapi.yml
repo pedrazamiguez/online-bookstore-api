@@ -88,8 +88,7 @@ paths:
                 path: "/v1/books/112"
                 timestamp: "2025-04-18T03:19:34.714622"
       security:
-        - bookstore_auth:
-            - read:books
+        - basicAuth: []
   /v1/books:
     post:
       tags:
@@ -150,6 +149,8 @@ paths:
                 message: "An unexpected error occurred"
                 path: "/v1/books"
                 timestamp: "2025-04-18T16:19:34.714622"
+      security:
+        - basicAuth: []
   /v1/inventory:
     get:
       tags:
@@ -183,6 +184,8 @@ paths:
                 message: "An unexpected error occurred"
                 path: "/v1/inventory"
                 timestamp: "2025-04-18T16:19:34.714622"
+      security:
+        - basicAuth: []
     post:
       tags:
         - inventory
@@ -228,9 +231,7 @@ paths:
                 path: "/v1/inventory"
                 timestamp: "2025-04-18T16:19:34.714622"
       security:
-        - bookstore_auth:
-            - write:inventory
-            - read:inventory
+        - basicAuth: []
 components:
   schemas:
     Book:
@@ -466,15 +467,8 @@ components:
           schema:
             $ref: '#/components/schemas/InventoryRequest'
   securitySchemes:
-    bookstore_auth:
-      type: oauth2
-      flows:
-        implicit:
-          authorizationUrl: http://localhost/oauth2/authorize
-          scopes:
-            "write:books": modify books
-            "read:books": read books
-    api_key:
-      type: apiKey
-      name: api_key
-      in: header
+    basicAuth:
+      type: http
+      scheme: basic
+security:
+  - basicAuth: []
