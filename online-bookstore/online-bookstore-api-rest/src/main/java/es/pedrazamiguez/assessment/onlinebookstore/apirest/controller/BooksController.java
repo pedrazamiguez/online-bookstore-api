@@ -4,11 +4,9 @@ import es.pedrazamiguez.assessment.onlinebookstore.apirest.mapper.BookRestMapper
 import es.pedrazamiguez.assessment.onlinebookstore.domain.entity.Book;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.usecase.book.AddBookUseCase;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.usecase.book.GetBookUseCase;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.usecase.inventory.AddToInventoryUseCase;
 import es.pedrazamiguez.assessment.onlinebookstore.openapi.api.BookApi;
 import es.pedrazamiguez.assessment.onlinebookstore.openapi.model.BookDto;
 import es.pedrazamiguez.assessment.onlinebookstore.openapi.model.BookRequestDto;
-import es.pedrazamiguez.assessment.onlinebookstore.openapi.model.InventoryRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,8 +20,6 @@ public class BooksController implements BookApi {
 
   private final GetBookUseCase getBookUseCase;
 
-  private final AddToInventoryUseCase addToInventoryUseCase;
-
   private final BookRestMapper bookRestMapper;
 
   @Override
@@ -32,12 +28,6 @@ public class BooksController implements BookApi {
     final Book bookSaved = this.addBookUseCase.addBook(bookToSave);
     final BookDto bookDto = this.bookRestMapper.toDto(bookSaved);
     return ResponseEntity.status(HttpStatus.CREATED).body(bookDto);
-  }
-
-  @Override
-  public ResponseEntity<Void> addBookToInventory(final InventoryRequestDto inventoryRequestDto) {
-    this.addToInventoryUseCase.addToInventory(inventoryRequestDto.getBookId(), inventoryRequestDto.getCopies());
-    return ResponseEntity.noContent().build();
   }
 
   @Override

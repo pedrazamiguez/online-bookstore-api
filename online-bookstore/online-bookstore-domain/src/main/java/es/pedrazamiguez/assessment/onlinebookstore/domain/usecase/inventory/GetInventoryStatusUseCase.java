@@ -1,3 +1,9 @@
 package es.pedrazamiguez.assessment.onlinebookstore.domain.usecase.inventory;
 
-public interface GetInventoryStatusUseCase {}
+import es.pedrazamiguez.assessment.onlinebookstore.domain.entity.InventoryDetails;
+import java.util.List;
+
+public interface GetInventoryStatusUseCase {
+
+  List<InventoryDetails> getInventoryStatus(boolean retrieveOutOfStock);
+}

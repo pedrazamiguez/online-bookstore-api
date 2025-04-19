@@ -21,12 +21,14 @@ servers:
   - url: http://localhost:8080
     description: Local server
 tags:
-  - name: customer
-    description: Customer operations and loyalty points consultation
   - name: book
-    description: Books and inventory management
+    description: Book management and details retrieval
+  - name: inventory
+    description: Inventory management and book stock tracking
   - name: purchase
     description: Purchase processing and order management
+  - name: customer
+    description: Customer operations and loyalty points consultation
 paths:
   /v1/books/{bookId}:
     get:
@@ -149,12 +151,44 @@ paths:
                 path: "/v1/books"
                 timestamp: "2025-04-18T16:19:34.714622"
   /v1/inventory:
+    get:
+      tags:
+        - inventory
+      summary: Get inventory details
+      description: Get inventory details
+      operationId: getInventory
+      parameters:
+        - name: retrieveOutOfStock
+          in: query
+          description: Whether to retrieve out-of-stock books
+          required: false
+          schema:
+            type: boolean
+          example: true
+      responses:
+        '200':
+          description: Inventory details retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InventoryItems'
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                status: "INTERNAL_SERVER_ERROR"
+                message: "An unexpected error occurred"
+                path: "/v1/inventory"
+                timestamp: "2025-04-18T16:19:34.714622"
     post:
       tags:
-        - book
-      summary: Add a new book to the inventory
-      description: Add a new book to the inventory
-      operationId: addBookToInventory
+        - inventory
+      summary: Add book copies to inventory
+      description: Add book copies to inventory
+      operationId: addBookCopiesToInventory
       requestBody:
         $ref: '#/components/requestBodies/Inventory'
       responses:
@@ -310,6 +344,78 @@ components:
             - NEW_RELEASE
             - REGULAR
             - OLD_EDITION
+    InventoryItem:
+      type: object
+      properties:
+        bookId:
+          type: integer
+          format: int64
+          description: ID of the book in inventory
+          example: 178
+        isbn:
+          type: string
+          description: ISBN of the book
+          example: "978-3-16-148410-0"
+        title:
+          type: string
+          description: Title of the book
+          example: "Effective Java"
+        author:
+          type: string
+          description: Author of the book
+          example: "Joshua Bloch"
+        publisher:
+          type: string
+          description: Publisher of the book
+          example: "Addison-Wesley"
+        year:
+          type: integer
+          description: Year of publication
+          example: 2008
+        price:
+          type: string
+          format: decimal
+          description: Price of the book
+          example: "21.99"
+        genre:
+          type: string
+          description: Genre of the book
+          enum:
+            - FICTION
+            - NON_FICTION
+            - MYSTERY
+            - FANTASY
+            - SCIENCE_FICTION
+            - BIOGRAPHY
+            - HISTORY
+            - ROMANCE
+            - THRILLER
+            - CHILDREN
+        type:
+          type: string
+          description: Type of the book
+          enum:
+            - NEW_RELEASE
+            - REGULAR
+            - OLD_EDITION
+        copies:
+          type: integer
+          format: int32
+          description: Number of copies available in inventory
+          example: 10
+        lastUpdatedAt:
+          type: string
+          format: date-time
+          description: Last updated timestamp of the inventory item
+          example: "2025-04-18T16:19:34.714622"
+        lastUpdatedBy:
+          type: string
+          description: User who last updated the inventory item
+          example: "admin"
+    InventoryItems:
+      type: array
+      items:
+        $ref: '#/components/schemas/InventoryItem'
     InventoryRequest:
       required:
         - bookId

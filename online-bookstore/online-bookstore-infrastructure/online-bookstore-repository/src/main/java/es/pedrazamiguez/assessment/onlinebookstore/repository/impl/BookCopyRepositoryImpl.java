@@ -1,7 +1,9 @@
 package es.pedrazamiguez.assessment.onlinebookstore.repository.impl;
 
+import es.pedrazamiguez.assessment.onlinebookstore.domain.entity.InventoryDetails;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.exception.BookNotFoundException;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.repository.BookCopyRepository;
+import es.pedrazamiguez.assessment.onlinebookstore.repository.dto.InventoryDetailsDto;
 import es.pedrazamiguez.assessment.onlinebookstore.repository.entity.BookCopyEntity;
 import es.pedrazamiguez.assessment.onlinebookstore.repository.entity.BookEntity;
 import es.pedrazamiguez.assessment.onlinebookstore.repository.jpa.BookCopyJpaRepository;
@@ -30,6 +32,13 @@ public class BookCopyRepositoryImpl implements BookCopyRepository {
     final List<BookCopyEntity> bookCopiesToSave =
         this.bookCopyEntityMapper.toEntityList(this.getBookEntity(bookId), copies);
     this.bookCopyJpaRepository.saveAll(bookCopiesToSave);
+  }
+
+  @Override
+  public List<InventoryDetails> getInventoryDetails(final boolean retrieveOutOfStock) {
+    final List<InventoryDetailsDto> inventoryDetailsDtoList =
+        this.bookCopyJpaRepository.findInventoryDetails(retrieveOutOfStock ? 0 : 1);
+    return this.bookCopyEntityMapper.toDomainList(inventoryDetailsDtoList);
   }
 
   private BookEntity getBookEntity(final Long bookId) {
