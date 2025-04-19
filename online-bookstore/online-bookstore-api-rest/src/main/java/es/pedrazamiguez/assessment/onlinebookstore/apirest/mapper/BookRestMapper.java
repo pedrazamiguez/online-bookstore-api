@@ -10,8 +10,12 @@ import org.mapstruct.MappingConstants;
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface BookRestMapper {
 
+  @Mapping(target = "yearPublished", source = "year")
+  @Mapping(target = "type.code", source = "type")
   Book toEntity(BookDto bookDto);
 
+  @Mapping(target = "year", source = "yearPublished")
+  @Mapping(target = "type", source = "type.code")
   BookDto toDto(Book book);
 
   @Mapping(target = "yearPublished", source = "year")

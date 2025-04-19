@@ -138,12 +138,31 @@ components:
           type: integer
           format: int64
           example: 178
+        isbn:
+          type: string
+          description: ISBN of the book
+          example: "978-3-16-148410-0"
         title:
           type: string
+          description: Title of the book
           example: "Effective Java"
         author:
           type: string
+          description: Author of the book
           example: "Joshua Bloch"
+        publisher:
+          type: string
+          description: Publisher of the book
+          example: "Addison-Wesley"
+        year:
+          type: integer
+          description: Year of publication
+          example: 2008
+        price:
+          type: string
+          format: decimal
+          description: Price of the book
+          example: "21.99"
         genre:
           type: string
           description: Genre of the book
@@ -158,6 +177,13 @@ components:
             - ROMANCE
             - THRILLER
             - CHILDREN
+        type:
+          type: string
+          description: Type of the book
+          enum:
+            - NEW_RELEASE
+            - REGULAR
+            - OLD_EDITION
     BookRequest:
       required:
         - isbn
