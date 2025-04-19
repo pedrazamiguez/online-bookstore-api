@@ -54,6 +54,7 @@
         <springdoc-openapi-ui.version>2.8.6</springdoc-openapi-ui.version>
         <projectlombok.version>1.18.34</projectlombok.version>
         <mapstruct.version>1.6.3</mapstruct.version>
+        <hibernate.envers.version>6.6.13.Final</hibernate.envers.version>
 
         <instancio.version>5.4.0</instancio.version>
 
@@ -132,6 +133,11 @@
                 <artifactId>mapstruct-processor</artifactId>
                 <version>${mapstruct.version}</version>
                 <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.hibernate.orm</groupId>
+                <artifactId>hibernate-envers</artifactId>
+                <version>${hibernate.envers.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.instancio</groupId>

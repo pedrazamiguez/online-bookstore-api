@@ -4,9 +4,11 @@ import es.pedrazamiguez.assessment.onlinebookstore.domain.enums.Genre;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import lombok.Data;
+import org.hibernate.envers.Audited;
 
 @Data
 @Entity
+@Audited
 @Table(name = "books")
 public class BookEntity {
 
