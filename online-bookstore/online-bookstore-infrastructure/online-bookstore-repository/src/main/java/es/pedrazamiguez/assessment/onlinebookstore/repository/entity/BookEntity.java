@@ -2,9 +2,8 @@ package es.pedrazamiguez.assessment.onlinebookstore.repository.entity;
 
 import es.pedrazamiguez.assessment.onlinebookstore.domain.enums.Genre;
 import jakarta.persistence.*;
-import lombok.Data;
-
 import java.math.BigDecimal;
+import lombok.Data;
 
 @Data
 @Entity
@@ -36,4 +35,8 @@ public class BookEntity {
   @Enumerated(EnumType.STRING)
   @Column(nullable = false)
   private Genre genre;
+
+  @ManyToOne(optional = false)
+  @JoinColumn(name = "type_code", referencedColumnName = "code")
+  private BookTypeEntity type;
 }

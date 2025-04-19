@@ -1,3 +1,3 @@
 package es.pedrazamiguez.assessment.onlinebookstore.domain.usecase.book;
 
-public interface AddBooksUseCase {}
+public interface ModifyBookUseCase {}
