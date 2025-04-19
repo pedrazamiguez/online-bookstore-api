@@ -125,7 +125,7 @@ paths:
                 $ref: '#/components/schemas/Error'
               example:
                 status: "CONFLICT"
-                message: "Book with ISBN 978-3-16-148410-0 already exists"
+                message: "Book with ISBN 9780747532743 already exists"
                 path: "/v1/books"
                 timestamp: "2025-04-18T16:19:34.714622"
         '422':
@@ -243,7 +243,7 @@ components:
         isbn:
           type: string
           description: ISBN of the book
-          example: "978-3-16-148410-0"
+          example: "9780747532743"
         title:
           type: string
           description: Title of the book
@@ -301,7 +301,7 @@ components:
         isbn:
           type: string
           description: ISBN of the book
-          example: "978-3-16-148410-0"
+          example: "9780747532743"
         title:
           type: string
           description: Title of the book
@@ -355,7 +355,7 @@ components:
         isbn:
           type: string
           description: ISBN of the book
-          example: "978-3-16-148410-0"
+          example: "9780747532743"
         title:
           type: string
           description: Title of the book
