@@ -1,6 +1,7 @@
 package es.pedrazamiguez.assessment.onlinebookstore.apirest.exception;
 
 import es.pedrazamiguez.assessment.onlinebookstore.apirest.mapper.ErrorRestMapper;
+import es.pedrazamiguez.assessment.onlinebookstore.domain.exception.BookAlreadyExistsException;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.exception.BookNotFoundException;
 import es.pedrazamiguez.assessment.onlinebookstore.openapi.model.ErrorDto;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +23,13 @@ public class BookstoreExceptionHandler {
   public ResponseEntity<ErrorDto> handleBookNotFoundException(
       final BookNotFoundException e, final WebRequest request) {
     final HttpStatus status = HttpStatus.NOT_FOUND;
+    return ResponseEntity.status(status).body(this.errorRestMapper.toDto(status, e, request));
+  }
+
+  @ExceptionHandler(BookAlreadyExistsException.class)
+  public ResponseEntity<ErrorDto> handleBookAlreadyExistsException(
+      final BookAlreadyExistsException e, final WebRequest request) {
+    final HttpStatus status = HttpStatus.CONFLICT;
     return ResponseEntity.status(status).body(this.errorRestMapper.toDto(status, e, request));
   }
 }

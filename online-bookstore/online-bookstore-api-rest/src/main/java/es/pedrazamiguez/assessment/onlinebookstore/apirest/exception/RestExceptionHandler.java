@@ -38,13 +38,6 @@ public class RestExceptionHandler {
     return ResponseEntity.status(status).body(this.errorRestMapper.toDto(status, e, request));
   }
 
-  @ExceptionHandler(HttpMessageNotReadableException.class)
-  public ResponseEntity<ErrorDto> handleNotReadableException(
-      final HttpMessageNotReadableException e, final WebRequest request) {
-    final HttpStatus status = HttpStatus.BAD_REQUEST;
-    return ResponseEntity.status(status).body(this.errorRestMapper.toDto(status, e, request));
-  }
-
   @ExceptionHandler(ConstraintViolationException.class)
   public ResponseEntity<ErrorDto> handleConstraintViolationException(
       final ConstraintViolationException e, final WebRequest request) {
@@ -70,6 +63,13 @@ public class RestExceptionHandler {
   public ResponseEntity<ErrorDto> handleHttpRequestMethodNotSupportedException(
       final HttpRequestMethodNotSupportedException e, final WebRequest request) {
     final HttpStatus status = HttpStatus.METHOD_NOT_ALLOWED;
+    return ResponseEntity.status(status).body(this.errorRestMapper.toDto(status, e, request));
+  }
+
+  @ExceptionHandler(HttpMessageNotReadableException.class)
+  public ResponseEntity<ErrorDto> handleNotReadableException(
+          final HttpMessageNotReadableException e, final WebRequest request) {
+    final HttpStatus status = HttpStatus.UNPROCESSABLE_ENTITY;
     return ResponseEntity.status(status).body(this.errorRestMapper.toDto(status, e, request));
   }
 

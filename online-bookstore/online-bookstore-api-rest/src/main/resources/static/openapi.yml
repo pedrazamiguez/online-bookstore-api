@@ -54,14 +54,37 @@ paths:
                 $ref: '#/components/schemas/Book'
         '400':
           description: Invalid ID supplied
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                status: "BAD_REQUEST"
+                message: "getBookById.bookId: must be greater than or equal to 1"
+                path: "/v1/books/0"
+                timestamp: "2025-04-19T02:25:11.675837"
         '404':
           description: Book not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                status: "NOT_FOUND"
+                message: "Book with ID 792 not found"
+                path: "/v1/books/792"
+                timestamp: "2025-04-19T02:27:08.219446"
         '500':
           description: Unexpected error
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
+              example:
+                status: "INTERNAL_SERVER_ERROR"
+                message: "An unexpected error occurred"
+                path: "/v1/books/112"
+                timestamp: "2025-04-18T03:19:34.714622"
       security:
         - bookstore_auth:
             - read:books
@@ -90,7 +113,7 @@ paths:
               example:
                 status: "BAD_REQUEST"
                 message: "author: must not be null"
-                path: "uri=/v1/books"
+                path: "/v1/books"
                 timestamp: "2025-04-18T16:19:34.714622"
         '409':
           description: Book already exists
@@ -100,8 +123,8 @@ paths:
                 $ref: '#/components/schemas/Error'
               example:
                 status: "CONFLICT"
-                message: "A book with ISBN 1234567890 already exists"
-                path: "uri=/v1/books"
+                message: "Book with ISBN 978-3-16-148410-0 already exists"
+                path: "/v1/books"
                 timestamp: "2025-04-18T16:19:34.714622"
         '422':
           description: Book structure is invalid
@@ -111,8 +134,8 @@ paths:
                 $ref: '#/components/schemas/Error'
               example:
                 status: "UNPROCESSABLE_ENTITY"
-                message: "Book price must be greater than zero"
-                path: "uri=/v1/books"
+                message: "Unexpected value 'SALE'"
+                path: "/v1/books"
                 timestamp: "2025-04-18T16:19:34.714622"
         '500':
           description: Unexpected error
@@ -123,7 +146,7 @@ paths:
               example:
                 status: "INTERNAL_SERVER_ERROR"
                 message: "An unexpected error occurred"
-                path: "uri=/v1/books"
+                path: "/v1/books"
                 timestamp: "2025-04-18T16:19:34.714622"
       security:
         - bookstore_auth:

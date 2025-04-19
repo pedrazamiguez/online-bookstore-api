@@ -7,6 +7,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
@@ -26,4 +27,6 @@ public interface ErrorRestMapper {
   ErrorDto toDto(HttpStatus status, ConstraintViolationException e, WebRequest request);
 
   ErrorDto toDto(HttpStatus status, MethodArgumentTypeMismatchException e, WebRequest request);
+
+  ErrorDto toDto(HttpStatus status, HttpMessageNotReadableException e, WebRequest request);
 }
