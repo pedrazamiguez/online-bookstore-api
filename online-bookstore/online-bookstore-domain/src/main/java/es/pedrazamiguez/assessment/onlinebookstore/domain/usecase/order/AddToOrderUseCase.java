@@ -1,3 +1,9 @@
 package es.pedrazamiguez.assessment.onlinebookstore.domain.usecase.order;
 
-public interface AddToOrderUseCase {}
+import es.pedrazamiguez.assessment.onlinebookstore.domain.entity.Order;
+
+@FunctionalInterface
+public interface AddToOrderUseCase {
+
+  Order addToOrder(Long bookId, Long copies);
+}

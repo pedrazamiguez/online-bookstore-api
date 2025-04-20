@@ -1,5 +1,8 @@
 package es.pedrazamiguez.assessment.onlinebookstore.apirest.controller;
 
+import es.pedrazamiguez.assessment.onlinebookstore.apirest.mapper.OrderRestMapper;
+import es.pedrazamiguez.assessment.onlinebookstore.domain.entity.Order;
+import es.pedrazamiguez.assessment.onlinebookstore.domain.usecase.order.AddToOrderUseCase;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.usecase.order.ViewOrderUseCase;
 import es.pedrazamiguez.assessment.onlinebookstore.openapi.api.OrderApi;
 import es.pedrazamiguez.assessment.onlinebookstore.openapi.model.AllocationDto;
@@ -15,10 +18,16 @@ public class OrderController implements OrderApi {
 
   private final ViewOrderUseCase viewOrderUseCase;
 
+  private final AddToOrderUseCase addToOrderUseCase;
+
+  private final OrderRestMapper orderRestMapper;
+
   @Override
   public ResponseEntity<OrderDto> addBookToCurrentOrder(
       final Long bookId, final AllocationDto allocationDto) {
-    throw new NotImplementedException("Not implemented yet");
+
+    final Order order = this.addToOrderUseCase.addToOrder(bookId, allocationDto.getCopies());
+    return ResponseEntity.ok(this.orderRestMapper.toDto(order));
   }
 
   @Override
@@ -30,7 +39,8 @@ public class OrderController implements OrderApi {
   public ResponseEntity<OrderDto> getCurrentOrder() {
     return this.viewOrderUseCase
         .getCurrentOrderForCustomer()
-        .map(order -> ResponseEntity.ok(new OrderDto()))
+        .map(this.orderRestMapper::toDto)
+        .map(ResponseEntity::ok)
         .orElse(ResponseEntity.noContent().build());
   }
 

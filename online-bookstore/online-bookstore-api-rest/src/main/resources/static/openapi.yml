@@ -619,6 +619,17 @@ paths:
                 message: "copies: must not be null"
                 path: "/v1/orders/current/books/178"
                 timestamp: "2025-04-19T02:25:11.675837"
+        '409':
+          description: Not enough copies in inventory
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                status: "CONFLICT"
+                message: "Not enough copies of book with ID 178. Available: 98, Requested: 100"
+                path: "/v1/orders/current/books/178"
+                timestamp: "2025-04-18T16:19:34.714622"
         '500':
           description: Unexpected error
           content:
