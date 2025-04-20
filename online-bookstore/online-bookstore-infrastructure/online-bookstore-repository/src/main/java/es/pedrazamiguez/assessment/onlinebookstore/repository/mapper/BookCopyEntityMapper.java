@@ -1,6 +1,6 @@
 package es.pedrazamiguez.assessment.onlinebookstore.repository.mapper;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.entity.InventoryDetails;
+import es.pedrazamiguez.assessment.onlinebookstore.domain.entity.BookAllocation;
 import es.pedrazamiguez.assessment.onlinebookstore.repository.dto.InventoryDetailsDto;
 import es.pedrazamiguez.assessment.onlinebookstore.repository.entity.BookCopyEntity;
 import es.pedrazamiguez.assessment.onlinebookstore.repository.entity.BookEntity;
@@ -25,7 +25,7 @@ public interface BookCopyEntityMapper {
         .collect(Collectors.toList());
   }
 
-  List<InventoryDetails> toDomainList(List<InventoryDetailsDto> inventoryDetailsDtoList);
+  List<BookAllocation> toDomainList(List<InventoryDetailsDto> inventoryDetailsDtoList);
 
   @Mapping(target = "book.id", source = "bookId")
   @Mapping(target = "book.isbn", source = "isbn")
@@ -36,5 +36,5 @@ public interface BookCopyEntityMapper {
   @Mapping(target = "book.price", source = "price")
   @Mapping(target = "book.genre", source = "genre")
   @Mapping(target = "book.type.code", source = "typeCode")
-  InventoryDetails inventoryDetailsDtoToInventoryDetails(InventoryDetailsDto inventoryDetailsDto);
+  BookAllocation inventoryDetailsDtoToInventoryDetails(InventoryDetailsDto inventoryDetailsDto);
 }

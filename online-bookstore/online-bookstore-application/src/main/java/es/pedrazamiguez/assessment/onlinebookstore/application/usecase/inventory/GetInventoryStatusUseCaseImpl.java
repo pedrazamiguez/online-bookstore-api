@@ -1,6 +1,6 @@
 package es.pedrazamiguez.assessment.onlinebookstore.application.usecase.inventory;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.entity.InventoryDetails;
+import es.pedrazamiguez.assessment.onlinebookstore.domain.entity.BookAllocation;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.repository.BookCopyRepository;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.usecase.inventory.GetInventoryStatusUseCase;
 import java.util.List;
@@ -16,7 +16,7 @@ public class GetInventoryStatusUseCaseImpl implements GetInventoryStatusUseCase 
   private final BookCopyRepository bookCopyRepository;
 
   @Override
-  public List<InventoryDetails> getInventoryStatus(final boolean retrieveOutOfStock) {
+  public List<BookAllocation> getInventoryStatus(final boolean retrieveOutOfStock) {
     return this.bookCopyRepository.getInventoryDetails(retrieveOutOfStock);
   }
 }

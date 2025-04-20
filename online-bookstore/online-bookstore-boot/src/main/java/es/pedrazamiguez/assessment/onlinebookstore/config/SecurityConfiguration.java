@@ -36,12 +36,15 @@ public class SecurityConfiguration {
                     // /h2-console
                     .requestMatchers("/h2-console/**")
                     .hasAnyRole("USER", "ADMIN")
+
                     // swagger-ui
                     .requestMatchers("/v3/api-docs/**", "/swagger-ui/**")
                     .permitAll()
+
                     // /v1/books -> GET for USER and ADMIN
                     .requestMatchers(HttpMethod.GET, "/v1/books/**")
                     .hasAnyRole("USER", "ADMIN")
+
                     // /v1/books -> POST for ADMIN only
                     .requestMatchers(HttpMethod.POST, "/v1/books")
                     .hasRole("ADMIN")
@@ -49,9 +52,16 @@ public class SecurityConfiguration {
                     // /v1/inventory -> GET for USER and ADMIN
                     .requestMatchers(HttpMethod.GET, "/v1/inventory**")
                     .hasAnyRole("USER", "ADMIN")
+
                     // /v1/inventory -> POST for ADMIN only
                     .requestMatchers(HttpMethod.POST, "/v1/inventory")
                     .hasRole("ADMIN")
+
+                    // /v1/orders -> GET for USER
+                    .requestMatchers(HttpMethod.GET, "/v1/orders/**")
+                    .hasRole("USER")
+
+                    // All other requests
                     .anyRequest()
                     .authenticated())
         .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin))

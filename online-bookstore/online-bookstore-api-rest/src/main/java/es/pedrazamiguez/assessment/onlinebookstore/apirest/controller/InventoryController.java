@@ -1,7 +1,7 @@
 package es.pedrazamiguez.assessment.onlinebookstore.apirest.controller;
 
 import es.pedrazamiguez.assessment.onlinebookstore.apirest.mapper.InventoryRestMapper;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.entity.InventoryDetails;
+import es.pedrazamiguez.assessment.onlinebookstore.domain.entity.BookAllocation;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.usecase.inventory.AddToInventoryUseCase;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.usecase.inventory.GetInventoryStatusUseCase;
 import es.pedrazamiguez.assessment.onlinebookstore.openapi.api.InventoryApi;
@@ -32,10 +32,10 @@ public class InventoryController implements InventoryApi {
 
   @Override
   public ResponseEntity<List<InventoryItemDto>> getInventory(final Boolean retrieveOutOfStock) {
-    final List<InventoryDetails> inventoryDetailsFound =
+    final List<BookAllocation> bookAllocationFound =
         this.getInventoryStatusUseCase.getInventoryStatus(Boolean.TRUE.equals(retrieveOutOfStock));
     final List<InventoryItemDto> inventoryItemDtoList =
-        this.inventoryRestMapper.toDtoList(inventoryDetailsFound);
+        this.inventoryRestMapper.toDtoList(bookAllocationFound);
     return ResponseEntity.ok(inventoryItemDtoList);
   }
 }

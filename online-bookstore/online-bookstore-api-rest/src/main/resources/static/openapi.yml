@@ -26,7 +26,7 @@ tags:
   - name: inventory
     description: Inventory management and book stock tracking
   - name: purchase
-    description: Purchase processing and order management
+    description: Order management and purchase processing
   - name: customer
     description: Customer operations and loyalty points consultation
 paths:
@@ -229,6 +229,35 @@ paths:
                 status: "INTERNAL_SERVER_ERROR"
                 message: "An unexpected error occurred"
                 path: "/v1/inventory"
+                timestamp: "2025-04-18T16:19:34.714622"
+      security:
+        - basicAuth: []
+  /v1/orders/current:
+    get:
+      tags:
+        - purchase
+      summary: Get current order details
+      description: Get current order details
+      operationId: getCurrentOrder
+      responses:
+        '200':
+          description: Current order details retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        '204':
+          description: Current order is empty
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                status: "INTERNAL_SERVER_ERROR"
+                message: "An unexpected error occurred"
+                path: "/v1/orders/current"
                 timestamp: "2025-04-18T16:19:34.714622"
       security:
         - basicAuth: []
@@ -435,6 +464,13 @@ components:
           minimum: 1
           maximum: 1000
           example: 10
+    Order:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 178
     Error:
       type: object
       properties:

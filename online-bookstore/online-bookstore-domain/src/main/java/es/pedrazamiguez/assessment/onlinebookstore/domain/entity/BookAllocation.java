@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import lombok.Data;
 
 @Data
-public class InventoryDetails {
+public class BookAllocation {
 
   private Long id;
   private Book book;

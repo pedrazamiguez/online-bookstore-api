@@ -1,9 +1,10 @@
 package es.pedrazamiguez.assessment.onlinebookstore.domain.usecase.inventory;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.entity.InventoryDetails;
+import es.pedrazamiguez.assessment.onlinebookstore.domain.entity.BookAllocation;
+
 import java.util.List;
 
 public interface GetInventoryStatusUseCase {
 
-  List<InventoryDetails> getInventoryStatus(boolean retrieveOutOfStock);
+  List<BookAllocation> getInventoryStatus(boolean retrieveOutOfStock);
 }
