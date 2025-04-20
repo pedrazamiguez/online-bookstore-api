@@ -103,14 +103,20 @@
                                 <bigDecimalAsString>true</bigDecimalAsString>
                                 <library>spring-boot</library>
                                 <useSpringBoot3>true</useSpringBoot3>
+                                <dateLibrary>java8</dateLibrary>
                                 <apiPackage>es.pedrazamiguez.assessment.onlinebookstore.openapi.api</apiPackage>
                                 <modelPackage>es.pedrazamiguez.assessment.onlinebookstore.openapi.model</modelPackage>
                             </configOptions>
                             <typeMappings>
                                 <typeMapping>OffsetDateTime=LocalDateTime</typeMapping>
+                                <typeMapping>DateTime=LocalDateTime</typeMapping>
+                                <typeMapping>date-time=LocalDateTime</typeMapping>
                             </typeMappings>
                             <importMappings>
-                                <importMapping>java.time.OffsetDateTime=java.time.LocalDateTime</importMapping>
+                                <importMapping>OffsetDateTime=java.time.LocalDateTime</importMapping>
+                                <importMapping>DateTime=java.time.LocalDateTime</importMapping>
+                                <importMapping>date-time=java.time.LocalDateTime</importMapping>
+                                <importMapping>LocalDateTime=java.time.LocalDateTime</importMapping>
                             </importMappings>
                         </configuration>
                     </execution>

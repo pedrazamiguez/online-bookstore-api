@@ -361,19 +361,35 @@ paths:
       security:
         - basicAuth: [ ]
 
-    post:
+  /v1/inventory/books/{bookId}:
+
+    put:
       tags:
         - inventory
       summary: Add book copies to inventory
       description: Add book copies to inventory
       operationId: addBookCopiesToInventory
+      parameters:
+        - name: bookId
+          in: path
+          description: ID of the book to add to the inventory
+          required: true
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+          example: 178
       requestBody:
-        $ref: '#/components/requestBodies/Inventory'
+        $ref: '#/components/requestBodies/Allocation'
       responses:
-        '204':
-          description: Book copies added to inventory successfully
+        '200':
+          description: Book added to inventory successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InventoryItem'
         '400':
-          description: Inventory structure is malformed
+          description: Invalid request body
           content:
             application/json:
               schema:
@@ -381,19 +397,8 @@ paths:
               example:
                 status: "BAD_REQUEST"
                 message: "copies: must not be null"
-                path: "/v1/inventory"
-                timestamp: "2025-04-18T16:19:34.714622"
-        '404':
-          description: Book not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-              example:
-                status: "NOT_FOUND"
-                message: "Book with ID 792 not found"
-                path: "/v1/inventory"
-                timestamp: "2025-04-19T02:27:08.219446"
+                path: "/v1/inventory/books/178"
+                timestamp: "2025-04-19T02:25:11.675837"
         '500':
           description: Unexpected error
           content:
@@ -403,7 +408,85 @@ paths:
               example:
                 status: "INTERNAL_SERVER_ERROR"
                 message: "An unexpected error occurred"
-                path: "/v1/inventory"
+                path: "/v1/inventory/books/178"
+                timestamp: "2025-04-18T16:19:34.714622"
+      security:
+        - basicAuth: [ ]
+
+    delete:
+      tags:
+        - inventory
+      summary: Remove book copies from inventory
+      description: Remove book copies from inventory
+      operationId: removeBookCopiesFromInventory
+      parameters:
+        - name: bookId
+          in: path
+          description: ID of the book to remove copies from inventory
+          required: true
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+          example: 178
+      responses:
+        '204':
+          description: Book removed from inventory successfully
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                status: "INTERNAL_SERVER_ERROR"
+                message: "An unexpected error occurred"
+                path: "/v1/inventory/books/178"
+                timestamp: "2025-04-18T16:19:34.714622"
+      security:
+        - basicAuth: [ ]
+
+  /v1/inventory/books/older-than:
+
+    delete:
+      tags:
+        - inventory
+      summary: Remove book copies older than a given date
+      description: Remove book copies from inventory with a last updated timestamp older than the specified date
+      operationId: removeOldBookCopies
+      parameters:
+        - name: date
+          in: query
+          description: Removes copies with lastUpdatedAt before this date
+          required: true
+          schema:
+            type: string
+            format: date-time
+          example: "2025-04-18T16:19:34"
+      responses:
+        '204':
+          description: Book copies older than the specified date removed successfully
+        '400':
+          description: Invalid date format
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                status: "BAD_REQUEST"
+                message: "date: must match format 'date-time'"
+                path: "/v1/inventory/books/older-than"
+                timestamp: "2025-04-18T16:19:34.714622"
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                status: "INTERNAL_SERVER_ERROR"
+                message: "An unexpected error occurred"
+                path: "/v1/inventory/books/older-than"
                 timestamp: "2025-04-18T16:19:34.714622"
       security:
         - basicAuth: [ ]
@@ -879,25 +962,6 @@ components:
       items:
         $ref: '#/components/schemas/Book'
 
-    InventoryRequest:
-      required:
-        - bookId
-        - copies
-      type: object
-      properties:
-        bookId:
-          type: integer
-          format: int64
-          description: ID of the book to add to inventory
-          example: 178
-        copies:
-          type: integer
-          format: int32
-          description: Number of copies to add to inventory
-          minimum: 1
-          maximum: 1000
-          example: 10
-
     Order:
       type: object
       properties:
@@ -939,7 +1003,7 @@ components:
   requestBodies:
 
     Book:
-      description: Book object that needs to be added to the store
+      description: Details of a book to be added or updated in the bookstore inventory
       required: true
       content:
         application/json:
@@ -947,20 +1011,12 @@ components:
             $ref: '#/components/schemas/BookRequest'
 
     Allocation:
-      description: Allocation object that needs to be added to the order
+      description: Number of copies to allocate for a book
       required: true
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Allocation'
-
-    Inventory:
-      description: Inventory object that needs to be added to the store
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/InventoryRequest'
 
   securitySchemes:
     basicAuth:
