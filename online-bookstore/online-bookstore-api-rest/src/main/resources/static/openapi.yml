@@ -804,6 +804,36 @@ paths:
 components:
   schemas:
 
+    BookType:
+      type: string
+      description: Type of the book
+      enum:
+        - REGULAR
+        - NEW_RELEASE
+        - OLD_EDITION
+
+    BookGenre:
+      type: string
+      description: Genre of the book
+      enum:
+        - FICTION
+        - NON_FICTION
+        - MYSTERY
+        - FANTASY
+        - SCIENCE_FICTION
+        - BIOGRAPHY
+        - HISTORY
+        - ROMANCE
+        - THRILLER
+        - CHILDREN
+
+    OrderStatus:
+      type: string
+      description: Status of the order
+      enum:
+        - CREATED
+        - PURCHASED
+
     Book:
       type: object
       properties:
@@ -837,26 +867,9 @@ components:
           description: Price of the book
           example: "21.99"
         genre:
-          type: string
-          description: Genre of the book
-          enum:
-            - FICTION
-            - NON_FICTION
-            - MYSTERY
-            - FANTASY
-            - SCIENCE_FICTION
-            - BIOGRAPHY
-            - HISTORY
-            - ROMANCE
-            - THRILLER
-            - CHILDREN
+          $ref: '#/components/schemas/BookGenre'
         type:
-          type: string
-          description: Type of the book
-          enum:
-            - NEW_RELEASE
-            - REGULAR
-            - OLD_EDITION
+          $ref: '#/components/schemas/BookType'
 
     BookRequest:
       required:
@@ -889,33 +902,20 @@ components:
         year:
           type: integer
           description: Year of publication
+          minimum: 1800
+          maximum: 2500
           example: 2008
         price:
           type: string
           format: decimal
           description: Price of the book
+          minimum: "0.00"
+          maximum: "999.99"
           example: "21.99"
         genre:
-          type: string
-          description: Genre of the book
-          enum:
-            - FICTION
-            - NON_FICTION
-            - MYSTERY
-            - FANTASY
-            - SCIENCE_FICTION
-            - BIOGRAPHY
-            - HISTORY
-            - ROMANCE
-            - THRILLER
-            - CHILDREN
+          $ref: '#/components/schemas/BookGenre'
         type:
-          type: string
-          description: Type of the book
-          enum:
-            - NEW_RELEASE
-            - REGULAR
-            - OLD_EDITION
+          $ref: '#/components/schemas/BookType'
 
     InventoryItem:
       type: object
@@ -951,26 +951,9 @@ components:
           description: Price of the book
           example: "21.99"
         genre:
-          type: string
-          description: Genre of the book
-          enum:
-            - FICTION
-            - NON_FICTION
-            - MYSTERY
-            - FANTASY
-            - SCIENCE_FICTION
-            - BIOGRAPHY
-            - HISTORY
-            - ROMANCE
-            - THRILLER
-            - CHILDREN
+          $ref: '#/components/schemas/BookGenre'
         type:
-          type: string
-          description: Type of the book
-          enum:
-            - NEW_RELEASE
-            - REGULAR
-            - OLD_EDITION
+          $ref: '#/components/schemas/BookType'
         copies:
           type: integer
           format: int64
@@ -987,6 +970,45 @@ components:
       items:
         $ref: '#/components/schemas/Book'
 
+    OrderItem:
+      type: object
+      properties:
+        bookId:
+          type: integer
+          format: int64
+          description: ID of the book
+          example: 178
+        isbn:
+          type: string
+          description: ISBN of the book
+          example: "9780747532743"
+        title:
+          type: string
+          description: Title of the book
+          example: "Effective Java"
+        price:
+          type: string
+          format: decimal
+          description: Price of the book
+          example: "21.99"
+        type:
+          $ref: '#/components/schemas/BookType'
+        quantity:
+          type: integer
+          format: int64
+          description: Number of copies of the book in the order
+          example: 3
+        discount:
+          type: string
+          format: decimal
+          description: Discount applied to the book in the order
+          example: "20.00"
+        subtotal:
+          type: string
+          format: decimal
+          description: Subtotal price for the book in the order
+          example: "52.77"
+
     Order:
       type: object
       properties:
@@ -994,6 +1016,17 @@ components:
           type: integer
           format: int64
           example: 178
+        lines:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderItem'
+        totalPrice:
+          type: string
+          format: decimal
+          description: Total price of the order
+          example: "219.90"
+        status:
+          $ref: '#/components/schemas/OrderStatus'
 
     Error:
       type: object

@@ -8,7 +8,6 @@ import lombok.Data;
 @Data
 public class Order {
   private Long id;
-  private Customer customer;
   private List<BookAllocation> lines;
   private OrderStatus status;
   private BigDecimal totalPrice;
