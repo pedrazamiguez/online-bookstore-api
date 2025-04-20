@@ -4,8 +4,7 @@ import java.math.BigDecimal;
 import lombok.Data;
 
 @Data
-public class OrderItem {
-  private Long orderId;
-  private BookAllocation allocation;
-  private PayableAmount payableAmount;
+public class PayableAmount {
+  private BigDecimal discount;
+  private BigDecimal subtotal;
 }

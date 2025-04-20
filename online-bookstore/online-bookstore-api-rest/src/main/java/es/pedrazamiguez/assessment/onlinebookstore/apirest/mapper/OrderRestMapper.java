@@ -19,5 +19,7 @@ public interface OrderRestMapper {
   @Mapping(target = "price", source = "allocation.book.price")
   @Mapping(target = "type", source = "allocation.book.type.code")
   @Mapping(target = "quantity", source = "allocation.copies")
+  @Mapping(target = "discount", source = "payableAmount.discount")
+  @Mapping(target = "subtotal", source = "payableAmount.subtotal")
   OrderItemDto orderItemToOrderItemDto(OrderItem orderItem);
 }
