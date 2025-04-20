@@ -3,7 +3,7 @@ package es.pedrazamiguez.assessment.onlinebookstore.repository.impl;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.entity.BookAllocation;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.exception.BookNotFoundException;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.repository.BookCopyRepository;
-import es.pedrazamiguez.assessment.onlinebookstore.repository.dto.InventoryDetailsDto;
+import es.pedrazamiguez.assessment.onlinebookstore.repository.projection.InventoryDetailsQueryResult;
 import es.pedrazamiguez.assessment.onlinebookstore.repository.entity.BookCopyEntity;
 import es.pedrazamiguez.assessment.onlinebookstore.repository.entity.BookEntity;
 import es.pedrazamiguez.assessment.onlinebookstore.repository.jpa.BookCopyJpaRepository;
@@ -13,6 +13,8 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+
+import es.pedrazamiguez.assessment.onlinebookstore.repository.mapper.TypeMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
@@ -28,6 +30,8 @@ public class BookCopyRepositoryImpl implements BookCopyRepository {
   private final BookCopyJpaRepository bookCopyJpaRepository;
 
   private final BookCopyEntityMapper bookCopyEntityMapper;
+
+  private final TypeMapper typeMapper;
 
   @Override
   public void addCopies(final Long bookId, final Long copies) {
@@ -46,31 +50,31 @@ public class BookCopyRepositoryImpl implements BookCopyRepository {
 
   @Override
   public void deleteCopiesOlderThan(final LocalDateTime olderThan) {
-    final Timestamp timestamp = this.bookCopyEntityMapper.toTimestamp(olderThan);
+    final Timestamp timestamp = this.typeMapper.toTimestamp(olderThan);
     log.info("Deleting copies older than {}", timestamp);
     this.bookCopyJpaRepository.deleteByUpdatedAtBefore(timestamp);
   }
 
   @Override
   public List<BookAllocation> getInventoryDetails(final boolean includeOutOfStock) {
-    final List<InventoryDetailsDto> inventoryDetailsDtoList =
+    final List<InventoryDetailsQueryResult> inventoryDetailsQueryResultList =
         this.bookCopyJpaRepository.findInventoryDetails(includeOutOfStock ? 0 : 1);
-    return this.bookCopyEntityMapper.toDomainList(inventoryDetailsDtoList);
+    return this.bookCopyEntityMapper.toDomainList(inventoryDetailsQueryResultList);
   }
 
   @Override
   public Optional<BookAllocation> getInventoryDetailsByBookId(final Long bookId) {
     log.info("Fetching inventory details for book with ID {}", bookId);
-    final InventoryDetailsDto inventoryDetailsDto =
+    final InventoryDetailsQueryResult inventoryDetailsQueryResult =
         this.bookCopyJpaRepository.findInventoryDetailsForBook(bookId);
 
-    if (ObjectUtils.isEmpty(inventoryDetailsDto)) {
+    if (ObjectUtils.isEmpty(inventoryDetailsQueryResult)) {
       log.warn("No inventory details found for book with ID {}", bookId);
       return Optional.empty();
     }
 
     return Optional.of(
-        this.bookCopyEntityMapper.inventoryDetailsDtoToInventoryDetails(inventoryDetailsDto));
+        this.bookCopyEntityMapper.inventoryDetailsDtoToInventoryDetails(inventoryDetailsQueryResult));
   }
 
   private BookEntity getBookEntity(final Long bookId) {

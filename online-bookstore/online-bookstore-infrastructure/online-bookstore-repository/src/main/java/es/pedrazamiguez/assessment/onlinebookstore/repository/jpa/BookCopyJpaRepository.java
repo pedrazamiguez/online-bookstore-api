@@ -1,16 +1,15 @@
 package es.pedrazamiguez.assessment.onlinebookstore.repository.jpa;
 
-import es.pedrazamiguez.assessment.onlinebookstore.repository.dto.InventoryDetailsDto;
+import es.pedrazamiguez.assessment.onlinebookstore.repository.projection.InventoryDetailsQueryResult;
 import es.pedrazamiguez.assessment.onlinebookstore.repository.entity.BookCopyEntity;
 
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 public interface BookCopyJpaRepository extends JpaRepository<BookCopyEntity, Long> {
@@ -42,7 +41,7 @@ public interface BookCopyJpaRepository extends JpaRepository<BookCopyEntity, Lon
             1 desc
           """,
       nativeQuery = true)
-  List<InventoryDetailsDto> findInventoryDetails(int count);
+  List<InventoryDetailsQueryResult> findInventoryDetails(int count);
 
   @Query(
       value =
@@ -69,7 +68,7 @@ public interface BookCopyJpaRepository extends JpaRepository<BookCopyEntity, Lon
             bc.book_id, bc.book_id, b.title, b.author
           """,
       nativeQuery = true)
-  InventoryDetailsDto findInventoryDetailsForBook(Long bookId);
+  InventoryDetailsQueryResult findInventoryDetailsForBook(Long bookId);
 
   @Modifying
   @Query(
