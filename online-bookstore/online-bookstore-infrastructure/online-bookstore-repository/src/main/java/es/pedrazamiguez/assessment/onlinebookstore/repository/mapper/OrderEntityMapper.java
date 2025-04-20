@@ -2,6 +2,7 @@ package es.pedrazamiguez.assessment.onlinebookstore.repository.mapper;
 
 import es.pedrazamiguez.assessment.onlinebookstore.domain.entity.BookAllocation;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.entity.Order;
+import es.pedrazamiguez.assessment.onlinebookstore.domain.entity.OrderItem;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.enums.OrderStatus;
 import es.pedrazamiguez.assessment.onlinebookstore.repository.entity.*;
 import java.math.BigDecimal;
@@ -26,8 +27,10 @@ public interface OrderEntityMapper {
     return value.getOrderId();
   }
 
-  @Mapping(target = "copies", source = "quantity")
-  BookAllocation orderItemEntityToBookAllocation(OrderItemEntity orderItemEntity);
+  @Mapping(target = "orderId", source = "order.id")
+  @Mapping(target = "allocation.copies", source = "quantity")
+  @Mapping(target = "allocation.book", source = "book")
+  OrderItem orderItemEntityToOrderItem(OrderItemEntity orderItemEntity);
 
   default OrderEntity toNewOrderEntity(final CustomerEntity customerEntity) {
     final OrderEntity orderEntity = new OrderEntity();
