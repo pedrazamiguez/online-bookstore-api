@@ -462,7 +462,7 @@ paths:
           schema:
             type: string
             format: date-time
-          example: "2025-04-18T16:19:34"
+          example: "2025-04-18T00:00:00"
       responses:
         '204':
           description: Book copies older than the specified date removed successfully
@@ -474,7 +474,7 @@ paths:
                 $ref: '#/components/schemas/Error'
               example:
                 status: "BAD_REQUEST"
-                message: "date: must match format 'date-time'"
+                message: "The parameter 'date' of value '2025-14-18' could not be converted to type 'LocalDateTime'"
                 path: "/v1/inventory/books/older-than"
                 timestamp: "2025-04-18T16:19:34.714622"
         '500':
@@ -639,8 +639,6 @@ paths:
       description: Purchase current order
       operationId: purchaseCurrentOrder
       responses:
-        '204':
-          description: Current order purchased successfully
         '500':
           description: Unexpected error
           content:
