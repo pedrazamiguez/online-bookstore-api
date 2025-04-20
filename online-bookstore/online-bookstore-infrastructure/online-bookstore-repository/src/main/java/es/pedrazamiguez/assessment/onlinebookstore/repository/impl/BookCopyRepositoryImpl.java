@@ -10,9 +10,12 @@ import es.pedrazamiguez.assessment.onlinebookstore.repository.jpa.BookCopyJpaRep
 import es.pedrazamiguez.assessment.onlinebookstore.repository.jpa.BookJpaRepository;
 import es.pedrazamiguez.assessment.onlinebookstore.repository.mapper.BookCopyEntityMapper;
 import java.util.List;
+import java.util.Optional;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.ObjectUtils;
 
 @Slf4j
 @Repository
@@ -39,6 +42,21 @@ public class BookCopyRepositoryImpl implements BookCopyRepository {
     final List<InventoryDetailsDto> inventoryDetailsDtoList =
         this.bookCopyJpaRepository.findInventoryDetails(includeOutOfStock ? 0 : 1);
     return this.bookCopyEntityMapper.toDomainList(inventoryDetailsDtoList);
+  }
+
+  @Override
+  public Optional<BookAllocation> getInventoryDetailsByBookId(final Long bookId) {
+    log.info("Fetching inventory details for book with ID {}", bookId);
+    final InventoryDetailsDto inventoryDetailsDto =
+        this.bookCopyJpaRepository.findInventoryDetailsForBook(bookId);
+
+    if (ObjectUtils.isEmpty(inventoryDetailsDto)) {
+      log.warn("No inventory details found for book with ID {}", bookId);
+      return Optional.empty();
+    }
+
+    return Optional.of(
+        this.bookCopyEntityMapper.inventoryDetailsDtoToInventoryDetails(inventoryDetailsDto));
   }
 
   private BookEntity getBookEntity(final Long bookId) {

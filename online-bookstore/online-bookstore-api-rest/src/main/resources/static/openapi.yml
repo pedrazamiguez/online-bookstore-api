@@ -328,8 +328,8 @@ paths:
     get:
       tags:
         - inventory
-      summary: Get inventory details
-      description: Get inventory details
+      summary: Get book copies in inventory
+      description: Get book copies in inventory
       operationId: getInventory
       parameters:
         - name: includeOutOfStock
@@ -940,15 +940,6 @@ components:
           format: int32
           description: Number of copies available in inventory
           example: 10
-        lastUpdatedAt:
-          type: string
-          format: date-time
-          description: Last updated timestamp of the inventory item
-          example: "2025-04-18T16:19:34.714622"
-        lastUpdatedBy:
-          type: string
-          description: User who last updated the inventory item
-          example: "admin"
 
     InventoryItems:
       type: array

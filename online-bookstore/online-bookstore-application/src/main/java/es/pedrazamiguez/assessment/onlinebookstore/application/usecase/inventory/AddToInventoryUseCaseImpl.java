@@ -1,7 +1,9 @@
 package es.pedrazamiguez.assessment.onlinebookstore.application.usecase.inventory;
 
+import es.pedrazamiguez.assessment.onlinebookstore.domain.entity.BookAllocation;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.repository.BookCopyRepository;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.usecase.inventory.AddToInventoryUseCase;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -14,8 +16,9 @@ public class AddToInventoryUseCaseImpl implements AddToInventoryUseCase {
   private final BookCopyRepository bookCopyRepository;
 
   @Override
-  public void addToInventory(final Long bookId, final int copies) {
+  public Optional<BookAllocation> addToInventory(final Long bookId, final int copies) {
     log.info("Adding {} copies of book with ID {} to inventory", copies, bookId);
     this.bookCopyRepository.addCopies(bookId, copies);
+    return this.bookCopyRepository.getInventoryDetailsByBookId(bookId);
   }
 }

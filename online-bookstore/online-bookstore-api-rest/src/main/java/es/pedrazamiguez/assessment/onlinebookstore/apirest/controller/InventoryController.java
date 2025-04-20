@@ -10,6 +10,8 @@ import es.pedrazamiguez.assessment.onlinebookstore.openapi.model.InventoryItemDt
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
+
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.NotImplementedException;
 import org.springframework.http.ResponseEntity;
@@ -25,18 +27,17 @@ public class InventoryController implements InventoryApi {
 
   private final InventoryRestMapper inventoryRestMapper;
 
-  //  @Override
-  //  public ResponseEntity<Void> addBookCopiesToInventory(
-  //      final InventoryRequestDto inventoryRequestDto) {
-  //    this.addToInventoryUseCase.addToInventory(
-  //        inventoryRequestDto.getBookId(), inventoryRequestDto.getCopies());
-  //    return ResponseEntity.noContent().build();
-  //  }
-
   @Override
   public ResponseEntity<InventoryItemDto> addBookCopiesToInventory(
       final Long bookId, final AllocationDto allocationDto) {
-    throw new NotImplementedException("Not implemented yet");
+
+    final Optional<BookAllocation> bookAllocation =
+        this.addToInventoryUseCase.addToInventory(bookId, allocationDto.getCopies());
+
+    return bookAllocation
+        .map(this.inventoryRestMapper::inventoryDetailsToInventoryItemDto)
+        .map(ResponseEntity::ok)
+        .orElse(ResponseEntity.noContent().build());
   }
 
   @Override

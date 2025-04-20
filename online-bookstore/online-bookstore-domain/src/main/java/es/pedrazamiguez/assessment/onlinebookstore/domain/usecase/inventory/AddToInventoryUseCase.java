@@ -1,7 +1,11 @@
 package es.pedrazamiguez.assessment.onlinebookstore.domain.usecase.inventory;
 
+import es.pedrazamiguez.assessment.onlinebookstore.domain.entity.BookAllocation;
+
+import java.util.Optional;
+
 @FunctionalInterface
 public interface AddToInventoryUseCase {
 
-  void addToInventory(Long bookId, int copies);
+  Optional<BookAllocation> addToInventory(Long bookId, int copies);
 }
