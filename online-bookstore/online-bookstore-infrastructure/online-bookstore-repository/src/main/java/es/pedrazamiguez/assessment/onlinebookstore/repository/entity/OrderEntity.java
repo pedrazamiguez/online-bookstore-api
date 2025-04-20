@@ -6,11 +6,13 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.hibernate.envers.Audited;
 
 @Data
-@Entity
+@EqualsAndHashCode(callSuper = true)
 @Audited
+@Entity
 @Table(name = "orders")
 public class OrderEntity extends AuditEntity {
 

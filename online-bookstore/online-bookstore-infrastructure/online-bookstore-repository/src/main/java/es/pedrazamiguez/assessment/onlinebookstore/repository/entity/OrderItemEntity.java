@@ -2,11 +2,13 @@ package es.pedrazamiguez.assessment.onlinebookstore.repository.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.hibernate.envers.Audited;
 
 @Data
-@Entity
+@EqualsAndHashCode(callSuper = true)
 @Audited
+@Entity
 @Table(name = "order_items")
 public class OrderItemEntity extends AuditEntity {
 

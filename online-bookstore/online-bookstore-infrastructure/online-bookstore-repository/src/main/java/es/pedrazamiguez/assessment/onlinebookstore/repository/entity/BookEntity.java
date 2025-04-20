@@ -4,11 +4,13 @@ import es.pedrazamiguez.assessment.onlinebookstore.domain.enums.Genre;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.hibernate.envers.Audited;
 
 @Data
-@Entity
+@EqualsAndHashCode(callSuper = true)
 @Audited
+@Entity
 @Table(name = "books")
 public class BookEntity extends AuditEntity {
 

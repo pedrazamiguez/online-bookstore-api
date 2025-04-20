@@ -4,6 +4,7 @@ import lombok.Getter;
 
 @Getter
 public class NotEnoughBookCopiesException extends RuntimeException {
+
   private final Long bookId;
   private final Long availableCopies;
   private final Long requestedCopies;

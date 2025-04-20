@@ -2,7 +2,7 @@ package es.pedrazamiguez.assessment.onlinebookstore.application.usecase.inventor
 
 import es.pedrazamiguez.assessment.onlinebookstore.domain.entity.BookAllocation;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.repository.BookCopyRepository;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.service.book.CheckAvailableBookCopiesService;
+import es.pedrazamiguez.assessment.onlinebookstore.domain.service.book.AvailableBookCopiesService;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.usecase.inventory.DeleteFromInventoryUseCase;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +16,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class DeleteFromInventoryUseCaseImpl implements DeleteFromInventoryUseCase {
 
-  private final CheckAvailableBookCopiesService checkAvailableBookCopiesService;
+  private final AvailableBookCopiesService availableBookCopiesService;
 
   private final BookCopyRepository bookCopyRepository;
 
@@ -25,7 +25,7 @@ public class DeleteFromInventoryUseCaseImpl implements DeleteFromInventoryUseCas
   public Optional<BookAllocation> deleteFromInventory(final Long bookId, final Long copies) {
     log.info("Deleting {} copies of book with ID {} from inventory", copies, bookId);
 
-    this.checkAvailableBookCopiesService.assure(bookId, copies);
+    this.availableBookCopiesService.assure(bookId, copies);
     this.bookCopyRepository.deleteCopies(bookId, copies);
     return this.bookCopyRepository.getInventoryDetailsByBookId(bookId);
   }

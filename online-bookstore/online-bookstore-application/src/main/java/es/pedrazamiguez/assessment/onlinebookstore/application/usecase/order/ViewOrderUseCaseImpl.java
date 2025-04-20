@@ -1,7 +1,7 @@
 package es.pedrazamiguez.assessment.onlinebookstore.application.usecase.order;
 
 import es.pedrazamiguez.assessment.onlinebookstore.domain.entity.Order;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.service.SecurityService;
+import es.pedrazamiguez.assessment.onlinebookstore.domain.service.security.SecurityService;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.usecase.order.ViewOrderUseCase;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

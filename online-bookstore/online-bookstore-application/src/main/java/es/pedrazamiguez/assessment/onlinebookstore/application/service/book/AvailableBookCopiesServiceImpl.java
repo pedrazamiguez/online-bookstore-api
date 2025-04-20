@@ -3,14 +3,14 @@ package es.pedrazamiguez.assessment.onlinebookstore.application.service.book;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.entity.BookAllocation;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.exception.NotEnoughBookCopiesException;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.repository.BookCopyRepository;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.service.book.CheckAvailableBookCopiesService;
+import es.pedrazamiguez.assessment.onlinebookstore.domain.service.book.AvailableBookCopiesService;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class CheckAvailableBookCopiesServiceImpl implements CheckAvailableBookCopiesService {
+public class AvailableBookCopiesServiceImpl implements AvailableBookCopiesService {
 
   private final BookCopyRepository bookCopyRepository;
 

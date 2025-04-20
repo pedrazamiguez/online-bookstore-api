@@ -1,7 +1,7 @@
-package es.pedrazamiguez.assessment.onlinebookstore.application.service;
+package es.pedrazamiguez.assessment.onlinebookstore.application.service.security;
 
 import es.pedrazamiguez.assessment.onlinebookstore.domain.exception.CurrentUserNotFoundException;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.service.SecurityService;
+import es.pedrazamiguez.assessment.onlinebookstore.domain.service.security.SecurityService;
 import java.util.Optional;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

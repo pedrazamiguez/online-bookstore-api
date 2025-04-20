@@ -4,6 +4,7 @@ import lombok.Getter;
 
 @Getter
 public class BookAlreadyExistsException extends RuntimeException {
+
   private final String isbn;
 
   public BookAlreadyExistsException(final String isbn) {
