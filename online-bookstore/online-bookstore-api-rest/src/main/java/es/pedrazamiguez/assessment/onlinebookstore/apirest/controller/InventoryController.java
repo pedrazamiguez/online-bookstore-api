@@ -4,6 +4,7 @@ import es.pedrazamiguez.assessment.onlinebookstore.apirest.mapper.InventoryRestM
 import es.pedrazamiguez.assessment.onlinebookstore.domain.entity.BookAllocation;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.usecase.inventory.AddToInventoryUseCase;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.usecase.inventory.DeleteFromInventoryUseCase;
+import es.pedrazamiguez.assessment.onlinebookstore.domain.usecase.inventory.DeleteOldCopiesFromInventoryUseCase;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.usecase.inventory.GetInventoryStatusUseCase;
 import es.pedrazamiguez.assessment.onlinebookstore.openapi.api.InventoryApi;
 import es.pedrazamiguez.assessment.onlinebookstore.openapi.model.AllocationDto;
@@ -12,7 +13,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.lang3.NotImplementedException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,6 +23,8 @@ public class InventoryController implements InventoryApi {
   private final AddToInventoryUseCase addToInventoryUseCase;
 
   private final DeleteFromInventoryUseCase deleteFromInventoryUseCase;
+
+  private final DeleteOldCopiesFromInventoryUseCase deleteOldCopiesFromInventoryUseCase;
 
   private final GetInventoryStatusUseCase getInventoryStatusUseCase;
 
@@ -65,6 +67,7 @@ public class InventoryController implements InventoryApi {
 
   @Override
   public ResponseEntity<Void> removeOldBookCopies(final LocalDateTime date) {
-    throw new NotImplementedException("Not implemented yet");
+    this.deleteOldCopiesFromInventoryUseCase.deleteOldCopies(date);
+    return ResponseEntity.noContent().build();
   }
 }

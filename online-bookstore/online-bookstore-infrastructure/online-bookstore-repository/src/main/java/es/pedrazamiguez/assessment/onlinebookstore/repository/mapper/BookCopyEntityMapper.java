@@ -4,6 +4,9 @@ import es.pedrazamiguez.assessment.onlinebookstore.domain.entity.BookAllocation;
 import es.pedrazamiguez.assessment.onlinebookstore.repository.dto.InventoryDetailsDto;
 import es.pedrazamiguez.assessment.onlinebookstore.repository.entity.BookCopyEntity;
 import es.pedrazamiguez.assessment.onlinebookstore.repository.entity.BookEntity;
+
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -37,4 +40,8 @@ public interface BookCopyEntityMapper {
   @Mapping(target = "book.genre", source = "genre")
   @Mapping(target = "book.type.code", source = "typeCode")
   BookAllocation inventoryDetailsDtoToInventoryDetails(InventoryDetailsDto inventoryDetailsDto);
+
+  default Timestamp toTimestamp(final LocalDateTime localDateTime) {
+    return Timestamp.valueOf(localDateTime);
+  }
 }

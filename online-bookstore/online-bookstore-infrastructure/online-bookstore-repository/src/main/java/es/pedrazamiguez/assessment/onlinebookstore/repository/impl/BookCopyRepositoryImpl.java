@@ -9,6 +9,8 @@ import es.pedrazamiguez.assessment.onlinebookstore.repository.entity.BookEntity;
 import es.pedrazamiguez.assessment.onlinebookstore.repository.jpa.BookCopyJpaRepository;
 import es.pedrazamiguez.assessment.onlinebookstore.repository.jpa.BookJpaRepository;
 import es.pedrazamiguez.assessment.onlinebookstore.repository.mapper.BookCopyEntityMapper;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -39,8 +41,14 @@ public class BookCopyRepositoryImpl implements BookCopyRepository {
   @Override
   public void deleteCopies(final Long bookId, final Long copies) {
     log.info("Deleting {} copies of book with ID {}", copies, bookId);
-
     this.bookCopyJpaRepository.deleteByBookIdAndCopies(bookId, copies);
+  }
+
+  @Override
+  public void deleteCopiesOlderThan(final LocalDateTime olderThan) {
+    final Timestamp timestamp = this.bookCopyEntityMapper.toTimestamp(olderThan);
+    log.info("Deleting copies older than {}", timestamp);
+    this.bookCopyJpaRepository.deleteByUpdatedAtBefore(timestamp);
   }
 
   @Override

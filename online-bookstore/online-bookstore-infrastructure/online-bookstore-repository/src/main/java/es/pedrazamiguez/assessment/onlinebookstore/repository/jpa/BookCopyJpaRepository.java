@@ -2,6 +2,9 @@ package es.pedrazamiguez.assessment.onlinebookstore.repository.jpa;
 
 import es.pedrazamiguez.assessment.onlinebookstore.repository.dto.InventoryDetailsDto;
 import es.pedrazamiguez.assessment.onlinebookstore.repository.entity.BookCopyEntity;
+
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -68,7 +71,6 @@ public interface BookCopyJpaRepository extends JpaRepository<BookCopyEntity, Lon
       nativeQuery = true)
   InventoryDetailsDto findInventoryDetailsForBook(Long bookId);
 
-  @Transactional
   @Modifying
   @Query(
       value =
@@ -91,4 +93,15 @@ public interface BookCopyJpaRepository extends JpaRepository<BookCopyEntity, Lon
       nativeQuery = true)
   void deleteByBookIdAndCopies(Long bookId, Long copies);
 
+  @Modifying
+  @Query(
+      value =
+          """
+          delete from
+            book_copies
+          where
+            updated_at < :date
+          """,
+      nativeQuery = true)
+  void deleteByUpdatedAtBefore(Timestamp date);
 }

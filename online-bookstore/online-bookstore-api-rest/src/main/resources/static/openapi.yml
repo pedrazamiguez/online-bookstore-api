@@ -488,12 +488,12 @@ paths:
       tags:
         - inventory
       summary: Remove book copies older than a given date
-      description: Remove book copies from inventory with a last updated timestamp older than the specified date
+      description: Remove book copies older than a given date
       operationId: removeOldBookCopies
       parameters:
         - name: date
           in: query
-          description: Removes copies with lastUpdatedAt before this date
+          description: Removes copies updated before this date
           required: true
           schema:
             type: string
