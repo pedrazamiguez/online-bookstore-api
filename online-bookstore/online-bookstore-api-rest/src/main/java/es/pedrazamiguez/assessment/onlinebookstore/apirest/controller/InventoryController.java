@@ -31,9 +31,9 @@ public class InventoryController implements InventoryApi {
   }
 
   @Override
-  public ResponseEntity<List<InventoryItemDto>> getInventory(final Boolean retrieveOutOfStock) {
+  public ResponseEntity<List<InventoryItemDto>> getInventory(final Boolean includeOutOfStock) {
     final List<BookAllocation> bookAllocationFound =
-        this.getInventoryStatusUseCase.getInventoryStatus(Boolean.TRUE.equals(retrieveOutOfStock));
+        this.getInventoryStatusUseCase.getInventoryStatus(Boolean.TRUE.equals(includeOutOfStock));
     final List<InventoryItemDto> inventoryItemDtoList =
         this.inventoryRestMapper.toDtoList(bookAllocationFound);
     return ResponseEntity.ok(inventoryItemDtoList);

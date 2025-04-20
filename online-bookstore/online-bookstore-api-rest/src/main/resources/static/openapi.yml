@@ -20,17 +20,21 @@ info:
 servers:
   - url: http://localhost:8080
     description: Local server
+
 tags:
   - name: book
     description: Book management and details retrieval
   - name: inventory
     description: Inventory management and book stock tracking
-  - name: purchase
+  - name: order
     description: Order management and purchase processing
   - name: customer
     description: Customer operations and loyalty points consultation
+
 paths:
+
   /v1/books/{bookId}:
+
     get:
       tags:
         - book
@@ -85,11 +89,178 @@ paths:
               example:
                 status: "INTERNAL_SERVER_ERROR"
                 message: "An unexpected error occurred"
-                path: "/v1/books/112"
+                path: "/v1/books/178"
                 timestamp: "2025-04-18T03:19:34.714622"
       security:
-        - basicAuth: []
+        - basicAuth: [ ]
+
+    put:
+      tags:
+        - book
+      summary: Update book details
+      description: Update book details
+      operationId: updateBook
+      requestBody:
+        $ref: '#/components/requestBodies/Book'
+      parameters:
+        - name: bookId
+          in: path
+          description: ID of the book to update
+          required: true
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+          example: 178
+      responses:
+        '200':
+          description: Book updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+        '400':
+          description: Book structure is malformed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                status: "BAD_REQUEST"
+                message: "author: must not be null"
+                path: "/v1/books/178"
+                timestamp: "2025-04-18T16:19:34.714622"
+        '404':
+          description: Book not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                status: "NOT_FOUND"
+                message: "Book with ID 178 not found"
+                path: "/v1/books/178"
+                timestamp: "2025-04-19T02:27:08.219446"
+        '409':
+          description: Book already exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                status: "CONFLICT"
+                message: "Book with ISBN 9780747532743 already exists"
+                path: "/v1/books/178"
+                timestamp: "2025-04-18T16:19:34.714622"
+        '422':
+          description: Book structure is invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                status: "UNPROCESSABLE_ENTITY"
+                message: "Unexpected value 'SALE'"
+                path: "/v1/books/178"
+                timestamp: "2025-04-18T16:19:34.714622"
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                status: "INTERNAL_SERVER_ERROR"
+                message: "An unexpected error occurred"
+                path: "/v1/books/178"
+                timestamp: "2025-04-18T16:19:34.714622"
+      security:
+        - basicAuth: [ ]
+
+    delete:
+      tags:
+        - book
+      summary: Delete book by ID
+      description: Delete book by ID
+      operationId: deleteBook
+      parameters:
+        - name: bookId
+          in: path
+          description: ID of the book to delete
+          required: true
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+          example: 178
+      responses:
+        '204':
+          description: Book deleted successfully
+        '400':
+          description: Invalid ID supplied
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                status: "BAD_REQUEST"
+                message: "getBookById.bookId: must be greater than or equal to 1"
+                path: "/v1/books/0"
+                timestamp: "2025-04-19T02:25:11.675837"
+        '404':
+          description: Book not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                status: "NOT_FOUND"
+                message: "Book with ID 792 not found"
+                path: "/v1/books/792"
+                timestamp: "2025-04-19T02:27:08.219446"
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                status: "INTERNAL_SERVER_ERROR"
+                message: "An unexpected error occurred"
+                path: "/v1/books/178"
+                timestamp: "2025-04-18T03:19:34.714622"
+      security:
+        - basicAuth: [ ]
+
   /v1/books:
+
+    get:
+      tags:
+        - book
+      summary: Get all books
+      description: Get all books
+      operationId: getAllBooks
+      responses:
+        '200':
+          description: All books retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookList'
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                status: "INTERNAL_SERVER_ERROR"
+                message: "An unexpected error occurred"
+                path: "/v1/books"
+                timestamp: "2025-04-18T16:19:34.714622"
+      security:
+        - basicAuth: [ ]
+
     post:
       tags:
         - book
@@ -150,8 +321,10 @@ paths:
                 path: "/v1/books"
                 timestamp: "2025-04-18T16:19:34.714622"
       security:
-        - basicAuth: []
+        - basicAuth: [ ]
+
   /v1/inventory:
+
     get:
       tags:
         - inventory
@@ -159,12 +332,13 @@ paths:
       description: Get inventory details
       operationId: getInventory
       parameters:
-        - name: retrieveOutOfStock
+        - name: includeOutOfStock
           in: query
-          description: Whether to retrieve out-of-stock books
+          description: Whether to include out-of-stock books
           required: false
           schema:
             type: boolean
+            default: false
           example: true
       responses:
         '200':
@@ -185,7 +359,8 @@ paths:
                 path: "/v1/inventory"
                 timestamp: "2025-04-18T16:19:34.714622"
       security:
-        - basicAuth: []
+        - basicAuth: [ ]
+
     post:
       tags:
         - inventory
@@ -231,11 +406,13 @@ paths:
                 path: "/v1/inventory"
                 timestamp: "2025-04-18T16:19:34.714622"
       security:
-        - basicAuth: []
+        - basicAuth: [ ]
+
   /v1/orders/current:
+
     get:
       tags:
-        - purchase
+        - order
       summary: Get current order details
       description: Get current order details
       operationId: getCurrentOrder
@@ -260,9 +437,256 @@ paths:
                 path: "/v1/orders/current"
                 timestamp: "2025-04-18T16:19:34.714622"
       security:
-        - basicAuth: []
+        - basicAuth: [ ]
+
+    delete:
+      tags:
+        - order
+      summary: Clear current order
+      description: Clear current order
+      operationId: clearCurrentOrder
+      responses:
+        '204':
+          description: Current order cleared successfully
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                status: "INTERNAL_SERVER_ERROR"
+                message: "An unexpected error occurred"
+                path: "/v1/orders/current"
+                timestamp: "2025-04-18T16:19:34.714622"
+      security:
+        - basicAuth: [ ]
+
+  /v1/orders/current/books/{bookId}:
+
+    put:
+      tags:
+        - order
+      summary: Add book to current order
+      description: Add book to current order
+      operationId: addBookToCurrentOrder
+      parameters:
+        - name: bookId
+          in: path
+          description: ID of the book to add to the current order
+          required: true
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+          example: 178
+      requestBody:
+        $ref: '#/components/requestBodies/Allocation'
+      responses:
+        '200':
+          description: Book added to current order successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        '400':
+          description: Invalid request body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                status: "BAD_REQUEST"
+                message: "copies: must not be null"
+                path: "/v1/orders/current/books/178"
+                timestamp: "2025-04-19T02:25:11.675837"
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                status: "INTERNAL_SERVER_ERROR"
+                message: "An unexpected error occurred"
+                path: "/v1/orders/current/books/178"
+                timestamp: "2025-04-18T16:19:34.714622"
+      security:
+        - basicAuth: [ ]
+
+    delete:
+      tags:
+        - order
+      summary: Remove book from current order
+      description: Remove book from current order
+      operationId: removeBookFromCurrentOrder
+      parameters:
+        - name: bookId
+          in: path
+          description: ID of the book to remove from the current order
+          required: true
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+          example: 178
+      responses:
+        '204':
+          description: Book removed from current order successfully
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                status: "INTERNAL_SERVER_ERROR"
+                message: "An unexpected error occurred"
+                path: "/v1/orders/current/books/178"
+                timestamp: "2025-04-18T16:19:34.714622"
+      security:
+        - basicAuth: [ ]
+
+  /v1/orders/current/purchase:
+
+    post:
+      tags:
+        - order
+      summary: Purchase current order
+      description: Purchase current order
+      operationId: purchaseCurrentOrder
+      responses:
+        '204':
+          description: Current order purchased successfully
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                status: "INTERNAL_SERVER_ERROR"
+                message: "An unexpected error occurred"
+                path: "/v1/orders/current/purchase"
+                timestamp: "2025-04-18T16:19:34.714622"
+      security:
+        - basicAuth: [ ]
+
+  /v1/orders:
+
+    get:
+      tags:
+        - order
+      summary: Get order history for the current customer
+      description: Get order history for the current customer
+      operationId: getOrderHistory
+      responses:
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                status: "INTERNAL_SERVER_ERROR"
+                message: "An unexpected error occurred"
+                path: "/v1/orders"
+                timestamp: "2025-04-18T16:19:34.714622"
+      security:
+        - basicAuth: [ ]
+
+  /v1/orders/{orderId}:
+
+    get:
+      tags:
+        - order
+      summary: Get order by ID
+      description: Get order by ID
+      operationId: getOrderById
+      parameters:
+        - name: orderId
+          in: path
+          description: ID of the order to retrieve
+          required: true
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+          example: 178
+      responses:
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                status: "INTERNAL_SERVER_ERROR"
+                message: "An unexpected error occurred"
+                path: "/v1/orders/23"
+                timestamp: "2025-04-18T16:19:34.714622"
+      security:
+        - basicAuth: [ ]
+
+  /v1/customers/loyalty-points:
+
+    get:
+      tags:
+        - customer
+      summary: Get current customer loyalty points
+      description: Get current customer loyalty points
+      operationId: getCurrentCustomerLoyaltyPoints
+      responses:
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                status: "INTERNAL_SERVER_ERROR"
+                message: "An unexpected error occurred"
+                path: "/v1/customers/loyalty-points"
+                timestamp: "2025-04-18T16:19:34.714622"
+      security:
+        - basicAuth: [ ]
+
+  /v1/customers/{customerId}/loyalty-points:
+
+    get:
+      tags:
+        - customer
+      summary: Get customer loyalty points
+      description: Get customer loyalty points
+      operationId: getCustomerLoyaltyPoints
+      parameters:
+        - name: customerId
+          in: path
+          description: ID of the customer to retrieve loyalty points for
+          required: true
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+          example: 178
+      responses:
+        '500':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                status: "INTERNAL_SERVER_ERROR"
+                message: "An unexpected error occurred"
+                path: "/v1/customers/2/loyalty-points"
+                timestamp: "2025-04-18T16:19:34.714622"
+      security:
+        - basicAuth: [ ]
+
 components:
   schemas:
+
     Book:
       type: object
       properties:
@@ -316,6 +740,7 @@ components:
             - NEW_RELEASE
             - REGULAR
             - OLD_EDITION
+
     BookRequest:
       required:
         - isbn
@@ -374,6 +799,7 @@ components:
             - NEW_RELEASE
             - REGULAR
             - OLD_EDITION
+
     InventoryItem:
       type: object
       properties:
@@ -442,10 +868,17 @@ components:
           type: string
           description: User who last updated the inventory item
           example: "admin"
+
     InventoryItems:
       type: array
       items:
         $ref: '#/components/schemas/InventoryItem'
+
+    BookList:
+      type: array
+      items:
+        $ref: '#/components/schemas/Book'
+
     InventoryRequest:
       required:
         - bookId
@@ -464,6 +897,7 @@ components:
           minimum: 1
           maximum: 1000
           example: 10
+
     Order:
       type: object
       properties:
@@ -471,6 +905,7 @@ components:
           type: integer
           format: int64
           example: 178
+
     Error:
       type: object
       properties:
@@ -487,7 +922,22 @@ components:
           type: string
           format: date-time
           description: Timestamp of the error
+
+    Allocation:
+      required:
+        - copies
+      type: object
+      properties:
+        copies:
+          type: integer
+          format: int32
+          description: Number of copies to allocate
+          minimum: 1
+          maximum: 1000
+          example: 2
+
   requestBodies:
+
     Book:
       description: Book object that needs to be added to the store
       required: true
@@ -495,6 +945,15 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/BookRequest'
+
+    Allocation:
+      description: Allocation object that needs to be added to the order
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Allocation'
+
     Inventory:
       description: Inventory object that needs to be added to the store
       required: true
@@ -502,9 +961,11 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/InventoryRequest'
+
   securitySchemes:
     basicAuth:
       type: http
       scheme: basic
+
 security:
-  - basicAuth: []
+  - basicAuth: [ ]

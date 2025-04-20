@@ -8,5 +8,5 @@ public interface BookCopyRepository {
 
   void addCopies(Long bookId, int copies);
 
-  List<BookAllocation> getInventoryDetails(boolean retrieveOutOfStock);
+  List<BookAllocation> getInventoryDetails(boolean includeOutOfStock);
 }

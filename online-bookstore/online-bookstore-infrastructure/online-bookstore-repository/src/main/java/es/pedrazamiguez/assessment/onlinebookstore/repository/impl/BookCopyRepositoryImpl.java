@@ -35,9 +35,9 @@ public class BookCopyRepositoryImpl implements BookCopyRepository {
   }
 
   @Override
-  public List<BookAllocation> getInventoryDetails(final boolean retrieveOutOfStock) {
+  public List<BookAllocation> getInventoryDetails(final boolean includeOutOfStock) {
     final List<InventoryDetailsDto> inventoryDetailsDtoList =
-        this.bookCopyJpaRepository.findInventoryDetails(retrieveOutOfStock ? 0 : 1);
+        this.bookCopyJpaRepository.findInventoryDetails(includeOutOfStock ? 0 : 1);
     return this.bookCopyEntityMapper.toDomainList(inventoryDetailsDtoList);
   }
 
