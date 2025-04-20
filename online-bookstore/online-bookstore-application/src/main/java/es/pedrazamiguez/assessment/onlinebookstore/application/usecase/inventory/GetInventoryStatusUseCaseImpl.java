@@ -17,6 +17,7 @@ public class GetInventoryStatusUseCaseImpl implements GetInventoryStatusUseCase 
 
   @Override
   public List<BookAllocation> getInventoryStatus(final boolean includeOutOfStock) {
+    log.info("Getting inventory status with includeOutOfStock: {}", includeOutOfStock);
     return this.bookCopyRepository.getInventoryDetails(includeOutOfStock);
   }
 }

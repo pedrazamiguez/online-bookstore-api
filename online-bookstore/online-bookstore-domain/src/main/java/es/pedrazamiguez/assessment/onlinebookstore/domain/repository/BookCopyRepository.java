@@ -6,7 +6,9 @@ import java.util.Optional;
 
 public interface BookCopyRepository {
 
-  void addCopies(Long bookId, int copies);
+  void addCopies(Long bookId, Long copies);
+
+  void deleteCopies(Long bookId, Long copies);
 
   List<BookAllocation> getInventoryDetails(boolean includeOutOfStock);
 

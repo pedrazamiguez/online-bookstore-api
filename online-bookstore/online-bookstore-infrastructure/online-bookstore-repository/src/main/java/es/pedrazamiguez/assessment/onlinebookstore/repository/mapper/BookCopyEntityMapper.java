@@ -14,8 +14,8 @@ import org.mapstruct.MappingConstants;
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface BookCopyEntityMapper {
 
-  default List<BookCopyEntity> toEntityList(final BookEntity bookEntity, final int copies) {
-    return IntStream.range(0, copies)
+  default List<BookCopyEntity> toEntityList(final BookEntity bookEntity, final Long copies) {
+    return IntStream.range(0, copies.intValue())
         .mapToObj(
             i -> {
               final BookCopyEntity bookCopyEntity = new BookCopyEntity();

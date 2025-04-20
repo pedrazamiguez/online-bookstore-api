@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
@@ -52,6 +53,13 @@ public class RestExceptionHandler {
     return ResponseEntity.status(status).body(this.errorRestMapper.toDto(status, e, request));
   }
 
+  @ExceptionHandler(MissingServletRequestParameterException.class)
+  public ResponseEntity<ErrorDto> handleMissingServletRequestParameterException(
+      final MissingServletRequestParameterException e, final WebRequest request) {
+    final HttpStatus status = HttpStatus.BAD_REQUEST;
+    return ResponseEntity.status(status).body(this.errorRestMapper.toDto(status, e, request));
+  }
+
   @ExceptionHandler(NoResourceFoundException.class)
   public ResponseEntity<ErrorDto> handleNoResourceFoundException(
       final NoResourceFoundException e, final WebRequest request) {
@@ -68,7 +76,7 @@ public class RestExceptionHandler {
 
   @ExceptionHandler(HttpMessageNotReadableException.class)
   public ResponseEntity<ErrorDto> handleNotReadableException(
-          final HttpMessageNotReadableException e, final WebRequest request) {
+      final HttpMessageNotReadableException e, final WebRequest request) {
     final HttpStatus status = HttpStatus.UNPROCESSABLE_ENTITY;
     return ResponseEntity.status(status).body(this.errorRestMapper.toDto(status, e, request));
   }

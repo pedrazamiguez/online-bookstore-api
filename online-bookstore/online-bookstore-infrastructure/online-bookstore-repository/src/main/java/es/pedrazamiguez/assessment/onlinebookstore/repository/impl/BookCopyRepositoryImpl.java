@@ -11,7 +11,6 @@ import es.pedrazamiguez.assessment.onlinebookstore.repository.jpa.BookJpaReposit
 import es.pedrazamiguez.assessment.onlinebookstore.repository.mapper.BookCopyEntityMapper;
 import java.util.List;
 import java.util.Optional;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
@@ -29,12 +28,19 @@ public class BookCopyRepositoryImpl implements BookCopyRepository {
   private final BookCopyEntityMapper bookCopyEntityMapper;
 
   @Override
-  public void addCopies(final Long bookId, final int copies) {
+  public void addCopies(final Long bookId, final Long copies) {
     log.info("Adding {} copies of book with ID {}", copies, bookId);
 
     final List<BookCopyEntity> bookCopiesToSave =
         this.bookCopyEntityMapper.toEntityList(this.getBookEntity(bookId), copies);
     this.bookCopyJpaRepository.saveAll(bookCopiesToSave);
+  }
+
+  @Override
+  public void deleteCopies(final Long bookId, final Long copies) {
+    log.info("Deleting {} copies of book with ID {}", copies, bookId);
+
+    this.bookCopyJpaRepository.deleteByBookIdAndCopies(bookId, copies);
   }
 
   @Override

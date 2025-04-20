@@ -1,3 +1,10 @@
 package es.pedrazamiguez.assessment.onlinebookstore.domain.usecase.inventory;
 
-public interface DeleteFromInventoryUseCase {}
+import es.pedrazamiguez.assessment.onlinebookstore.domain.entity.BookAllocation;
+import java.util.Optional;
+
+@FunctionalInterface
+public interface DeleteFromInventoryUseCase {
+
+  Optional<BookAllocation> deleteFromInventory(Long bookId, Long copies);
+}

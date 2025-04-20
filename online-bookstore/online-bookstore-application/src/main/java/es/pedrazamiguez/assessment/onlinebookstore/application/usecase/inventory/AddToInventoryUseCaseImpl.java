@@ -16,7 +16,7 @@ public class AddToInventoryUseCaseImpl implements AddToInventoryUseCase {
   private final BookCopyRepository bookCopyRepository;
 
   @Override
-  public Optional<BookAllocation> addToInventory(final Long bookId, final int copies) {
+  public Optional<BookAllocation> addToInventory(final Long bookId, final Long copies) {
     log.info("Adding {} copies of book with ID {} to inventory", copies, bookId);
     this.bookCopyRepository.addCopies(bookId, copies);
     return this.bookCopyRepository.getInventoryDetailsByBookId(bookId);

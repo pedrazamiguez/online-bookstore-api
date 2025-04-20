@@ -383,7 +383,7 @@ paths:
         $ref: '#/components/requestBodies/Allocation'
       responses:
         '200':
-          description: Book added to inventory successfully
+          description: Book copies added to inventory successfully
           content:
             application/json:
               schema:
@@ -429,9 +429,45 @@ paths:
             format: int64
             minimum: 1
           example: 178
+        - name: copies
+          in: query
+          description: Number of copies to remove from inventory
+          required: true
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+            maximum: 1000
+          example: 10
       responses:
-        '204':
-          description: Book removed from inventory successfully
+        '200':
+          description: Book copies removed from inventory successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InventoryItem'
+        '400':
+          description: Invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                status: "BAD_REQUEST"
+                message: "copies: must not be null"
+                path: "/v1/inventory/books/178"
+                timestamp: "2025-04-19T02:25:11.675837"
+        '409':
+          description: Not enough copies in inventory
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                status: "CONFLICT"
+                message: "Not enough copies of book with ID 178. Available: 98, Requested: 100"
+                path: "/v1/inventory/books/178"
+                timestamp: "2025-04-18T16:19:34.714622"
         '500':
           description: Unexpected error
           content:
@@ -937,7 +973,7 @@ components:
             - OLD_EDITION
         copies:
           type: integer
-          format: int32
+          format: int64
           description: Number of copies available in inventory
           example: 10
 
@@ -983,7 +1019,7 @@ components:
       properties:
         copies:
           type: integer
-          format: int32
+          format: int64
           description: Number of copies to allocate
           minimum: 1
           maximum: 1000
