@@ -32,7 +32,7 @@ which can be redeemed for discounts or perks, enhancing user engagement and rete
     ./mvnw clean install -U
     ```
 
-    This command will compile the code, run tests, and package the application into a JAR file.
+   This command will compile the code, run tests, and package the application into a JAR file.
 
 3. **Run the application using the Maven Wrapper:**
 
@@ -40,7 +40,7 @@ which can be redeemed for discounts or perks, enhancing user engagement and rete
     ./mvnw -pl online-bookstore-boot spring-boot:run
     ```
 
-    The application will start on [http://localhost:8080](http://localhost:8080).
+   The application will start on [http://localhost:8080](http://localhost:8080).
 
 ## API documentation & access
 
@@ -60,10 +60,14 @@ which can be redeemed for discounts or perks, enhancing user engagement and rete
   *ADMIN users can perform both USER and ADMIN operations.*
 
 - **H2 Database Console:** [http://localhost:8080/h2-console](http://localhost:8080/h2-console)
-    - **Driver Class:** `org.h2.Driver`
-    - **JDBC URL:** `jdbc:h2:mem:bookstoredb`
-    - **User Name:** `sa`
-    - **Password:** *(leave blank)*
+  - **Driver Class:** `org.h2.Driver`
+  - **JDBC URL:** `jdbc:h2:mem:bookstoredb`
+  - **User Name:** `sa`
+  - **Password:** *(leave blank)*
+
+  A dataset is preloaded with sample data for testing purposes.
+
+  You can view and manipulate the data directly in the H2 console.
 
 ## Architecture & Technical Decisions
 
@@ -118,8 +122,9 @@ easily handled in code than in static database rules.
 
 ```java
 public interface SubtotalPriceService {
-  String getBookTypeCode();
-  PayableAmount calculateSubtotal(OrderItem orderItem);
+    String getBookTypeCode();
+
+    PayableAmount calculateSubtotal(OrderItem orderItem);
 }
 ```
 
