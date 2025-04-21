@@ -17,7 +17,6 @@
     <description>Online Bookstore infrastructure module</description>
 
     <modules>
-
         <module>online-bookstore-repository</module>
     </modules>
 

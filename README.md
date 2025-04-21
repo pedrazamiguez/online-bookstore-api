@@ -26,13 +26,21 @@ which can be redeemed for discounts or perks, enhancing user engagement and rete
     cd online-bookstore-assessment/online-bookstore
     ```
 
-2. **Run the application using Maven Wrapper:**
+2. **Build and test the entire project using the Maven Wrapper:**
 
     ```bash
-    ./mvnw spring-boot:run
+    ./mvnw clean install -U
     ```
 
-   The application will start on [http://localhost:8080](http://localhost:8080).
+    This command will compile the code, run tests, and package the application into a JAR file.
+
+3. **Run the application using the Maven Wrapper:**
+
+    ```bash
+    ./mvnw -pl online-bookstore-boot spring-boot:run
+    ```
+
+    The application will start on [http://localhost:8080](http://localhost:8080).
 
 ## API documentation & access
 
