@@ -51,7 +51,7 @@ which can be redeemed for discounts or perks, enhancing user engagement and rete
   Use one of the test users below to authenticate:
 
   | Username     | Role  | Password  |
-  |--------------|-------|-----------|
+    |--------------|-------|-----------|
   | `bob`        | USER  | 12345678  |
   | `alice`      | USER  | 12345678  |
   | `admin`      | ADMIN | 12345678  |
@@ -168,8 +168,7 @@ following steps:
 
 **Architectural Notes**
 
-While this process is implemented as a single use case class for demonstration purposes, in a **production-grade system
-** this orchestration would ideally be handled using the **Chain of Responsibility Pattern**:
+While this process is implemented as a single use case class for demonstration purposes, in a **production-grade system** this orchestration would ideally be handled using the **Chain of Responsibility Pattern**:
 
 - Each step (e.g., stock check, payment, shipping) would be encapsulated in its own **processor**.
 - These processors would be linked in a chain, with each one performing its task and passing control to the next.
