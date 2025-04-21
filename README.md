@@ -43,7 +43,7 @@ which can be redeemed for discounts or perks, enhancing user engagement and rete
   Use one of the test users below to authenticate:
 
   | Username     | Role  | Password  |
-        |--------------|-------|-----------|
+  |--------------|-------|-----------|
   | `bob`        | USER  | 12345678  |
   | `alice`      | USER  | 12345678  |
   | `admin`      | ADMIN | 12345678  |
