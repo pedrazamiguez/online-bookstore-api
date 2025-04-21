@@ -36,9 +36,9 @@ public class OrderEntity extends AuditEntity {
   private List<OrderItemEntity> items = new ArrayList<>();
 
   @Enumerated(EnumType.STRING)
-  @Column(nullable = false)
+  @Column
   private PaymentMethod paymentMethod;
 
-  @Column(nullable = false)
+  @Column
   private String shippingAddress;
 }

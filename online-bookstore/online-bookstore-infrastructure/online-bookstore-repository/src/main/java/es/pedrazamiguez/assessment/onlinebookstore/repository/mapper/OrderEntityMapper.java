@@ -32,11 +32,44 @@ public interface OrderEntityMapper {
   @Mapping(target = "orderId", source = "order.id")
   @Mapping(target = "allocation.copies", source = "quantity")
   @Mapping(target = "allocation.book", source = "book")
+  @Mapping(target = "payableAmount.discount", source = "purchasedDiscountRate")
+  @Mapping(
+      target = "payableAmount.subtotal",
+      expression = "java( this.getSubTotal(orderItemEntity) )")
   OrderItem orderItemEntityToOrderItem(OrderItemEntity orderItemEntity);
+
+  default BigDecimal getBookPrice(final OrderItemEntity orderItemEntity) {
+    if (ObjectUtils.isEmpty(orderItemEntity)) {
+      return BigDecimal.ZERO;
+    }
+
+    if (ObjectUtils.isEmpty(orderItemEntity.getPurchasedUnitPrice())) {
+      return orderItemEntity.getBook().getPrice();
+    }
+
+    return orderItemEntity.getPurchasedUnitPrice();
+  }
+
+  default BigDecimal getSubTotal(final OrderItemEntity orderItemEntity) {
+    if (ObjectUtils.isEmpty(orderItemEntity)) {
+      return BigDecimal.ZERO;
+    }
+
+    if (ObjectUtils.isEmpty(orderItemEntity.getPurchasedUnitPrice())) {
+      return BigDecimal.ZERO;
+    }
+
+    return orderItemEntity
+        .getPurchasedUnitPrice()
+        .multiply(new BigDecimal(orderItemEntity.getQuantity()))
+        .multiply(orderItemEntity.getPurchasedDiscountRate());
+  }
 
   @Mapping(target = "order.id", source = "orderId")
   @Mapping(target = "quantity", source = "allocation.copies")
   @Mapping(target = "book", source = "allocation.book")
+  @Mapping(target = "purchasedUnitPrice", source = "allocation.book.price")
+  @Mapping(target = "purchasedDiscountRate", source = "payableAmount.discount")
   OrderItemEntity orderItemToOrderItemEntity(OrderItem orderItem);
 
   default OrderEntity toNewOrderEntity(final CustomerEntity customerEntity) {
@@ -96,8 +129,28 @@ public interface OrderEntityMapper {
     items.add(newOrderItem);
   }
 
-  default void patchOrderRequest(OrderEntity orderEntity, Order orderRequest) {
+  default void patchOrderRequest(final OrderEntity orderEntity, final Order orderRequest) {
     orderEntity.setShippingAddress(orderRequest.getShippingAddress());
     orderEntity.setPaymentMethod(orderRequest.getPaymentMethod());
+  }
+
+  default void patchOrderItems(final OrderEntity orderEntity, final Order order) {
+    orderEntity
+        .getItems()
+        .forEach(
+            orderItemEntity -> {
+              final Long bookId = orderItemEntity.getBook().getId();
+              final OrderItem orderItem =
+                  order.getLines().stream()
+                      .filter(line -> line.getAllocation().getBook().getId().equals(bookId))
+                      .findFirst()
+                      .orElse(null);
+              if (!ObjectUtils.isEmpty(orderItem)) {
+                orderItemEntity.setPurchasedUnitPrice(
+                    orderItem.getAllocation().getBook().getPrice());
+                orderItemEntity.setPurchasedDiscountRate(
+                    orderItem.getPayableAmount().getDiscount());
+              }
+            });
   }
 }

@@ -52,13 +52,13 @@ public class PerformPurchaseUseCaseImpl implements PerformPurchaseUseCase {
 
     this.shippingService.processShipping(orderRequest.getShippingAddress(), existingOrder.getId());
 
-    // Modify DB
+    final Order purchasedOrder = this.orderRepository.purchaseOrder(existingOrder, orderRequest);
 
     // Update inventory
 
     // Calculate loyalty points
 
-    return null;
+    return purchasedOrder;
   }
 
   private void assureOrderContainsItemsForPurchase(final Order existingOrder) {

@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.envers.Audited;
 
+import java.math.BigDecimal;
+
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Audited
@@ -25,4 +27,10 @@ public class OrderItemEntity extends AuditEntity {
 
   @Column(nullable = false)
   private Long quantity;
+
+  @Column(precision = 10, scale = 4)
+  private BigDecimal purchasedUnitPrice;
+
+  @Column(precision = 10, scale = 4)
+  private BigDecimal purchasedDiscountRate;
 }

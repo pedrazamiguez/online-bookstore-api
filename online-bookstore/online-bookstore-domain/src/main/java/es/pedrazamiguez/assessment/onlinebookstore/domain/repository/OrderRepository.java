@@ -15,5 +15,5 @@ public interface OrderRepository {
 
   Order deleteOrderItems(Long orderId);
 
-  Order purchaseOrder(Long orderId, Order orderRequest);
+  Order purchaseOrder(Order order, Order orderRequest);
 }

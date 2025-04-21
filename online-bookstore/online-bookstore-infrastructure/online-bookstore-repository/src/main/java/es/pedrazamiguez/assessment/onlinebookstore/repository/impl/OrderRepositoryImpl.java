@@ -99,8 +99,9 @@ public class OrderRepositoryImpl implements OrderRepository {
   }
 
   @Override
-  public Order purchaseOrder(final Long orderId, final Order orderRequest) {
-    log.info("Purchasing order for orderId: {}", orderId);
+  public Order purchaseOrder(final Order order, final Order orderRequest) {
+    final Long orderId = order.getId();
+    log.info("Purchasing order for orderId: {}", order);
 
     final OrderEntity existingOrderEntity =
         this.orderJpaRepository
@@ -108,8 +109,9 @@ public class OrderRepositoryImpl implements OrderRepository {
             .orElseThrow(() -> new OrderNotFoundException(orderId));
 
     this.orderEntityMapper.patchOrderRequest(existingOrderEntity, orderRequest);
+    this.orderEntityMapper.patchOrderItems(existingOrderEntity, order);
+    existingOrderEntity.setTotalPrice(order.getTotalPrice());
     existingOrderEntity.setStatus(OrderStatus.PURCHASED);
-
 
     final OrderEntity savedOrderEntity = this.orderJpaRepository.save(existingOrderEntity);
     return this.orderEntityMapper.toDomain(savedOrderEntity);
