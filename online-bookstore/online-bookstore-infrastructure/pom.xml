@@ -18,6 +18,8 @@
 
     <modules>
         <module>online-bookstore-repository</module>
+        <module>online-bookstore-mastercard-payment-service</module>
+        <module>online-bookstore-ups-shipping-service</module>
     </modules>
 
 </project>

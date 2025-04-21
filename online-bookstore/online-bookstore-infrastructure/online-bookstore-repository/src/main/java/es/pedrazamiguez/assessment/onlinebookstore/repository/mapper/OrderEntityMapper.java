@@ -95,4 +95,9 @@ public interface OrderEntityMapper {
 
     items.add(newOrderItem);
   }
+
+  default void patchOrderRequest(OrderEntity orderEntity, Order orderRequest) {
+    orderEntity.setShippingAddress(orderRequest.getShippingAddress());
+    orderEntity.setPaymentMethod(orderRequest.getPaymentMethod());
+  }
 }

@@ -5,8 +5,10 @@ import es.pedrazamiguez.assessment.onlinebookstore.domain.entity.Order;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.service.order.FinalPriceService;
 import java.math.BigDecimal;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class FinalPriceServiceImpl implements FinalPriceService {
@@ -15,6 +17,8 @@ public class FinalPriceServiceImpl implements FinalPriceService {
 
   @Override
   public void calculate(final Order order) {
+    log.info("Calculating final price for orderId {}", order.getId());
+
     final BigDecimal totalPrice =
         order.getLines().stream()
             .map(
@@ -25,5 +29,7 @@ public class FinalPriceServiceImpl implements FinalPriceService {
             .reduce(BigDecimal.ZERO, BigDecimal::add);
 
     order.setTotalPrice(totalPrice);
+
+    log.info("Final price for orderId {} is {}", order.getId(), totalPrice);
   }
 }

@@ -1,6 +1,7 @@
 package es.pedrazamiguez.assessment.onlinebookstore.repository.entity;
 
 import es.pedrazamiguez.assessment.onlinebookstore.domain.enums.OrderStatus;
+import es.pedrazamiguez.assessment.onlinebookstore.domain.enums.PaymentMethod;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -33,4 +34,11 @@ public class OrderEntity extends AuditEntity {
 
   @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<OrderItemEntity> items = new ArrayList<>();
+
+  @Enumerated(EnumType.STRING)
+  @Column(nullable = false)
+  private PaymentMethod paymentMethod;
+
+  @Column(nullable = false)
+  private String shippingAddress;
 }

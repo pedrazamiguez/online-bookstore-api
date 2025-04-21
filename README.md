@@ -130,6 +130,57 @@ public interface SubtotalPriceService {
 This design choice aligns with the overall **Hexagonal Architecture**, isolating domain logic from infrastructure and
 making it easier to evolve the system over time.
 
+---
+
+### Performing a Purchase
+
+The core logic for completing a purchase is encapsulated in the `PerformPurchaseUseCase`, which orchestrates the
+following steps:
+
+1. **Retrieve Order**  
+   The order associated with the currently authenticated user is retrieved.
+
+2. **Validate Order Contents**  
+   Ensures the order contains at least one item. If not, an error is returned.
+
+3. **Stock Verification**  
+   For each order line, the system checks whether there is sufficient stock available.
+
+4. **Subtotal Calculation & Discounts**  
+   Applies pricing strategies depending on the book type (`NEW_RELEASE`, `REGULAR`, `OLD_EDITION`), calculating
+   subtotals and applying relevant discounts.
+
+5. **Simulated Payment Processing**  
+   Mimics the behavior of an external payment provider. In a production system, this would involve real-world
+   integrations.
+
+6. **Simulated Shipping Process**  
+   Represents the logistics step — preparing the order for shipping. In a real-world app, this would involve warehouse
+   and courier system integrations.
+
+7. **Order & Database Update**  
+   The order status is updated (e.g., from `CREATED` to `PURCHASED`) and all necessary database records are updated
+   accordingly.
+
+8. **Inventory Update**  
+   Book stock quantities are adjusted based on the purchased items.
+
+9. **Loyalty Points Calculation**  
+   The customer’s loyalty points are updated based on the purchase value and configured rules.
+
+**Architectural Notes**
+
+While this process is implemented as a single use case class for demonstration purposes, in a **production-grade system
+** this orchestration would ideally be handled using the **Chain of Responsibility Pattern**:
+
+- Each step (e.g., stock check, payment, shipping) would be encapsulated in its own **processor**.
+- These processors would be linked in a chain, with each one performing its task and passing control to the next.
+- This design promotes **modularity**, **reusability**, and **separation of concerns**, making it easier to handle
+  failures, retries, or alternate flows (e.g., different payment providers or loyalty systems).
+
+By abstracting each operation as an independent handler, you gain flexibility to plug in, replace, or skip steps
+dynamically depending on business rules or order properties.
+
 ## Future Improvements
 
 - Pagination and filtering for list endpoints

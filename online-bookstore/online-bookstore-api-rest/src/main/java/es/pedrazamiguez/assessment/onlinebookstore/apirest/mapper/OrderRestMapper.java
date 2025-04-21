@@ -6,6 +6,8 @@ import es.pedrazamiguez.assessment.onlinebookstore.openapi.model.OrderDto;
 import es.pedrazamiguez.assessment.onlinebookstore.openapi.model.OrderItemDto;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+
+import es.pedrazamiguez.assessment.onlinebookstore.openapi.model.PurchaseRequestDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
@@ -36,6 +38,8 @@ public interface OrderRestMapper {
       source = "payableAmount.subtotal",
       qualifiedByName = "withPrecision")
   OrderItemDto orderItemToOrderItemDto(OrderItem orderItem);
+
+  Order toDomain(PurchaseRequestDto purchaseRequestDto);
 
   @Named("discountPercentage")
   default BigDecimal getDiscountPercentage(final BigDecimal discountRate) {

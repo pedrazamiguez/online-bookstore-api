@@ -2,7 +2,6 @@ package es.pedrazamiguez.assessment.onlinebookstore.apirest.controller;
 
 import es.pedrazamiguez.assessment.onlinebookstore.apirest.mapper.OrderRestMapper;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.entity.Order;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.enums.PaymentMethod;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.usecase.order.AddToOrderUseCase;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.usecase.order.ClearOrderUseCase;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.usecase.order.RemoveFromOrderUseCase;
@@ -75,9 +74,11 @@ public class OrderController implements OrderApi {
   @PreAuthorize("hasRole('USER')")
   @Override
   public ResponseEntity<OrderDto> purchaseCurrentOrder(
-      final PurchaseRequestDto purchaseRequestDto) {
-    final Order order = this.performPurchaseUseCase.purchase(PaymentMethod.BANK_TRANSFER);
-    return ResponseEntity.ok(this.orderRestMapper.toDto(order));
+      final PurchaseRequestDto purchaseRequestODto) {
+
+    final Order orderRequest = this.orderRestMapper.toDomain(purchaseRequestODto);
+    final Order purchasedOrder = this.performPurchaseUseCase.purchase(orderRequest);
+    return ResponseEntity.ok(this.orderRestMapper.toDto(purchasedOrder));
   }
 
   @Override

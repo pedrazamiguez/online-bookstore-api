@@ -1,10 +1,7 @@
 package es.pedrazamiguez.assessment.onlinebookstore.apirest.exception;
 
 import es.pedrazamiguez.assessment.onlinebookstore.apirest.mapper.ErrorRestMapper;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.exception.BookAlreadyExistsException;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.exception.BookNotFoundException;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.exception.BookNotInOrderException;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.exception.NotEnoughBookCopiesException;
+import es.pedrazamiguez.assessment.onlinebookstore.domain.exception.*;
 import es.pedrazamiguez.assessment.onlinebookstore.openapi.model.ErrorDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -46,6 +43,13 @@ public class BookstoreExceptionHandler {
   public ResponseEntity<ErrorDto> handleBookNotInOrderException(
       final BookNotInOrderException e, final WebRequest request) {
     final HttpStatus status = HttpStatus.CONFLICT;
+    return ResponseEntity.status(status).body(this.errorRestMapper.toDto(status, e, request));
+  }
+
+  @ExceptionHandler(OrderContainsNoItemsException.class)
+  public ResponseEntity<ErrorDto> handleOrderContainsNoItemsException(
+      final OrderContainsNoItemsException e, final WebRequest request) {
+    final HttpStatus status = HttpStatus.PRECONDITION_FAILED;
     return ResponseEntity.status(status).body(this.errorRestMapper.toDto(status, e, request));
   }
 }
