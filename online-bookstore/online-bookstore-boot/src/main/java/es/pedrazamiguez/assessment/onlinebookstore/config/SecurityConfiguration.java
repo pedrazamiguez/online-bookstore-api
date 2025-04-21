@@ -33,13 +33,17 @@ public class SecurityConfiguration {
         .authorizeHttpRequests(
             authorize ->
                 authorize
+                    // / (index)
+                    .requestMatchers(HttpMethod.GET, "/")
+                    .permitAll()
+
+                    // swagger-ui
+                    .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/openapi.yml")
+                    .permitAll()
+
                     // /h2-console
                     .requestMatchers("/h2-console/**")
                     .hasAnyRole("USER", "ADMIN")
-
-                    // swagger-ui
-                    .requestMatchers("/v3/api-docs/**", "/swagger-ui/**")
-                    .permitAll()
 
                     // /v1/books -> GET for USER and ADMIN
                     .requestMatchers(HttpMethod.GET, "/v1/books/**")
