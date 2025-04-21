@@ -90,8 +90,6 @@ In a production setting, the following components would be implemented or replac
 - **ElasticSearch** for advanced search features
 - **Microservice Architecture** with service discovery and API gateways
 
----
-
 ## Future Improvements
 
 - Pagination and filtering for list endpoints
