@@ -10,6 +10,7 @@ import es.pedrazamiguez.assessment.onlinebookstore.openapi.model.OrderDto;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.NotImplementedException;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -23,6 +24,7 @@ public class OrderController implements OrderApi {
   private final OrderRestMapper orderRestMapper;
 
   @Override
+  @PreAuthorize("hasRole('USER')")
   public ResponseEntity<OrderDto> addBookToCurrentOrder(
       final Long bookId, final AllocationDto allocationDto) {
 
@@ -31,11 +33,13 @@ public class OrderController implements OrderApi {
   }
 
   @Override
+  @PreAuthorize("hasRole('USER')")
   public ResponseEntity<Void> clearCurrentOrder() {
     throw new NotImplementedException("Not implemented yet");
   }
 
   @Override
+  @PreAuthorize("hasRole('USER')")
   public ResponseEntity<OrderDto> getCurrentOrder() {
     return this.viewOrderUseCase
         .getCurrentOrderForCustomer()
@@ -45,21 +49,25 @@ public class OrderController implements OrderApi {
   }
 
   @Override
+  @PreAuthorize("hasRole('USER')")
   public ResponseEntity<Void> getOrderById(final Long orderId) {
     throw new NotImplementedException("Not implemented yet");
   }
 
   @Override
+  @PreAuthorize("hasRole('USER')")
   public ResponseEntity<Void> getOrderHistory() {
     throw new NotImplementedException("Not implemented yet");
   }
 
   @Override
+  @PreAuthorize("hasRole('USER')")
   public ResponseEntity<Void> purchaseCurrentOrder() {
     throw new NotImplementedException("Not implemented yet");
   }
 
   @Override
+  @PreAuthorize("hasRole('USER')")
   public ResponseEntity<Void> removeBookFromCurrentOrder(final Long bookId) {
     throw new NotImplementedException("Not implemented yet");
   }

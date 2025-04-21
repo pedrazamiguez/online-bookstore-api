@@ -9,6 +9,7 @@ import org.apache.commons.lang3.NotImplementedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.authorization.AuthorizationDeniedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
@@ -57,6 +58,13 @@ public class RestExceptionHandler {
   public ResponseEntity<ErrorDto> handleMissingServletRequestParameterException(
       final MissingServletRequestParameterException e, final WebRequest request) {
     final HttpStatus status = HttpStatus.BAD_REQUEST;
+    return ResponseEntity.status(status).body(this.errorRestMapper.toDto(status, e, request));
+  }
+
+  @ExceptionHandler(AuthorizationDeniedException.class)
+  public ResponseEntity<ErrorDto> handleAuthorizationDeniedException(
+      final AuthorizationDeniedException e, final WebRequest request) {
+    final HttpStatus status = HttpStatus.FORBIDDEN;
     return ResponseEntity.status(status).body(this.errorRestMapper.toDto(status, e, request));
   }
 

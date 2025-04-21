@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -31,6 +32,7 @@ public class InventoryController implements InventoryApi {
   private final InventoryRestMapper inventoryRestMapper;
 
   @Override
+  @PreAuthorize("hasRole('ADMIN')")
   public ResponseEntity<InventoryItemDto> addBookCopiesToInventory(
       final Long bookId, final AllocationDto allocationDto) {
 
@@ -44,6 +46,7 @@ public class InventoryController implements InventoryApi {
   }
 
   @Override
+  @PreAuthorize("hasRole('USER')")
   public ResponseEntity<List<InventoryItemDto>> getInventory(final Boolean includeOutOfStock) {
     final List<BookAllocation> bookAllocationFound =
         this.getInventoryStatusUseCase.getInventoryStatus(Boolean.TRUE.equals(includeOutOfStock));
@@ -53,6 +56,7 @@ public class InventoryController implements InventoryApi {
   }
 
   @Override
+  @PreAuthorize("hasRole('ADMIN')")
   public ResponseEntity<InventoryItemDto> removeBookCopiesFromInventory(
       final Long bookId, final Long copies) {
 
@@ -66,6 +70,7 @@ public class InventoryController implements InventoryApi {
   }
 
   @Override
+  @PreAuthorize("hasRole('ADMIN')")
   public ResponseEntity<Void> removeOldBookCopies(final LocalDateTime date) {
     this.deleteOldCopiesFromInventoryUseCase.deleteOldCopies(date);
     return ResponseEntity.noContent().build();

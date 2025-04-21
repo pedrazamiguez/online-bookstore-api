@@ -66,12 +66,11 @@ which can be redeemed for discounts or perks, enhancing user engagement and rete
   - **Password:** *(leave blank)*
 
   A dataset is preloaded with sample data for testing purposes.
-
   You can view and manipulate the data directly in the H2 console.
 
 ## Architecture & Technical Decisions
 
-This project was built as a **showcase**, prioritizing simplicity and clarity over production-grade complexity. Below
+This project was built as a *showcase*, prioritizing simplicity and clarity over production-grade complexity. Below
 are some key decisions and design choices made during development:
 
 ### Hexagonal Architecture (Ports & Adapters)
