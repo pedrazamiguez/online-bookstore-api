@@ -130,8 +130,6 @@ public interface SubtotalPriceService {
 This design choice aligns with the overall **Hexagonal Architecture**, isolating domain logic from infrastructure and
 making it easier to evolve the system over time.
 
----
-
 ### Performing a Purchase
 
 The core logic for completing a purchase is encapsulated in the `PerformPurchaseUseCase`, which orchestrates the
