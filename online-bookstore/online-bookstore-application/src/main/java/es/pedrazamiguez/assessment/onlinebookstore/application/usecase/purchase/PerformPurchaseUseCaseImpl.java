@@ -3,6 +3,7 @@ package es.pedrazamiguez.assessment.onlinebookstore.application.usecase.purchase
 import es.pedrazamiguez.assessment.onlinebookstore.domain.entity.Order;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.entity.OrderItem;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.exception.OrderContainsNoItemsException;
+import es.pedrazamiguez.assessment.onlinebookstore.domain.repository.BookCopyRepository;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.repository.OrderRepository;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.service.book.AvailableBookCopiesService;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.service.order.CurrentOrderService;
@@ -35,6 +36,8 @@ public class PerformPurchaseUseCaseImpl implements PerformPurchaseUseCase {
 
   private final FinalPriceService finalPriceService;
 
+  private final BookCopyRepository bookCopyRepository;
+
   @Override
   @Transactional
   public Order purchase(final Order orderRequest) {
@@ -54,7 +57,7 @@ public class PerformPurchaseUseCaseImpl implements PerformPurchaseUseCase {
 
     final Order purchasedOrder = this.orderRepository.purchaseOrder(existingOrder, orderRequest);
 
-    // Update inventory
+    this.updateInventory(purchasedOrder);
 
     // Calculate loyalty points
 
@@ -74,5 +77,16 @@ public class PerformPurchaseUseCaseImpl implements PerformPurchaseUseCase {
             allocation ->
                 this.availableBookCopiesService.assure(
                     allocation.getBook().getId(), allocation.getCopies()));
+  }
+
+  private void updateInventory(final Order purchasedOrder) {
+    purchasedOrder
+        .getLines()
+        .forEach(
+            orderItem -> {
+              final Long bookId = orderItem.getAllocation().getBook().getId();
+              final Long copies = orderItem.getAllocation().getCopies();
+              this.bookCopyRepository.deleteCopies(bookId, copies);
+            });
   }
 }
