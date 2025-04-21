@@ -3,6 +3,7 @@ package es.pedrazamiguez.assessment.onlinebookstore.repository.impl;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.entity.Order;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.enums.OrderStatus;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.exception.BookNotFoundException;
+import es.pedrazamiguez.assessment.onlinebookstore.domain.exception.BookNotInOrderException;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.exception.CustomerNotFoundException;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.exception.OrderNotFoundException;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.repository.OrderRepository;
@@ -62,26 +63,68 @@ public class OrderRepositoryImpl implements OrderRepository {
             .findById(orderId)
             .orElseThrow(() -> new OrderNotFoundException(orderId));
 
-    this.patchWithItem(existingOrderEntity, bookId, quantity);
+    this.patchWithAddedItem(existingOrderEntity, bookId, quantity);
     final OrderEntity savedOrderEntity = this.orderJpaRepository.save(existingOrderEntity);
     return this.orderEntityMapper.toDomain(savedOrderEntity);
   }
 
-  private void patchWithItem(
+  @Override
+  public Order deleteOrderItem(final Long orderId, final Long bookId, final Long quantity) {
+    log.info(
+        "Deleting order item for orderId: {}, bookId: {}, quantity: {}", orderId, bookId, quantity);
+
+    final OrderEntity existingOrderEntity =
+        this.orderJpaRepository
+            .findById(orderId)
+            .orElseThrow(() -> new OrderNotFoundException(orderId));
+
+    this.patchWithDeletedItem(existingOrderEntity, bookId, quantity);
+    final OrderEntity savedOrderEntity = this.orderJpaRepository.save(existingOrderEntity);
+    return this.orderEntityMapper.toDomain(savedOrderEntity);
+  }
+
+  @Override
+  public Order deleteOrderItems(final Long orderId) {
+    log.info("Deleting order items for orderId: {}", orderId);
+
+    final OrderEntity existingOrderEntity =
+        this.orderJpaRepository
+            .findById(orderId)
+            .orElseThrow(() -> new OrderNotFoundException(orderId));
+
+    existingOrderEntity.getItems().clear();
+    final OrderEntity savedOrderEntity = this.orderJpaRepository.save(existingOrderEntity);
+
+    return this.orderEntityMapper.toDomain(savedOrderEntity);
+  }
+
+  private boolean isBookInOrder(final OrderEntity orderEntity, final Long bookId) {
+    return orderEntity.getItems().stream()
+        .anyMatch(orderItem -> bookId.equals(orderItem.getBook().getId()));
+  }
+
+  private void patchWithAddedItem(
       final OrderEntity existingOrderEntity, final Long bookId, final Long quantity) {
-    if (this.isBookAlreadyInOrder(existingOrderEntity, bookId)) {
-      this.orderEntityMapper.patchWithExistingOrderItem(existingOrderEntity, bookId, quantity);
+    if (this.isBookInOrder(existingOrderEntity, bookId)) {
+      this.orderEntityMapper.patchAdditionWithExistingOrderItem(
+          existingOrderEntity, bookId, quantity);
     } else {
       final BookEntity bookEntity =
           this.bookJpaRepository
               .findById(bookId)
               .orElseThrow(() -> new BookNotFoundException(bookId));
-      this.orderEntityMapper.patchWithNewOrderItem(existingOrderEntity, bookEntity, quantity);
+      this.orderEntityMapper.patchAdditionWithNewOrderItem(
+          existingOrderEntity, bookEntity, quantity);
     }
   }
 
-  private boolean isBookAlreadyInOrder(final OrderEntity orderEntity, final Long bookId) {
-    return orderEntity.getItems().stream()
-        .anyMatch(orderItem -> bookId.equals(orderItem.getBook().getId()));
+  private void patchWithDeletedItem(
+      final OrderEntity existingOrderEntity, final Long bookId, final Long quantity) {
+    if (this.isBookInOrder(existingOrderEntity, bookId)) {
+      this.orderEntityMapper.patchSubstractionWithExistingOrderItem(
+          existingOrderEntity, bookId, quantity);
+    } else {
+      throw new BookNotInOrderException(bookId, existingOrderEntity.getId());
+    }
   }
 }

@@ -3,6 +3,8 @@ package es.pedrazamiguez.assessment.onlinebookstore.apirest.controller;
 import es.pedrazamiguez.assessment.onlinebookstore.apirest.mapper.OrderRestMapper;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.entity.Order;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.usecase.order.AddToOrderUseCase;
+import es.pedrazamiguez.assessment.onlinebookstore.domain.usecase.order.ClearOrderUseCase;
+import es.pedrazamiguez.assessment.onlinebookstore.domain.usecase.order.RemoveFromOrderUseCase;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.usecase.order.ViewOrderUseCase;
 import es.pedrazamiguez.assessment.onlinebookstore.openapi.api.OrderApi;
 import es.pedrazamiguez.assessment.onlinebookstore.openapi.model.AllocationDto;
@@ -21,6 +23,10 @@ public class OrderController implements OrderApi {
 
   private final AddToOrderUseCase addToOrderUseCase;
 
+  private final ClearOrderUseCase clearOrderUseCase;
+
+  private final RemoveFromOrderUseCase removeFromOrderUseCase;
+
   private final OrderRestMapper orderRestMapper;
 
   @Override
@@ -35,7 +41,8 @@ public class OrderController implements OrderApi {
   @Override
   @PreAuthorize("hasRole('USER')")
   public ResponseEntity<Void> clearCurrentOrder() {
-    throw new NotImplementedException("Not implemented yet");
+    this.clearOrderUseCase.clearOrderItems();
+    return ResponseEntity.noContent().build();
   }
 
   @Override
@@ -68,7 +75,11 @@ public class OrderController implements OrderApi {
 
   @Override
   @PreAuthorize("hasRole('USER')")
-  public ResponseEntity<Void> removeBookFromCurrentOrder(final Long bookId) {
-    throw new NotImplementedException("Not implemented yet");
+  public ResponseEntity<OrderDto> removeBookFromCurrentOrder(final Long bookId, final Long copies) {
+    return this.removeFromOrderUseCase
+        .removeFromOrder(bookId, copies)
+        .map(this.orderRestMapper::toDto)
+        .map(ResponseEntity::ok)
+        .orElse(ResponseEntity.noContent().build());
   }
 }

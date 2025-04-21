@@ -2,14 +2,14 @@ package es.pedrazamiguez.assessment.onlinebookstore.application.service.order;
 
 import es.pedrazamiguez.assessment.onlinebookstore.domain.adapter.CalculateSubtotalAdapter;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.entity.Order;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.service.order.FullPriceService;
+import es.pedrazamiguez.assessment.onlinebookstore.domain.service.order.FinalPriceService;
 import java.math.BigDecimal;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class FullPriceServiceImpl implements FullPriceService {
+public class FinalPriceServiceImpl implements FinalPriceService {
 
   private final CalculateSubtotalAdapter calculateSubtotalAdapter;
 

@@ -603,7 +603,7 @@ paths:
         $ref: '#/components/requestBodies/Allocation'
       responses:
         '200':
-          description: Book added to current order successfully
+          description: Book copies added to current order successfully
           content:
             application/json:
               schema:
@@ -660,9 +660,25 @@ paths:
             format: int64
             minimum: 1
           example: 178
+        - name: copies
+          in: query
+          description: Number of copies to remove from the current order
+          required: true
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+            maximum: 1000
+          example: 10
       responses:
+        '200':
+          description: Current order details retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
         '204':
-          description: Book removed from current order successfully
+          description: Book copies removed from current order successfully
         '500':
           description: Unexpected error
           content:

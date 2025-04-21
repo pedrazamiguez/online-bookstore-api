@@ -1,6 +1,5 @@
 package es.pedrazamiguez.assessment.onlinebookstore.repository.mapper;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.entity.BookAllocation;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.entity.Order;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.entity.OrderItem;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.enums.OrderStatus;
@@ -19,6 +18,9 @@ public interface OrderEntityMapper {
   @Mapping(target = "lines", source = "items")
   Order toDomain(OrderEntity orderEntity);
 
+  @Mapping(target = "items", source = "lines")
+  OrderEntity toEntity(Order order);
+
   default Long mapOrderItemId(final OrderItemId value) {
     if (ObjectUtils.isEmpty(value)) {
       return null;
@@ -32,6 +34,11 @@ public interface OrderEntityMapper {
   @Mapping(target = "allocation.book", source = "book")
   OrderItem orderItemEntityToOrderItem(OrderItemEntity orderItemEntity);
 
+  @Mapping(target = "order.id", source = "orderId")
+  @Mapping(target = "quantity", source = "allocation.copies")
+  @Mapping(target = "book", source = "allocation.book")
+  OrderItemEntity orderItemToOrderItemEntity(OrderItem orderItem);
+
   default OrderEntity toNewOrderEntity(final CustomerEntity customerEntity) {
     final OrderEntity orderEntity = new OrderEntity();
     orderEntity.setCustomer(customerEntity);
@@ -40,7 +47,7 @@ public interface OrderEntityMapper {
     return orderEntity;
   }
 
-  default void patchWithExistingOrderItem(
+  default void patchAdditionWithExistingOrderItem(
       final OrderEntity orderEntity, final Long bookId, final Long quantity) {
 
     final Optional<OrderItemEntity> optionalItem =
@@ -52,7 +59,25 @@ public interface OrderEntityMapper {
         existingItem -> existingItem.setQuantity(existingItem.getQuantity() + quantity));
   }
 
-  default void patchWithNewOrderItem(
+  default void patchSubstractionWithExistingOrderItem(
+      final OrderEntity orderEntity, final Long bookId, final Long quantity) {
+
+    final Optional<OrderItemEntity> optionalItem =
+        orderEntity.getItems().stream()
+            .filter(item -> bookId.equals(item.getBook().getId()))
+            .findFirst();
+
+    optionalItem.ifPresent(
+        existingItem -> {
+          if (existingItem.getQuantity() > quantity) {
+            existingItem.setQuantity(existingItem.getQuantity() - quantity);
+          } else {
+            orderEntity.getItems().remove(existingItem);
+          }
+        });
+  }
+
+  default void patchAdditionWithNewOrderItem(
       final OrderEntity orderEntity, final BookEntity bookEntity, final Long quantity) {
 
     final List<OrderItemEntity> items = orderEntity.getItems();
