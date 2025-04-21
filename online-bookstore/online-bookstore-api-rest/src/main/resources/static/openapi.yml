@@ -701,7 +701,29 @@ paths:
       summary: Purchase current order
       description: Purchase current order - Requires role <code>USER</code>
       operationId: purchaseCurrentOrder
+      requestBody:
+        $ref: '#/components/requestBodies/Purchase'
       responses:
+        '200':
+          description: Order purchased successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+              example:
+                id: 178
+                lines:
+                  - bookId: 178
+                    isbn: "9780747532743"
+                    title: "Effective Java"
+                    price: "21.99"
+                    type: REGULAR
+                    quantity: 3
+                    discountRate: "0.90"
+                    discountPercentage: "10.00"
+                    subtotal: "59.37"
+                totalPrice: "59.37"
+                status: PURCHASED
         '500':
           description: Unexpected error
           content:
@@ -861,6 +883,15 @@ components:
         - CREATED
         - PURCHASED
 
+    PaymentMethod:
+      type: string
+      description: Payment method used to place the order
+      enum:
+        - CREDIT_CARD
+        - DEBIT_CARD
+        - PAYPAL
+        - BANK_TRANSFER
+
     Book:
       type: object
       properties:
@@ -897,6 +928,19 @@ components:
           $ref: '#/components/schemas/BookGenre'
         type:
           $ref: '#/components/schemas/BookType'
+
+    PurchaseRequest:
+      required:
+        - paymentMethod
+        - shippingAddress
+      type: object
+      properties:
+        paymentMethod:
+          $ref: '#/components/schemas/PaymentMethod'
+        shippingAddress:
+          type: string
+          description: Shipping address for the order
+          example: "123 Main St, Springfield, IL 62704"
 
     BookRequest:
       required:
@@ -936,8 +980,8 @@ components:
           type: string
           format: decimal
           description: Price of the book
-          minimum: "0.00"
-          maximum: "999.99"
+          minimum: 0.00
+          maximum: 999.99
           example: "21.99"
         genre:
           $ref: '#/components/schemas/BookGenre'
@@ -1025,10 +1069,15 @@ components:
           format: int64
           description: Number of copies of the book in the order
           example: 3
-        discount:
+        discountRate:
           type: string
           format: decimal
-          description: Discount applied to the book in the order
+          description: Discount rate applied to the book in the order
+          example: "0.80"
+        discountPercentage:
+          type: string
+          format: decimal
+          description: Discount percentage applied to the book in the order
           example: "20.00"
         subtotal:
           type: string
@@ -1102,6 +1151,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Allocation'
+
+    Purchase:
+      description: Details of the purchase to be made
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PurchaseRequest'
 
   securitySchemes:
     basicAuth:

@@ -2,13 +2,16 @@ package es.pedrazamiguez.assessment.onlinebookstore.apirest.controller;
 
 import es.pedrazamiguez.assessment.onlinebookstore.apirest.mapper.OrderRestMapper;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.entity.Order;
+import es.pedrazamiguez.assessment.onlinebookstore.domain.enums.PaymentMethod;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.usecase.order.AddToOrderUseCase;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.usecase.order.ClearOrderUseCase;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.usecase.order.RemoveFromOrderUseCase;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.usecase.order.ViewOrderUseCase;
+import es.pedrazamiguez.assessment.onlinebookstore.domain.usecase.purchase.PerformPurchaseUseCase;
 import es.pedrazamiguez.assessment.onlinebookstore.openapi.api.OrderApi;
 import es.pedrazamiguez.assessment.onlinebookstore.openapi.model.AllocationDto;
 import es.pedrazamiguez.assessment.onlinebookstore.openapi.model.OrderDto;
+import es.pedrazamiguez.assessment.onlinebookstore.openapi.model.PurchaseRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.NotImplementedException;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +29,8 @@ public class OrderController implements OrderApi {
   private final ClearOrderUseCase clearOrderUseCase;
 
   private final RemoveFromOrderUseCase removeFromOrderUseCase;
+
+  private final PerformPurchaseUseCase performPurchaseUseCase;
 
   private final OrderRestMapper orderRestMapper;
 
@@ -67,10 +72,12 @@ public class OrderController implements OrderApi {
     throw new NotImplementedException("Not implemented yet");
   }
 
-  @Override
   @PreAuthorize("hasRole('USER')")
-  public ResponseEntity<Void> purchaseCurrentOrder() {
-    throw new NotImplementedException("Not implemented yet");
+  @Override
+  public ResponseEntity<OrderDto> purchaseCurrentOrder(
+      final PurchaseRequestDto purchaseRequestDto) {
+    final Order order = this.performPurchaseUseCase.purchase(PaymentMethod.BANK_TRANSFER);
+    return ResponseEntity.ok(this.orderRestMapper.toDto(order));
   }
 
   @Override
