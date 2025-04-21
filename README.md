@@ -90,6 +90,34 @@ In a production setting, the following components would be implemented or replac
 - **ElasticSearch** for advanced search features
 - **Microservice Architecture** with service discovery and API gateways
 
+### Pricing Strategy
+
+The API uses the **Strategy Pattern** to calculate the subtotal of a book depending on its type.  
+Each book type (`NEW_RELEASE`, `REGULAR`, `OLD_EDITION`) has a specific pricing strategy encapsulated in its own class.
+
+This approach was chosen for the following reasons:
+
+- **Maintainability**: Business rules for pricing can evolve independently for each book type without altering core
+  logic.
+- **Extensibility**: New strategies (e.g., promotional discounts, dynamic pricing) can be added without modifying
+  existing code.
+- **Encapsulation**: Keeps the pricing logic out of the data layer and within a well-defined, testable context.
+
+Although this logic could have been embedded into the database (e.g., storing discount percentages alongside book
+types), the Strategy Pattern allows for more **flexible** and **scalable** behavior. For example, future discount rules
+might depend on **publisher**, **publication year**, **customer status**, or other properties — all of which can be more
+easily handled in code than in static database rules.
+
+```java
+public interface SubtotalPriceService {
+  String getBookTypeCode();
+  PayableAmount calculateSubtotal(OrderItem orderItem);
+}
+```
+
+This design choice aligns with the overall **Hexagonal Architecture**, isolating domain logic from infrastructure and
+making it easier to evolve the system over time.
+
 ## Future Improvements
 
 - Pagination and filtering for list endpoints

@@ -2,7 +2,7 @@ package es.pedrazamiguez.assessment.onlinebookstore.domain.service.order;
 
 import es.pedrazamiguez.assessment.onlinebookstore.domain.entity.Order;
 
-public interface RecalculatePriceService {
+public interface FullPriceService {
 
-  void recalculate(Order order);
+  void calculate(Order order);
 }

@@ -2,16 +2,15 @@ package es.pedrazamiguez.assessment.onlinebookstore.application.service.order;
 
 import es.pedrazamiguez.assessment.onlinebookstore.domain.entity.OrderItem;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.entity.PayableAmount;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.service.order.PriceService;
+import es.pedrazamiguez.assessment.onlinebookstore.domain.service.order.SubtotalPriceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 
 @Service
 @RequiredArgsConstructor
-public class OldEditionPriceServiceImpl implements PriceService {
+public class OldEditionSubtotalPriceServiceImpl implements SubtotalPriceService {
 
   private static final BigDecimal DEFAULT_DISCOUNT = new BigDecimal("0.8");
     private static final BigDecimal APPLICABLE_DISCOUNT = new BigDecimal("0.95");

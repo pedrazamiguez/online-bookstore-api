@@ -2,14 +2,14 @@ package es.pedrazamiguez.assessment.onlinebookstore.application.service.order;
 
 import es.pedrazamiguez.assessment.onlinebookstore.domain.entity.OrderItem;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.entity.PayableAmount;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.service.order.PriceService;
+import es.pedrazamiguez.assessment.onlinebookstore.domain.service.order.SubtotalPriceService;
 import java.math.BigDecimal;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class RegularPriceServiceImpl implements PriceService {
+public class RegularSubtotalPriceServiceImpl implements SubtotalPriceService {
 
   private static final BigDecimal NO_DISCOUNT = BigDecimal.ONE;
   private static final BigDecimal APPLICABLE_DISCOUNT = new BigDecimal("0.9");

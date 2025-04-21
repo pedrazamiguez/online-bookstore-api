@@ -4,7 +4,7 @@ import es.pedrazamiguez.assessment.onlinebookstore.domain.entity.Order;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.repository.OrderRepository;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.service.book.AvailableBookCopiesService;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.service.order.CurrentOrderService;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.service.order.RecalculatePriceService;
+import es.pedrazamiguez.assessment.onlinebookstore.domain.service.order.FullPriceService;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.service.security.SecurityService;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.usecase.order.AddToOrderUseCase;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +25,7 @@ public class AddToOrderUseCaseImpl implements AddToOrderUseCase {
 
   private final OrderRepository orderRepository;
 
-  private final RecalculatePriceService recalculatePriceService;
+  private final FullPriceService fullPriceService;
 
   @Override
   @Transactional
@@ -37,7 +37,7 @@ public class AddToOrderUseCaseImpl implements AddToOrderUseCase {
     final Order existingOrder = this.currentOrderService.getOrCreateOrder(username);
     final Order updatedOrder =
         this.orderRepository.saveOrderItem(existingOrder.getId(), bookId, copies);
-    this.recalculatePriceService.recalculate(updatedOrder);
+    this.fullPriceService.calculate(updatedOrder);
     return updatedOrder;
   }
 }
