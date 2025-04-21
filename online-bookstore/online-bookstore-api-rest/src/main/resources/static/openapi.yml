@@ -39,7 +39,7 @@ paths:
       tags:
         - book
       summary: Get book details by ID
-      description: Get book details by ID
+      description: Get book details by ID - Requires role <code>USER</code>
       operationId: getBookById
       parameters:
         - name: bookId
@@ -98,7 +98,7 @@ paths:
       tags:
         - book
       summary: Update book details
-      description: Update book details
+      description: Update book details - Requires role <code>ADMIN</code>
       operationId: updateBook
       requestBody:
         $ref: '#/components/requestBodies/Book'
@@ -181,7 +181,7 @@ paths:
       tags:
         - book
       summary: Delete book by ID
-      description: Delete book by ID
+      description: Delete book by ID - Requires role <code>ADMIN</code>
       operationId: deleteBook
       parameters:
         - name: bookId
@@ -238,7 +238,7 @@ paths:
       tags:
         - book
       summary: Get all books
-      description: Get all books
+      description: Get all books - Requires role <code>USER</code>
       operationId: getAllBooks
       responses:
         '200':
@@ -265,7 +265,7 @@ paths:
       tags:
         - book
       summary: Add a new book
-      description: Add a new book to the bookstore
+      description: Add a new book to the bookstore - Requires role <code>ADMIN</code>
       operationId: addBook
       requestBody:
         $ref: '#/components/requestBodies/Book'
@@ -329,7 +329,7 @@ paths:
       tags:
         - inventory
       summary: Get book copies in inventory
-      description: Get book copies in inventory
+      description: Get book copies in inventory - Requires role <code>USER</code>
       operationId: getInventory
       parameters:
         - name: includeOutOfStock
@@ -367,7 +367,7 @@ paths:
       tags:
         - inventory
       summary: Add book copies to inventory
-      description: Add book copies to inventory
+      description: Add book copies to inventory - Requires role <code>ADMIN</code>
       operationId: addBookCopiesToInventory
       parameters:
         - name: bookId
@@ -417,7 +417,7 @@ paths:
       tags:
         - inventory
       summary: Remove book copies from inventory
-      description: Remove book copies from inventory
+      description: Remove book copies from inventory - Requires role <code>ADMIN</code>
       operationId: removeBookCopiesFromInventory
       parameters:
         - name: bookId
@@ -488,7 +488,7 @@ paths:
       tags:
         - inventory
       summary: Remove book copies older than a given date
-      description: Remove book copies older than a given date
+      description: Remove book copies older than a given date - Requires role <code>ADMIN</code>
       operationId: removeOldBookCopies
       parameters:
         - name: date
@@ -533,7 +533,7 @@ paths:
       tags:
         - order
       summary: Get current order details
-      description: Get current order details
+      description: Get current order details - Requires role <code>USER</code>
       operationId: getCurrentOrder
       responses:
         '200':
@@ -562,7 +562,7 @@ paths:
       tags:
         - order
       summary: Clear current order
-      description: Clear current order
+      description: Clear current order - Requires role <code>USER</code>
       operationId: clearCurrentOrder
       responses:
         '204':
@@ -587,7 +587,7 @@ paths:
       tags:
         - order
       summary: Add book to current order
-      description: Add book to current order
+      description: Add book to current order - Requires role <code>USER</code>
       operationId: addBookToCurrentOrder
       parameters:
         - name: bookId
@@ -648,7 +648,7 @@ paths:
       tags:
         - order
       summary: Remove book from current order
-      description: Remove book from current order
+      description: Remove book from current order - Requires role <code>USER</code>
       operationId: removeBookFromCurrentOrder
       parameters:
         - name: bookId
@@ -683,7 +683,7 @@ paths:
       tags:
         - order
       summary: Purchase current order
-      description: Purchase current order
+      description: Purchase current order - Requires role <code>USER</code>
       operationId: purchaseCurrentOrder
       responses:
         '500':
@@ -706,7 +706,7 @@ paths:
       tags:
         - order
       summary: Get order history for the current customer
-      description: Get order history for the current customer
+      description: Get order history for the current customer - Requires role <code>USER</code>
       operationId: getOrderHistory
       responses:
         '500':
@@ -729,7 +729,7 @@ paths:
       tags:
         - order
       summary: Get order by ID
-      description: Get order by ID
+      description: Get order by ID - Requires role <code>USER</code>
       operationId: getOrderById
       parameters:
         - name: orderId
@@ -762,7 +762,7 @@ paths:
       tags:
         - customer
       summary: Get current customer loyalty points
-      description: Get current customer loyalty points
+      description: Get current customer loyalty points - Requires role <code>USER</code>
       operationId: getCurrentCustomerLoyaltyPoints
       responses:
         '500':
@@ -785,7 +785,7 @@ paths:
       tags:
         - customer
       summary: Get customer loyalty points
-      description: Get customer loyalty points
+      description: Get customer loyalty points - Requires role <code>ADMIN</code>
       operationId: getCustomerLoyaltyPoints
       parameters:
         - name: customerId
