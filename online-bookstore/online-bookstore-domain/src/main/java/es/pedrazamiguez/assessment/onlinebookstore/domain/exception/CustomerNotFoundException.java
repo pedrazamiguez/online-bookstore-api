@@ -1,6 +1,5 @@
 package es.pedrazamiguez.assessment.onlinebookstore.domain.exception;
 
-import lombok.Data;
 import lombok.Getter;
 
 @Getter

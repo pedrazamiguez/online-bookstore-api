@@ -1,14 +1,11 @@
 package es.pedrazamiguez.assessment.onlinebookstore.repository.mapper;
 
 import es.pedrazamiguez.assessment.onlinebookstore.domain.entity.BookAllocation;
-import es.pedrazamiguez.assessment.onlinebookstore.repository.projection.InventoryDetailsQueryResult;
 import es.pedrazamiguez.assessment.onlinebookstore.repository.entity.BookCopyEntity;
 import es.pedrazamiguez.assessment.onlinebookstore.repository.entity.BookEntity;
-
+import es.pedrazamiguez.assessment.onlinebookstore.repository.projection.InventoryDetailsQueryResult;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
@@ -24,10 +21,11 @@ public interface BookCopyEntityMapper {
               bookCopyEntity.setBook(bookEntity);
               return bookCopyEntity;
             })
-        .collect(Collectors.toList());
+        .toList();
   }
 
-  List<BookAllocation> toDomainList(List<InventoryDetailsQueryResult> inventoryDetailsQueryResultList);
+  List<BookAllocation> toDomainList(
+      List<InventoryDetailsQueryResult> inventoryDetailsQueryResultList);
 
   @Mapping(target = "book.id", source = "bookId")
   @Mapping(target = "book.isbn", source = "isbn")
@@ -38,5 +36,6 @@ public interface BookCopyEntityMapper {
   @Mapping(target = "book.price", source = "price")
   @Mapping(target = "book.genre", source = "genre")
   @Mapping(target = "book.type.code", source = "typeCode")
-  BookAllocation inventoryDetailsDtoToInventoryDetails(InventoryDetailsQueryResult inventoryDetailsQueryResult);
+  BookAllocation inventoryDetailsDtoToInventoryDetails(
+      InventoryDetailsQueryResult inventoryDetailsQueryResult);
 }

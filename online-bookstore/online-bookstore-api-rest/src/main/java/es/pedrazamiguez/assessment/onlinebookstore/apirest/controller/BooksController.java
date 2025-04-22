@@ -37,13 +37,13 @@ public class BooksController implements BookApi {
   @Override
   @PreAuthorize("hasRole('ADMIN')")
   public ResponseEntity<Void> deleteBook(final Long bookId) {
-    throw new NotImplementedException("Not implemented yet");
+    throw new NotImplementedException("Delete book not implemented yet");
   }
 
   @Override
   @PreAuthorize("hasRole('USER')")
   public ResponseEntity<List<BookDto>> getAllBooks() {
-    throw new NotImplementedException("Not implemented yet");
+    throw new NotImplementedException("Get all books not implemented yet");
   }
 
   @Override
@@ -58,6 +58,6 @@ public class BooksController implements BookApi {
   @PreAuthorize("hasRole('ADMIN')")
   public ResponseEntity<BookDto> updateBook(
       final Long bookId, final BookRequestDto bookRequestDto) {
-    throw new NotImplementedException("Not implemented yet");
+    throw new NotImplementedException("Update book not implemented yet");
   }
 }
