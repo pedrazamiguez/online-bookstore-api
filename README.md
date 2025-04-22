@@ -184,3 +184,9 @@ dynamically depending on business rules or order properties.
 - Order history and purchase analytics
 - Integration with external book metadata providers (e.g., ISBN DB)
 - Loyalty program rules engine for advanced reward systems
+- Refactor of the purchase process using a more extensible architecture (e.g., Chain of Responsibility) and improved
+  order mappers
+- Adjust inventory handling: instead of removing book copies upon purchase, mark them as "purchased" to keep historical
+  records intact and maintain accurate existence tracking
+- Implementation of customer loyalty point accumulation and redemption logic
+- Expansion of test coverage, including unit tests and end-to-end integration tests across critical flows

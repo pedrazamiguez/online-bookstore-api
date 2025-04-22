@@ -59,7 +59,7 @@ public class PerformPurchaseUseCaseImpl implements PerformPurchaseUseCase {
 
     this.updateInventory(purchasedOrder);
 
-    // Calculate loyalty points
+    // TODO: Calculate loyalty points
 
     return purchasedOrder;
   }
