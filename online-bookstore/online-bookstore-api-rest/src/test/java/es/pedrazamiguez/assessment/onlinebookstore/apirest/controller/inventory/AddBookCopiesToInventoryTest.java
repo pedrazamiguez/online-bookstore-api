@@ -69,7 +69,7 @@ class AddBookCopiesToInventoryTest extends BaseInventoryTestController {
     final InventoryItemDto expectedInventoryItemDto = this.givenInventoryItemDto(bookId, copies);
 
     // WHEN
-    when(this.addToInventoryUseCase.addToInventory(eq(bookId), eq(allocationDto.getCopies())))
+    when(this.addToInventoryUseCase.addToInventory(bookId, allocationDto.getCopies()))
         .thenReturn(Optional.of(expectedBookAllocation));
     when(this.inventoryRestMapper.inventoryDetailsToInventoryItemDto(expectedBookAllocation))
         .thenReturn(expectedInventoryItemDto);
@@ -91,7 +91,7 @@ class AddBookCopiesToInventoryTest extends BaseInventoryTestController {
         .isEqualTo(MediaType.APPLICATION_JSON.toString());
 
     // VERIFY
-    verify(this.addToInventoryUseCase).addToInventory(eq(bookId), eq(allocationDto.getCopies()));
+    verify(this.addToInventoryUseCase).addToInventory(bookId, allocationDto.getCopies());
     verify(this.inventoryRestMapper).inventoryDetailsToInventoryItemDto(expectedBookAllocation);
     verifyNoMoreInteractions(this.addToInventoryUseCase, this.inventoryRestMapper);
   }
@@ -108,7 +108,7 @@ class AddBookCopiesToInventoryTest extends BaseInventoryTestController {
     final AllocationDto allocationDto = this.givenAllocationDto(copies);
 
     // WHEN
-    when(this.addToInventoryUseCase.addToInventory(eq(bookId), eq(allocationDto.getCopies())))
+    when(this.addToInventoryUseCase.addToInventory(bookId, allocationDto.getCopies()))
         .thenReturn(Optional.empty());
 
     // THEN
@@ -124,7 +124,7 @@ class AddBookCopiesToInventoryTest extends BaseInventoryTestController {
     assertThat(result.getResponse().getStatus()).isEqualTo(HttpStatus.NO_CONTENT.value());
 
     // VERIFY
-    verify(this.addToInventoryUseCase).addToInventory(eq(bookId), eq(allocationDto.getCopies()));
+    verify(this.addToInventoryUseCase).addToInventory(bookId, allocationDto.getCopies());
     verifyNoInteractions(this.inventoryRestMapper, this.errorRestMapper);
   }
 
@@ -143,7 +143,7 @@ class AddBookCopiesToInventoryTest extends BaseInventoryTestController {
     final NullPointerException exceptionThrown = new NullPointerException();
     doThrow(exceptionThrown)
         .when(this.addToInventoryUseCase)
-        .addToInventory(eq(bookId), eq(allocationDto.getCopies()));
+        .addToInventory(bookId, allocationDto.getCopies());
 
     // THEN
     final MvcResult result =
@@ -161,7 +161,7 @@ class AddBookCopiesToInventoryTest extends BaseInventoryTestController {
         .isEqualTo(MediaType.APPLICATION_JSON.toString());
 
     // VERIFY
-    verify(this.addToInventoryUseCase).addToInventory(eq(bookId), eq(allocationDto.getCopies()));
+    verify(this.addToInventoryUseCase).addToInventory(bookId, allocationDto.getCopies());
     verify(this.errorRestMapper)
         .toDto(eq(HttpStatus.INTERNAL_SERVER_ERROR), eq(exceptionThrown), any(WebRequest.class));
     verifyNoInteractions(this.inventoryRestMapper);
@@ -180,7 +180,7 @@ class AddBookCopiesToInventoryTest extends BaseInventoryTestController {
     void shouldReturn400_whenRequestBodyIsInvalid() throws Exception {
       // GIVEN
       final Long bookId = Instancio.create(Long.class);
-      final AllocationDto allocationDto = Instancio.create(AllocationDto.class);
+      final AllocationDto allocationDto = AddBookCopiesToInventoryTest.this.givenAllocationDto(10000L);
 
       // WHEN
       final MvcResult result =
@@ -221,7 +221,7 @@ class AddBookCopiesToInventoryTest extends BaseInventoryTestController {
       final BookNotFoundException exceptionThrown = new BookNotFoundException(bookId);
       doThrow(exceptionThrown)
           .when(AddBookCopiesToInventoryTest.this.addToInventoryUseCase)
-          .addToInventory(eq(bookId), eq(allocationDto.getCopies()));
+          .addToInventory(bookId, allocationDto.getCopies());
 
       // THEN
       final MvcResult result =
@@ -242,7 +242,7 @@ class AddBookCopiesToInventoryTest extends BaseInventoryTestController {
 
       // VERIFY
       verify(AddBookCopiesToInventoryTest.this.addToInventoryUseCase)
-          .addToInventory(eq(bookId), eq(allocationDto.getCopies()));
+          .addToInventory(bookId, allocationDto.getCopies());
       verify(AddBookCopiesToInventoryTest.this.errorRestMapper)
           .toDto(eq(HttpStatus.NOT_FOUND), eq(exceptionThrown), any(WebRequest.class));
       verifyNoInteractions(AddBookCopiesToInventoryTest.this.inventoryRestMapper);
