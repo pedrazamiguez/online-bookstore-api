@@ -388,6 +388,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/InventoryItem'
+        '204':
+          description: No book copies have been added to inventory
         '400':
           description: Invalid request body
           content:
@@ -399,6 +401,28 @@ paths:
                 message: "copies: must not be null"
                 path: "/v1/inventory/books/178"
                 timestamp: "2025-04-19T02:25:11.675837"
+        '404':
+          description: Book not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                status: "NOT_FOUND"
+                message: "Book with ID 792 not found"
+                path: "/v1/inventory/books/178"
+                timestamp: "2025-04-19T02:27:08.219446"
+        '422':
+          description: Allocation structure is invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                status: "UNPROCESSABLE_ENTITY"
+                message: "Unexpected value 'SALE'"
+                path: "/v1/inventory/books/178"
+                timestamp: "2025-04-18T16:19:34.714622"
         '500':
           description: Unexpected error
           content:
