@@ -61,6 +61,18 @@
 
         <openapi-generator.version>7.12.0</openapi-generator.version>
         <maven-compiler-plugin.version>3.14.0</maven-compiler-plugin.version>
+        <jacoco-maven-plugin.version>0.8.13</jacoco-maven-plugin.version>
+
+        <sonar.coverage.jacoco.xmlReportPaths>
+            ${project.basedir}/coverage-report/target/site/jacoco-aggregate/jacoco.xml
+        </sonar.coverage.jacoco.xmlReportPaths>
+        <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
+        <sonar.exclusions>
+            **/config/**,
+            **/entity/**,
+            **/dto/**,
+            **/*Application.java
+        </sonar.exclusions>
     </properties>
 
     <modules>
@@ -69,6 +81,7 @@
         <module>online-bookstore-api-rest</module>
         <module>online-bookstore-infrastructure</module>
         <module>online-bookstore-boot</module>
+        <module>coverage-report</module>
     </modules>
 
     <dependencyManagement>
@@ -167,6 +180,28 @@
 
     <build>
         <finalName>${project.artifactId}-${project.version}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacoco-maven-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>prepare-agent</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
         <pluginManagement>
             <plugins>
                 <plugin>
