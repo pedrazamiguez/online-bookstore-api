@@ -1,6 +1,6 @@
 package es.pedrazamiguez.assessment.onlinebookstore.application.usecase.book;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.*;
 
 import es.pedrazamiguez.assessment.onlinebookstore.domain.entity.Book;
@@ -23,18 +23,15 @@ class AddBookUseCaseImplTest {
   void testAddBook() {
     // GIVEN
     final var book = Instancio.create(Book.class);
-
-    // WHEN
     when(this.bookRepository.save(book)).thenReturn(book);
 
-    // THEN
+    // WHEN
     final var result = this.addBookUseCaseImpl.addBook(book);
 
-    // ASSERT
-    assertNotNull(result);
-    assertEquals(book, result);
+    // THEN
+    assertThat(result).isNotNull();
+    assertThat(book).isEqualTo(result);
 
-    // VERIFY
     verify(this.bookRepository, times(1)).save(book);
   }
 }

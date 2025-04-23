@@ -1,6 +1,7 @@
 package es.pedrazamiguez.assessment.onlinebookstore.repository.impl;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.mockito.Mockito.*;
 
 import es.pedrazamiguez.assessment.onlinebookstore.domain.entity.Book;
@@ -10,6 +11,7 @@ import es.pedrazamiguez.assessment.onlinebookstore.repository.jpa.BookJpaReposit
 import es.pedrazamiguez.assessment.onlinebookstore.repository.mapper.BookEntityMapper;
 import java.util.Optional;
 import org.instancio.Instancio;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -26,45 +28,38 @@ class BookRepositoryImplTest {
   @Mock private BookEntityMapper bookEntityMapper;
 
   @Test
-  void testFindById_thenFound() {
+  @DisplayName("When book exists, findById returns book")
+  void givenExistingBookId_whenFindById_thenReturnsBook() {
     // GIVEN
-    final var bookId = Instancio.create(Long.class);
-    final var bookEntity = Instancio.create(BookEntity.class);
-    final var book = Instancio.create(Book.class);
+    final Long bookId = Instancio.create(Long.class);
+    final BookEntity entity = Instancio.create(BookEntity.class);
+    final Book expectedBook = Instancio.create(Book.class);
+    when(this.bookJpaRepository.findById(bookId)).thenReturn(Optional.of(entity));
+    when(this.bookEntityMapper.toDomain(entity)).thenReturn(expectedBook);
 
     // WHEN
-    when(this.bookJpaRepository.findById(bookId)).thenReturn(Optional.of(bookEntity));
-    when(this.bookEntityMapper.toDomain(bookEntity)).thenReturn(book);
+    final Book result = this.bookRepositoryImpl.findById(bookId);
 
     // THEN
-    final var result = this.bookRepositoryImpl.findById(bookId);
-
-    // ASSERT
-    assertNotNull(result);
-    assertEquals(book, result);
-
-    // VERIFY
-    verify(this.bookJpaRepository, times(1)).findById(bookId);
-    verify(this.bookEntityMapper, times(1)).toDomain(bookEntity);
+    assertThat(result).isEqualTo(expectedBook);
+    verify(this.bookJpaRepository).findById(bookId);
+    verify(this.bookEntityMapper).toDomain(entity);
   }
 
   @Test
-  void testFindById_thenNotFound() {
+  @DisplayName("When book is not found, findById throws BookNotFoundException")
+  void givenNonExistentBookId_whenFindById_thenThrowsBookNotFoundException() {
     // GIVEN
-    final var bookId = Instancio.create(Long.class);
-
-    // WHEN
+    final Long bookId = Instancio.create(Long.class);
     when(this.bookJpaRepository.findById(bookId)).thenReturn(Optional.empty());
 
+    // WHEN
+    assertThatThrownBy(() -> this.bookRepositoryImpl.findById(bookId))
+        .isInstanceOf(BookNotFoundException.class)
+        .hasMessage("Book with ID %s not found", bookId);
+
     // THEN
-    final BookNotFoundException exceptionThrown =
-        assertThrows(BookNotFoundException.class, () -> this.bookRepositoryImpl.findById(bookId));
-
-    // ASSERT
-    assertEquals(String.format("Book with ID %s not found", bookId), exceptionThrown.getMessage());
-
-    // VERIFY
-    verify(this.bookJpaRepository, times(1)).findById(bookId);
+    verify(this.bookJpaRepository).findById(bookId);
     verify(this.bookEntityMapper, never()).toDomain(any());
   }
 }

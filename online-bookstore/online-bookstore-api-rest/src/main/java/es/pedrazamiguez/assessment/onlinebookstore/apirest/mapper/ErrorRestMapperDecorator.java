@@ -2,6 +2,7 @@ package es.pedrazamiguez.assessment.onlinebookstore.apirest.mapper;
 
 import es.pedrazamiguez.assessment.onlinebookstore.openapi.model.ErrorDto;
 import jakarta.validation.ConstraintViolationException;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,8 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 public abstract class ErrorRestMapperDecorator implements ErrorRestMapper {
+
+  private static final String UNKNOWN = "unknown";
 
   @Autowired protected ErrorRestMapper delegate;
 
@@ -56,17 +59,19 @@ public abstract class ErrorRestMapperDecorator implements ErrorRestMapper {
       final MethodArgumentTypeMismatchException e,
       final WebRequest request) {
 
-    String typeName;
-    try {
-      typeName = e.getRequiredType().getSimpleName();
-    } catch (final Exception ex) {
-      typeName = "unknown";
-    }
+    final String parameterName =
+        Objects.isNull(e) || StringUtils.isEmpty(e.getName()) ? UNKNOWN : e.getName();
+    final Object parameterValue =
+        Objects.isNull(e) || Objects.isNull(e.getValue()) ? UNKNOWN : e.getValue();
+    final String parameterType =
+        Objects.isNull(e) || Objects.isNull(e.getRequiredType())
+            ? UNKNOWN
+            : e.getRequiredType().getSimpleName();
 
     final String message =
         String.format(
             "The parameter '%s' of value '%s' could not be converted to type '%s'",
-            e.getName(), e.getValue(), typeName);
+            parameterName, parameterValue, parameterType);
 
     return this.delegate.toDto(status, message, this.extractPath(request));
   }

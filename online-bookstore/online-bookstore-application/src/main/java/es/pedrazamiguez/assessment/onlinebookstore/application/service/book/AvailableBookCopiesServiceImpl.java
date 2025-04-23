@@ -16,17 +16,37 @@ public class AvailableBookCopiesServiceImpl implements AvailableBookCopiesServic
 
   @Override
   public boolean check(final Long bookId, final Long requestedCopies) {
-    try {
-      this.assure(bookId, requestedCopies);
-    } catch (final NotEnoughBookCopiesException e) {
+
+    if (bookId == null) {
       return false;
     }
-    return true;
+
+    if (requestedCopies == null || requestedCopies < 0) {
+      return false;
+    }
+
+    final Optional<BookAllocation> bookAllocation =
+        this.bookCopyRepository.getInventoryDetailsByBookId(bookId);
+
+    return bookAllocation.isPresent() && bookAllocation.get().getCopies() >= requestedCopies;
   }
 
   @Override
   public void assure(final Long bookId, final Long requestedCopies)
       throws NotEnoughBookCopiesException {
+
+    if (bookId == null) {
+      throw new IllegalArgumentException("bookId cannot be null");
+    }
+
+    if (requestedCopies == null) {
+      throw new IllegalArgumentException("requestedCopies cannot be null");
+    }
+
+    if (requestedCopies < 0) {
+      throw new IllegalArgumentException("requestedCopies cannot be negative");
+    }
+
     final Optional<BookAllocation> bookAllocation =
         this.bookCopyRepository.getInventoryDetailsByBookId(bookId);
 

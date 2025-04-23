@@ -40,6 +40,12 @@ which can be redeemed for discounts or perks, enhancing user engagement and rete
     ./mvnw -pl online-bookstore-boot spring-boot:run
     ```
 
+    Alternatively, you can run the packaged JAR file directly:
+
+    ```bash
+    java -jar online-bookstore-boot/target/online-bookstore-boot-0.0.1-SNAPSHOT.jar
+    ```
+
    The application will start on [http://localhost:8080](http://localhost:8080).
 
 ## API documentation & access
