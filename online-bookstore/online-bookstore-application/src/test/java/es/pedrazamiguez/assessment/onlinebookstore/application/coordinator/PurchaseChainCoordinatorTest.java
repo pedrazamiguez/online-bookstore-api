@@ -84,4 +84,34 @@ class PurchaseChainCoordinatorTest {
     // THEN
     verify(this.processor1).process(any(PurchaseContext.class));
   }
+
+  @Test
+  void givenProcessorSetsFailedStatus_whenExecuteChain_thenReturnsFailedContext() {
+    // GIVEN
+    final String userId = "user123";
+    final Long orderId = 1L;
+    this.coordinator = new PurchaseChainCoordinator(List.of(this.processor1, this.processor2));
+    final String errorMessage = "Validation failed";
+
+    // Stub processor1 to set FAILED status without throwing
+    doAnswer(
+            invocation -> {
+              final PurchaseContext ctx = invocation.getArgument(0);
+              ctx.setStatus(PurchaseStatus.FAILED);
+              ctx.setErrorMessage(errorMessage);
+              return null;
+            })
+        .when(this.processor1)
+        .process(any(PurchaseContext.class));
+
+    // WHEN
+    final PurchaseContext result = this.coordinator.executeChain(userId, orderId);
+
+    // THEN
+    assertThat(result.getStatus()).isEqualTo(PurchaseStatus.FAILED);
+    assertThat(result.getErrorMessage()).isEqualTo(errorMessage);
+    assertThat(result.getUserId()).isEqualTo(userId);
+    verify(this.processor1).process(any(PurchaseContext.class));
+    verify(this.processor2, never()).process(any(PurchaseContext.class));
+  }
 }
