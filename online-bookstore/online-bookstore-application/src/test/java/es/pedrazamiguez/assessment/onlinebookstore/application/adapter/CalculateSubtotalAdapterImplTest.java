@@ -74,7 +74,7 @@ class CalculateSubtotalAdapterImplTest {
     final PayableAmount result = this.calculateSubtotalAdapter.calculateSubtotal(this.orderItem);
 
     // THEN
-    assertThat(this.payableAmount).isEqualTo(result);
+    assertThat(result).isEqualTo(this.payableAmount);
     verify(this.newReleaseSubtotalPriceService).calculateSubtotal(this.orderItem);
     verify(this.regularSubtotalPriceService, never()).calculateSubtotal(any());
     verify(this.oldEditionSubtotalPriceService, never()).calculateSubtotal(any());
@@ -157,7 +157,7 @@ class CalculateSubtotalAdapterImplTest {
     final PayableAmount result = this.calculateSubtotalAdapter.calculateSubtotal(this.orderItem);
 
     // THEN
-    assertThat(this.payableAmount).isEqualTo(result);
+    assertThat(result).isEqualTo(this.payableAmount);
     verify(strategy).calculateSubtotal(this.orderItem);
   }
 

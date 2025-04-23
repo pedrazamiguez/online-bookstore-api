@@ -30,7 +30,7 @@ class AddBookUseCaseImplTest {
 
     // THEN
     assertThat(result).isNotNull();
-    assertThat(book).isEqualTo(result);
+    assertThat(result).isEqualTo(book);
 
     verify(this.bookRepository, times(1)).save(book);
   }
