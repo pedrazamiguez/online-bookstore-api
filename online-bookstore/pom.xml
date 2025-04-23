@@ -61,6 +61,7 @@
 
         <mockito.version>5.17.0</mockito.version>
         <instancio.version>5.4.0</instancio.version>
+        <logcaptor.version>2.11.0</logcaptor.version>
 
         <openapi-generator.version>7.12.0</openapi-generator.version>
         <maven-compiler-plugin.version>3.14.0</maven-compiler-plugin.version>
@@ -176,6 +177,12 @@
                 <groupId>org.instancio</groupId>
                 <artifactId>instancio-junit</artifactId>
                 <version>${instancio.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>io.github.hakky54</groupId>
+                <artifactId>logcaptor</artifactId>
+                <version>${logcaptor.version}</version>
                 <scope>test</scope>
             </dependency>
         </dependencies>
