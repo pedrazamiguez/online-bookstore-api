@@ -7,8 +7,8 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.entity.Book;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.entity.BookAllocation;
+import es.pedrazamiguez.assessment.onlinebookstore.domain.model.Book;
+import es.pedrazamiguez.assessment.onlinebookstore.domain.model.BookAllocation;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.exception.NotEnoughBookCopiesException;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.repository.BookCopyRepository;
 import java.util.Optional;

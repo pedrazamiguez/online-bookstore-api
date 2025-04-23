@@ -1,7 +1,7 @@
 package es.pedrazamiguez.assessment.onlinebookstore.application.service.order;
 
 import es.pedrazamiguez.assessment.onlinebookstore.domain.adapter.CalculateSubtotalAdapter;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.entity.Order;
+import es.pedrazamiguez.assessment.onlinebookstore.domain.model.Order;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.service.order.FinalPriceService;
 import java.math.BigDecimal;
 import lombok.RequiredArgsConstructor;

@@ -3,8 +3,8 @@ package es.pedrazamiguez.assessment.onlinebookstore.apirest.controller.inventory
 import static org.instancio.Select.all;
 import static org.instancio.Select.field;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.entity.Book;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.entity.BookAllocation;
+import es.pedrazamiguez.assessment.onlinebookstore.domain.model.Book;
+import es.pedrazamiguez.assessment.onlinebookstore.domain.model.BookAllocation;
 import es.pedrazamiguez.assessment.onlinebookstore.openapi.model.AllocationDto;
 import es.pedrazamiguez.assessment.onlinebookstore.openapi.model.InventoryItemDto;
 import org.instancio.Instancio;

@@ -1,4 +1,4 @@
-package es.pedrazamiguez.assessment.onlinebookstore.domain.entity;
+package es.pedrazamiguez.assessment.onlinebookstore.domain.model;
 
 import es.pedrazamiguez.assessment.onlinebookstore.domain.enums.OrderStatus;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.enums.PaymentMethod;

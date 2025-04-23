@@ -1,6 +1,6 @@
 package es.pedrazamiguez.assessment.onlinebookstore.application.service.book;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.entity.BookAllocation;
+import es.pedrazamiguez.assessment.onlinebookstore.domain.model.BookAllocation;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.exception.NotEnoughBookCopiesException;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.repository.BookCopyRepository;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.service.book.AvailableBookCopiesService;

@@ -4,7 +4,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.mockito.Mockito.*;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.entity.*;
+import es.pedrazamiguez.assessment.onlinebookstore.domain.model.*;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.service.order.SubtotalPriceService;
 import java.util.Arrays;
 import java.util.Collections;

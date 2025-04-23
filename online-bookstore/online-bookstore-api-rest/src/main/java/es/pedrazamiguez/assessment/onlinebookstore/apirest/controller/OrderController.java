@@ -1,7 +1,7 @@
 package es.pedrazamiguez.assessment.onlinebookstore.apirest.controller;
 
 import es.pedrazamiguez.assessment.onlinebookstore.apirest.mapper.OrderRestMapper;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.entity.Order;
+import es.pedrazamiguez.assessment.onlinebookstore.domain.model.Order;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.usecase.order.AddToOrderUseCase;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.usecase.order.ClearOrderUseCase;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.usecase.order.RemoveFromOrderUseCase;

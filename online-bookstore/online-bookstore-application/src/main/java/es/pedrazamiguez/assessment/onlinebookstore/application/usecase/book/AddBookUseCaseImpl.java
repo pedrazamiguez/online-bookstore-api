@@ -1,6 +1,6 @@
 package es.pedrazamiguez.assessment.onlinebookstore.application.usecase.book;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.entity.Book;
+import es.pedrazamiguez.assessment.onlinebookstore.domain.model.Book;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.repository.BookRepository;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.usecase.book.AddBookUseCase;
 import lombok.RequiredArgsConstructor;

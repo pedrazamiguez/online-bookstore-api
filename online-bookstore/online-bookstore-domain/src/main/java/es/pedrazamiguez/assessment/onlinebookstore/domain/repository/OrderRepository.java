@@ -1,6 +1,6 @@
 package es.pedrazamiguez.assessment.onlinebookstore.domain.repository;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.entity.Order;
+import es.pedrazamiguez.assessment.onlinebookstore.domain.model.Order;
 import java.util.Optional;
 
 public interface OrderRepository {

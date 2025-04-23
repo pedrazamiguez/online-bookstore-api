@@ -3,7 +3,7 @@ package es.pedrazamiguez.assessment.onlinebookstore.application.usecase.book;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.*;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.entity.Book;
+import es.pedrazamiguez.assessment.onlinebookstore.domain.model.Book;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.repository.BookRepository;
 import org.instancio.Instancio;
 import org.junit.jupiter.api.Test;

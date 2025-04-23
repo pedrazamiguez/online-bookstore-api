@@ -1,6 +1,6 @@
 package es.pedrazamiguez.assessment.onlinebookstore.apirest.mapper;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.entity.BookAllocation;
+import es.pedrazamiguez.assessment.onlinebookstore.domain.model.BookAllocation;
 import es.pedrazamiguez.assessment.onlinebookstore.openapi.model.InventoryItemDto;
 import java.math.BigDecimal;
 import java.math.RoundingMode;

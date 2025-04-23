@@ -4,7 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.*;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.entity.Book;
+import es.pedrazamiguez.assessment.onlinebookstore.domain.model.Book;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.exception.BookAlreadyExistsException;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.exception.BookNotFoundException;
 import es.pedrazamiguez.assessment.onlinebookstore.repository.entity.BookEntity;

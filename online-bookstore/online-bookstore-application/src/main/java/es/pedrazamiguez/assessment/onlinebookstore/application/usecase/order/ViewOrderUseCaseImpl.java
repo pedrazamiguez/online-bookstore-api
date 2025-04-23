@@ -1,6 +1,6 @@
 package es.pedrazamiguez.assessment.onlinebookstore.application.usecase.order;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.entity.Order;
+import es.pedrazamiguez.assessment.onlinebookstore.domain.model.Order;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.service.order.CurrentOrderService;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.service.order.FinalPriceService;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.service.security.SecurityService;

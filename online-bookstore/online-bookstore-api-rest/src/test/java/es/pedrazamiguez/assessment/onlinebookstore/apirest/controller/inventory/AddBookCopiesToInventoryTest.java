@@ -11,7 +11,7 @@ import es.pedrazamiguez.assessment.onlinebookstore.apirest.exception.BookstoreEx
 import es.pedrazamiguez.assessment.onlinebookstore.apirest.exception.RestExceptionHandler;
 import es.pedrazamiguez.assessment.onlinebookstore.apirest.mapper.ErrorRestMapper;
 import es.pedrazamiguez.assessment.onlinebookstore.apirest.mapper.InventoryRestMapper;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.entity.BookAllocation;
+import es.pedrazamiguez.assessment.onlinebookstore.domain.model.BookAllocation;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.exception.BookNotFoundException;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.usecase.inventory.AddToInventoryUseCase;
 import es.pedrazamiguez.assessment.onlinebookstore.openapi.model.AllocationDto;

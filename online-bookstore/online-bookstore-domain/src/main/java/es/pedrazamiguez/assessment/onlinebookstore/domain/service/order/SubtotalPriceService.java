@@ -1,7 +1,7 @@
 package es.pedrazamiguez.assessment.onlinebookstore.domain.service.order;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.entity.OrderItem;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.entity.PayableAmount;
+import es.pedrazamiguez.assessment.onlinebookstore.domain.model.OrderItem;
+import es.pedrazamiguez.assessment.onlinebookstore.domain.model.PayableAmount;
 
 public interface SubtotalPriceService {
 

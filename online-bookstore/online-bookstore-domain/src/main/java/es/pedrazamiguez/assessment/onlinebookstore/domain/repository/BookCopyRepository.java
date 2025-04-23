@@ -1,6 +1,6 @@
 package es.pedrazamiguez.assessment.onlinebookstore.domain.repository;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.entity.BookAllocation;
+import es.pedrazamiguez.assessment.onlinebookstore.domain.model.BookAllocation;
 
 import java.time.LocalDateTime;
 import java.util.List;

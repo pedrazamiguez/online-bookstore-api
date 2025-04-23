@@ -1,7 +1,7 @@
 package es.pedrazamiguez.assessment.onlinebookstore.repository.mapper;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.entity.Order;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.entity.OrderItem;
+import es.pedrazamiguez.assessment.onlinebookstore.domain.model.Order;
+import es.pedrazamiguez.assessment.onlinebookstore.domain.model.OrderItem;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.enums.OrderStatus;
 import es.pedrazamiguez.assessment.onlinebookstore.repository.entity.*;
 import java.math.BigDecimal;

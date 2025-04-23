@@ -1,9 +1,9 @@
 package es.pedrazamiguez.assessment.onlinebookstore.application.service.order;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.entity.BookAllocation;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.entity.Book;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.entity.OrderItem;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.entity.PayableAmount;
+import es.pedrazamiguez.assessment.onlinebookstore.domain.model.BookAllocation;
+import es.pedrazamiguez.assessment.onlinebookstore.domain.model.Book;
+import es.pedrazamiguez.assessment.onlinebookstore.domain.model.OrderItem;
+import es.pedrazamiguez.assessment.onlinebookstore.domain.model.PayableAmount;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

@@ -1,6 +1,6 @@
 package es.pedrazamiguez.assessment.onlinebookstore.apirest.mapper;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.entity.Book;
+import es.pedrazamiguez.assessment.onlinebookstore.domain.model.Book;
 import es.pedrazamiguez.assessment.onlinebookstore.openapi.model.BookDto;
 import es.pedrazamiguez.assessment.onlinebookstore.openapi.model.BookRequestDto;
 import java.math.BigDecimal;

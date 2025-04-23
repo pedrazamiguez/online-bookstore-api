@@ -1,6 +1,6 @@
 package es.pedrazamiguez.assessment.onlinebookstore.application.service.customer;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.entity.Customer;
+import es.pedrazamiguez.assessment.onlinebookstore.domain.model.Customer;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.exception.CustomerNotFoundException;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.repository.CustomerRepository;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.service.customer.CurrentCustomerService;

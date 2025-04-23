@@ -1,7 +1,7 @@
 package es.pedrazamiguez.assessment.onlinebookstore.apirest.mapper;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.entity.Order;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.entity.OrderItem;
+import es.pedrazamiguez.assessment.onlinebookstore.domain.model.Order;
+import es.pedrazamiguez.assessment.onlinebookstore.domain.model.OrderItem;
 import es.pedrazamiguez.assessment.onlinebookstore.openapi.model.OrderDto;
 import es.pedrazamiguez.assessment.onlinebookstore.openapi.model.OrderItemDto;
 import java.math.BigDecimal;

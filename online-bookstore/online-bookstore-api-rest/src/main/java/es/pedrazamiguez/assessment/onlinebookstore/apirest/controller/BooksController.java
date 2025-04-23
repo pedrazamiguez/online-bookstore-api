@@ -1,7 +1,7 @@
 package es.pedrazamiguez.assessment.onlinebookstore.apirest.controller;
 
 import es.pedrazamiguez.assessment.onlinebookstore.apirest.mapper.BookRestMapper;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.entity.Book;
+import es.pedrazamiguez.assessment.onlinebookstore.domain.model.Book;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.usecase.book.AddBookUseCase;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.usecase.book.GetBookUseCase;
 import es.pedrazamiguez.assessment.onlinebookstore.openapi.api.BookApi;

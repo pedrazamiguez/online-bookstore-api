@@ -1,6 +1,6 @@
 package es.pedrazamiguez.assessment.onlinebookstore.domain.repository;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.entity.Book;
+import es.pedrazamiguez.assessment.onlinebookstore.domain.model.Book;
 
 public interface BookRepository {
 

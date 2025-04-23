@@ -1,6 +1,6 @@
 package es.pedrazamiguez.assessment.onlinebookstore.repository.impl;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.entity.Customer;
+import es.pedrazamiguez.assessment.onlinebookstore.domain.model.Customer;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.repository.CustomerRepository;
 import es.pedrazamiguez.assessment.onlinebookstore.repository.jpa.CustomerJpaRepository;
 import es.pedrazamiguez.assessment.onlinebookstore.repository.mapper.CustomerEntityMapper;
