@@ -71,6 +71,22 @@ class AbstractSubtotalPriceServiceImplTest {
     assertThat(result.getSubtotal()).isEqualByComparingTo(new BigDecimal("60.00")); // 20 * 3 * 1
   }
 
+  // New test case to cover getAdditionalDiscount()
+  @Test
+  @DisplayName("Default additional discount applied when copies meet minimum")
+  void givenMinimumCopiesMet_whenCalculatingSubtotal_thenDefaultAdditionalDiscountApplied() {
+    // GIVEN
+    final MinimalTestSubtotalPriceService minimalService = new MinimalTestSubtotalPriceService();
+    final OrderItem orderItem = this.createOrderItem(new BigDecimal("20.00"), 3L);
+
+    // WHEN
+    final PayableAmount result = minimalService.calculateSubtotal(orderItem);
+
+    // THEN
+    assertThat(result.getDiscount()).isEqualByComparingTo(BigDecimal.ONE); // NO_DISCOUNT (1.0)
+    assertThat(result.getSubtotal()).isEqualByComparingTo(new BigDecimal("60.00")); // 20 * 3 * 1.0
+  }
+
   // Helper method to create OrderItem
   private OrderItem createOrderItem(final BigDecimal bookPrice, final Long copies) {
     final Book book = new Book();
@@ -83,7 +99,7 @@ class AbstractSubtotalPriceServiceImplTest {
     return orderItem;
   }
 
-  // Test-specific subclass
+  // Test-specific subclass (existing)
   private static class TestSubtotalPriceService extends AbstractSubtotalPriceServiceImpl {
     private BigDecimal defaultDiscount = BigDecimal.ONE;
     private BigDecimal additionalDiscount = BigDecimal.ONE;
@@ -120,5 +136,16 @@ class AbstractSubtotalPriceServiceImplTest {
     void setMinimumCopiesForDiscount(final Long minimumCopiesForDiscount) {
       this.minimumCopiesForDiscount = minimumCopiesForDiscount;
     }
+  }
+
+  // New minimal test-specific subclass to cover default getAdditionalDiscount()
+  private static class MinimalTestSubtotalPriceService extends AbstractSubtotalPriceServiceImpl {
+    @Override
+    public String getBookTypeCode() {
+      return "MINIMAL_TEST";
+    }
+    // Do not override getAdditionalDiscount(), getDefaultDiscount(), or
+    // getMinimumCopiesForDiscount()
+    // Use their default implementations from AbstractSubtotalPriceServiceImpl
   }
 }
