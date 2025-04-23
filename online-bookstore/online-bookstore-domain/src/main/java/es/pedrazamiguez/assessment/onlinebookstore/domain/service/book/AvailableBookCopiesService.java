@@ -4,7 +4,7 @@ import es.pedrazamiguez.assessment.onlinebookstore.domain.exception.NotEnoughBoo
 
 public interface AvailableBookCopiesService {
 
-  boolean check(Long bookId, Long copies);
+  boolean check(Long bookId, Long requestedCopies);
 
-  void assure(Long bookId, Long copies) throws NotEnoughBookCopiesException;
+  void assure(Long bookId, Long requestedCopies) throws NotEnoughBookCopiesException;
 }

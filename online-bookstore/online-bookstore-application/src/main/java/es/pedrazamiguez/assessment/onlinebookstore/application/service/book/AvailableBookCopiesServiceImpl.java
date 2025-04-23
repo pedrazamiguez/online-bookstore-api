@@ -15,9 +15,9 @@ public class AvailableBookCopiesServiceImpl implements AvailableBookCopiesServic
   private final BookCopyRepository bookCopyRepository;
 
   @Override
-  public boolean check(final Long bookId, final Long copies) {
+  public boolean check(final Long bookId, final Long requestedCopies) {
     try {
-      this.assure(bookId, copies);
+      this.assure(bookId, requestedCopies);
     } catch (final NotEnoughBookCopiesException e) {
       return false;
     }
@@ -25,17 +25,18 @@ public class AvailableBookCopiesServiceImpl implements AvailableBookCopiesServic
   }
 
   @Override
-  public void assure(final Long bookId, final Long copies) throws NotEnoughBookCopiesException {
+  public void assure(final Long bookId, final Long requestedCopies)
+      throws NotEnoughBookCopiesException {
     final Optional<BookAllocation> bookAllocation =
         this.bookCopyRepository.getInventoryDetailsByBookId(bookId);
 
     if (bookAllocation.isEmpty()) {
-      throw new NotEnoughBookCopiesException(bookId, 0L, copies);
+      throw new NotEnoughBookCopiesException(bookId, 0L, requestedCopies);
     }
 
     final BookAllocation allocation = bookAllocation.get();
-    if (allocation.getCopies() < copies) {
-      throw new NotEnoughBookCopiesException(bookId, allocation.getCopies(), copies);
+    if (allocation.getCopies() < requestedCopies) {
+      throw new NotEnoughBookCopiesException(bookId, allocation.getCopies(), requestedCopies);
     }
   }
 }
