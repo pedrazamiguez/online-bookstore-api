@@ -1,5 +1,6 @@
 package es.pedrazamiguez.assessment.onlinebookstore.repository.mapper;
 
+import es.pedrazamiguez.assessment.onlinebookstore.domain.enums.PaymentMethod;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.model.Order;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.model.OrderItem;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.enums.OrderStatus;
@@ -129,9 +130,9 @@ public interface OrderEntityMapper {
     items.add(newOrderItem);
   }
 
-  default void patchOrderRequest(final OrderEntity orderEntity, final Order orderRequest) {
-    orderEntity.setShippingAddress(orderRequest.getShippingAddress());
-    orderEntity.setPaymentMethod(orderRequest.getPaymentMethod());
+  default void patchOrderRequest(final OrderEntity orderEntity, final PaymentMethod paymentMethod, final String shippingAddress) {
+    orderEntity.setShippingAddress(shippingAddress);
+    orderEntity.setPaymentMethod(paymentMethod);
   }
 
   default void patchOrderItems(final OrderEntity orderEntity, final Order order) {

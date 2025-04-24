@@ -1,5 +1,6 @@
 package es.pedrazamiguez.assessment.onlinebookstore.repository.impl;
 
+import es.pedrazamiguez.assessment.onlinebookstore.domain.enums.PaymentMethod;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.model.Order;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.enums.OrderStatus;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.exception.BookNotFoundException;
@@ -99,7 +100,9 @@ public class OrderRepositoryImpl implements OrderRepository {
   }
 
   @Override
-  public Order purchaseOrder(final Order order, final Order orderRequest) {
+  public Order purchaseOrder(
+      final Order order, final PaymentMethod paymentMethod, final String shippingAddress) {
+
     final Long orderId = order.getId();
     log.info("Purchasing order for orderId: {}", order);
 
@@ -108,7 +111,7 @@ public class OrderRepositoryImpl implements OrderRepository {
             .findById(orderId)
             .orElseThrow(() -> new OrderNotFoundException(orderId));
 
-    this.orderEntityMapper.patchOrderRequest(existingOrderEntity, orderRequest);
+    this.orderEntityMapper.patchOrderRequest(existingOrderEntity, paymentMethod, shippingAddress);
     this.orderEntityMapper.patchOrderItems(existingOrderEntity, order);
     existingOrderEntity.setTotalPrice(order.getTotalPrice());
     existingOrderEntity.setStatus(OrderStatus.PURCHASED);

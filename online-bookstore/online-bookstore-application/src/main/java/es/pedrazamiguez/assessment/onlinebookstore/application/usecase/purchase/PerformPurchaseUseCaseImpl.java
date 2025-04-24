@@ -1,8 +1,11 @@
 package es.pedrazamiguez.assessment.onlinebookstore.application.usecase.purchase;
 
+import es.pedrazamiguez.assessment.onlinebookstore.application.coordinator.PurchaseChainCoordinator;
+import es.pedrazamiguez.assessment.onlinebookstore.application.processor.purchase.*;
+import es.pedrazamiguez.assessment.onlinebookstore.domain.enums.PaymentMethod;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.model.Order;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.model.OrderItem;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.exception.OrderContainsNoItemsException;
+import es.pedrazamiguez.assessment.onlinebookstore.domain.model.PurchaseContext;
+import es.pedrazamiguez.assessment.onlinebookstore.domain.processor.PurchaseProcessor;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.repository.BookCopyRepository;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.repository.OrderRepository;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.service.book.AvailableBookCopiesService;
@@ -12,6 +15,8 @@ import es.pedrazamiguez.assessment.onlinebookstore.domain.service.payment.Paymen
 import es.pedrazamiguez.assessment.onlinebookstore.domain.service.security.SecurityService;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.service.shipping.ShippingService;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.usecase.purchase.PerformPurchaseUseCase;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -42,51 +47,28 @@ public class PerformPurchaseUseCaseImpl implements PerformPurchaseUseCase {
   @Transactional
   public Order purchase(final Order orderRequest) {
     final String username = this.securityService.getCurrentUserName();
-    final Order existingOrder = this.currentOrderService.getOrCreateOrder(username);
-    this.assureOrderContainsItemsForPurchase(existingOrder);
-    this.assureAvailableBookCopies(existingOrder);
+    final PaymentMethod paymentMethod = orderRequest.getPaymentMethod();
+    final String shippingAddress = orderRequest.getShippingAddress();
 
-    log.info("Performing purchase for orderId {} for user: {}", existingOrder.getId(), username);
+    // Configure processors
+    final List<PurchaseProcessor> processors = new ArrayList<>();
+    processors.add(new OrderRetrievalProcessor(this.currentOrderService));
+    processors.add(new OrderValidationProcessor());
+    processors.add(new StockVerificationProcessor(this.availableBookCopiesService));
+    processors.add(new PriceCalculationProcessor(this.finalPriceService));
+    processors.add(new PaymentProcessor(this.paymentService));
+    processors.add(new ShippingProcessor(this.shippingService));
+    processors.add(new OrderPlacementProcessor(this.orderRepository));
+    processors.add(new InventoryUpdateProcessor(this.bookCopyRepository));
+    processors.add(new LoyaltyPointsCalculationProcessor());
 
-    this.finalPriceService.calculate(existingOrder);
+    // Coordinate
+    final PurchaseChainCoordinator purchaseChainCoordinator =
+        new PurchaseChainCoordinator(processors);
 
-    this.paymentService.processPayment(
-        existingOrder.getTotalPrice(), orderRequest.getPaymentMethod(), existingOrder.getId());
-
-    this.shippingService.processShipping(orderRequest.getShippingAddress(), existingOrder.getId());
-
-    final Order purchasedOrder = this.orderRepository.purchaseOrder(existingOrder, orderRequest);
-
-    this.updateInventory(purchasedOrder);
-
-    // TODO: Calculate loyalty points
-
-    return purchasedOrder;
-  }
-
-  private void assureOrderContainsItemsForPurchase(final Order existingOrder) {
-    if (existingOrder.getLines().isEmpty()) {
-      throw new OrderContainsNoItemsException(existingOrder.getId());
-    }
-  }
-
-  private void assureAvailableBookCopies(final Order existingOrder) {
-    existingOrder.getLines().stream()
-        .map(OrderItem::getAllocation)
-        .forEach(
-            allocation ->
-                this.availableBookCopiesService.assure(
-                    allocation.getBook().getId(), allocation.getCopies()));
-  }
-
-  private void updateInventory(final Order purchasedOrder) {
-    purchasedOrder
-        .getLines()
-        .forEach(
-            orderItem -> {
-              final Long bookId = orderItem.getAllocation().getBook().getId();
-              final Long copies = orderItem.getAllocation().getCopies();
-              this.bookCopyRepository.deleteCopies(bookId, copies);
-            });
+    // Execute the chain
+    final PurchaseContext purchaseContext =
+        purchaseChainCoordinator.executeChain(username, paymentMethod, shippingAddress);
+    return purchaseContext.getPurchasedOrder();
   }
 }

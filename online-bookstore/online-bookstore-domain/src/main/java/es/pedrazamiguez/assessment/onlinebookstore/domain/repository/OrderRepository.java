@@ -1,5 +1,6 @@
 package es.pedrazamiguez.assessment.onlinebookstore.domain.repository;
 
+import es.pedrazamiguez.assessment.onlinebookstore.domain.enums.PaymentMethod;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.model.Order;
 import java.util.Optional;
 
@@ -15,5 +16,5 @@ public interface OrderRepository {
 
   Order deleteOrderItems(Long orderId);
 
-  Order purchaseOrder(Order order, Order orderRequest);
+  Order purchaseOrder(Order order, PaymentMethod paymentMethod, String shippingAddress);
 }

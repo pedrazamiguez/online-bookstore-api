@@ -1,17 +1,22 @@
 package es.pedrazamiguez.assessment.onlinebookstore.domain.model;
 
+import es.pedrazamiguez.assessment.onlinebookstore.domain.enums.PaymentMethod;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.enums.PurchaseStatus;
 import java.math.BigDecimal;
 import lombok.Data;
 
 @Data
 public class PurchaseContext {
-  private Order order;
-  private String userId;
+  private Order existingOrder;
+  private Order purchasedOrder;
+  private String username;
   private PurchaseStatus status = PurchaseStatus.PENDING;
   private String errorMessage;
   private BigDecimal totalAmount;
+  private boolean orderPlaced;
+  private PaymentMethod paymentMethod;
   private boolean paymentProcessed;
+  private String shippingAddress;
   private boolean shippingPrepared;
   private int loyaltyPointsEarned;
 

@@ -6,7 +6,7 @@ import lombok.Getter;
 @Getter
 public class PurchaseException extends RuntimeException {
 
-  final PurchaseContext context;
+  private final transient PurchaseContext context;
 
   public PurchaseException(final PurchaseContext context, final String message) {
     super(message);
