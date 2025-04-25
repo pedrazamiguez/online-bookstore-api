@@ -9,7 +9,12 @@ import org.hibernate.envers.Audited;
 @EqualsAndHashCode(callSuper = true)
 @Audited
 @Entity
-@Table(name = "customers")
+@Table(
+    name = "customers",
+    indexes = {
+      @Index(name = "idx_customers_username", columnList = "username"),
+      @Index(name = "idx_customers_email", columnList = "email"),
+    })
 public class CustomerEntity extends AuditEntity {
 
   @Id

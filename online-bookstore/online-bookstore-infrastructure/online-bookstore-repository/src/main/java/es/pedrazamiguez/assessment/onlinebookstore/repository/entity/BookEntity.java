@@ -11,7 +11,12 @@ import org.hibernate.envers.Audited;
 @EqualsAndHashCode(callSuper = true)
 @Audited
 @Entity
-@Table(name = "books")
+@Table(
+    name = "books",
+    indexes = {
+      @Index(name = "idx_books_type_code", columnList = "type_code"),
+      @Index(name = "idx_books_genre", columnList = "genre"),
+    })
 public class BookEntity extends AuditEntity {
 
   @Id
@@ -30,7 +35,7 @@ public class BookEntity extends AuditEntity {
   @Column(nullable = false)
   private String publisher;
 
-  @Column(name = "year_published", nullable = false)
+  @Column(nullable = false)
   private Integer yearPublished;
 
   @Column(nullable = false, precision = 10, scale = 4)

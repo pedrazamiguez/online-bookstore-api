@@ -1,17 +1,23 @@
 package es.pedrazamiguez.assessment.onlinebookstore.repository.entity;
 
 import jakarta.persistence.*;
+import java.math.BigDecimal;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.envers.Audited;
-
-import java.math.BigDecimal;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Audited
 @Entity
-@Table(name = "order_items")
+@Table(
+    name = "order_items",
+    indexes = {
+      @Index(name = "idx_order_items_order_id", columnList = "order_id"),
+      @Index(name = "idx_order_items_book_id", columnList = "book_id"),
+      @Index(name = "idx_order_items_quantity", columnList = "quantity"),
+      @Index(name = "idx_order_items_book_id_quantity", columnList = "book_id, quantity")
+    })
 public class OrderItemEntity extends AuditEntity {
 
   @EmbeddedId private OrderItemId id;

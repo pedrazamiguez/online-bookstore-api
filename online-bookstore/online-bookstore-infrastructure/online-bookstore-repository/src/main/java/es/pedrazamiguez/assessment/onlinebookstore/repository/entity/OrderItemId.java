@@ -6,15 +6,11 @@ import lombok.Data;
 
 @Data
 @Embeddable
-// @NoArgsConstructor
-// @AllArgsConstructor
-public class OrderItemId
-// implements Serializable
-{
+public class OrderItemId {
 
-  @Column(name = "order_id", nullable = false)
+  @Column(nullable = false)
   private Long orderId;
 
-  @Column(name = "line_number", nullable = false)
+  @Column(nullable = false)
   private Integer lineNumber;
 }

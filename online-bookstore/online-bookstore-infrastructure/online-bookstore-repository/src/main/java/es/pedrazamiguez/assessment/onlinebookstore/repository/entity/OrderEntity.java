@@ -14,7 +14,12 @@ import org.hibernate.envers.Audited;
 @EqualsAndHashCode(callSuper = true)
 @Audited
 @Entity
-@Table(name = "orders")
+@Table(
+    name = "orders",
+    indexes = {
+      @Index(name = "idx_orders_customer_id", columnList = "customer_id"),
+      @Index(name = "idx_orders_status", columnList = "status"),
+    })
 public class OrderEntity extends AuditEntity {
 
   @Id
@@ -39,6 +44,5 @@ public class OrderEntity extends AuditEntity {
   @Column
   private PaymentMethod paymentMethod;
 
-  @Column
-  private String shippingAddress;
+  @Column private String shippingAddress;
 }
