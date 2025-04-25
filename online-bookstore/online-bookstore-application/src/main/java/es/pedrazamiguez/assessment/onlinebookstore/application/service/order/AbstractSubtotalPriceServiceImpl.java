@@ -4,12 +4,14 @@ import es.pedrazamiguez.assessment.onlinebookstore.domain.model.OrderItem;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.model.PayableAmount;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.service.order.SubtotalPriceService;
 import java.math.BigDecimal;
+import lombok.RequiredArgsConstructor;
 
+@RequiredArgsConstructor
 public abstract class AbstractSubtotalPriceServiceImpl implements SubtotalPriceService {
 
   private static final BigDecimal NO_DISCOUNT = BigDecimal.ONE;
 
-  private static final Long DEFAULT_MINIMUM_COPIES_FOR_DISCOUNT = 3L;
+  protected final DiscountConfigurationProperties discountConfigurationProperties;
 
   protected BigDecimal getDefaultDiscount() {
     return NO_DISCOUNT;
@@ -20,7 +22,7 @@ public abstract class AbstractSubtotalPriceServiceImpl implements SubtotalPriceS
   }
 
   protected Long getMinimumCopiesForDiscount() {
-    return DEFAULT_MINIMUM_COPIES_FOR_DISCOUNT;
+    return this.discountConfigurationProperties.getDefaultMinimumCopies();
   }
 
   protected boolean isAdditionalDiscountApplicable(final Long copies) {

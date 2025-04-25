@@ -1,5 +1,6 @@
 package es.pedrazamiguez.assessment.onlinebookstore.repository.entity;
 
+import es.pedrazamiguez.assessment.onlinebookstore.domain.enums.BookCopyStatus;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -19,4 +20,8 @@ public class BookCopyEntity extends AuditEntity {
   @ManyToOne(optional = false)
   @JoinColumn(name = "book_id")
   private BookEntity book;
+
+  @Enumerated(EnumType.STRING)
+  @Column(nullable = false)
+  private BookCopyStatus status;
 }

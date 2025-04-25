@@ -1,5 +1,6 @@
 package es.pedrazamiguez.assessment.onlinebookstore.repository.mapper;
 
+import es.pedrazamiguez.assessment.onlinebookstore.domain.enums.BookCopyStatus;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.model.BookAllocation;
 import es.pedrazamiguez.assessment.onlinebookstore.repository.entity.BookCopyEntity;
 import es.pedrazamiguez.assessment.onlinebookstore.repository.entity.BookEntity;
@@ -13,15 +14,26 @@ import org.mapstruct.MappingConstants;
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface BookCopyEntityMapper {
 
-  default List<BookCopyEntity> toEntityList(final BookEntity bookEntity, final Long copies) {
+  default List<BookCopyEntity> createBookCopies(final BookEntity bookEntity, final Long copies) {
     return IntStream.range(0, copies.intValue())
         .mapToObj(
             i -> {
               final BookCopyEntity bookCopyEntity = new BookCopyEntity();
               bookCopyEntity.setBook(bookEntity);
+              this.patchWithStatus(bookCopyEntity, BookCopyStatus.AVAILABLE);
               return bookCopyEntity;
             })
         .toList();
+  }
+
+  default void patchWithStatus(
+      final BookCopyEntity bookCopyEntity, final BookCopyStatus status) {
+    bookCopyEntity.setStatus(status);
+  }
+
+  default void patchWithStatus(
+      final List<BookCopyEntity> bookCopyEntities, final BookCopyStatus status) {
+    bookCopyEntities.forEach(bookCopyEntity -> this.patchWithStatus(bookCopyEntity, status));
   }
 
   List<BookAllocation> toDomainList(

@@ -16,26 +16,26 @@ INSERT INTO books (author, created_at, created_by, genre, isbn, price, publisher
 ('Delia Owens',      NOW(), 'superadmin', 'FICTION',   '9780735219106', 17.60, 'G.P. Putnam',       'Where the Crawdads Sing','NEW_RELEASE', NOW(), 'superadmin', 2018, next value for books_seq);
 
 -- 12 copies for 9780451524935
-INSERT INTO book_copies (book_id, created_at, created_by, updated_at, updated_by, id)
-SELECT b.id, NOW(), 'superadmin', NOW(), 'superadmin', next value for book_copies_seq
+INSERT INTO book_copies (book_id, created_at, created_by, updated_at, updated_by, status, id)
+SELECT b.id, NOW(), 'superadmin', NOW(), 'superadmin', 'AVAILABLE', next value for book_copies_seq
 FROM books b, system_range(1, 12)
 WHERE b.isbn = '9780451524935';
 
 -- 33 copies for 9780747542988
-INSERT INTO book_copies (book_id, created_at, created_by, updated_at, updated_by, id)
-SELECT b.id, NOW(), 'superadmin', NOW(), 'superadmin', next value for book_copies_seq
+INSERT INTO book_copies (book_id, created_at, created_by, updated_at, updated_by, status, id)
+SELECT b.id, NOW(), 'superadmin', NOW(), 'superadmin', 'AVAILABLE', next value for book_copies_seq
 FROM books b, system_range(1, 33)
 WHERE b.isbn = '9780747542988';
 
 -- 45 copies for 9780261103573
-INSERT INTO book_copies (book_id, created_at, created_by, updated_at, updated_by, id)
-SELECT b.id, NOW(), 'superadmin', NOW(), 'superadmin', next value for book_copies_seq
+INSERT INTO book_copies (book_id, created_at, created_by, updated_at, updated_by, status, id)
+SELECT b.id, NOW(), 'superadmin', NOW(), 'superadmin', 'AVAILABLE', next value for book_copies_seq
 FROM books b, system_range(1, 45)
 WHERE b.isbn = '9780261103573';
 
 -- 62 copies for 9780062316097
-INSERT INTO book_copies (book_id, created_at, created_by, updated_at, updated_by, id)
-SELECT b.id, NOW(), 'superadmin', NOW(), 'superadmin', next value for book_copies_seq
+INSERT INTO book_copies (book_id, created_at, created_by, updated_at, updated_by, status, id)
+SELECT b.id, NOW(), 'superadmin', NOW(), 'superadmin', 'AVAILABLE', next value for book_copies_seq
 FROM books b, system_range(1, 62)
 WHERE b.isbn = '9780062316097';
 

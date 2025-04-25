@@ -8,8 +8,10 @@ import org.springframework.stereotype.Service;
 public class OldEditionSubtotalPriceServiceImpl extends AbstractSubtotalPriceServiceImpl
     implements SubtotalPriceService {
 
-  private static final BigDecimal DEFAULT_DISCOUNT = new BigDecimal("0.8");
-  private static final BigDecimal ADDITIONAL_DISCOUNT = new BigDecimal("0.95");
+  public OldEditionSubtotalPriceServiceImpl(
+      final DiscountConfigurationProperties discountConfigurationProperties) {
+    super(discountConfigurationProperties);
+  }
 
   @Override
   public String getBookTypeCode() {
@@ -18,11 +20,11 @@ public class OldEditionSubtotalPriceServiceImpl extends AbstractSubtotalPriceSer
 
   @Override
   public BigDecimal getDefaultDiscount() {
-    return DEFAULT_DISCOUNT;
+    return this.discountConfigurationProperties.getOldEdition().getDefaultDiscount();
   }
 
   @Override
   protected BigDecimal getAdditionalDiscount() {
-    return ADDITIONAL_DISCOUNT;
+    return this.discountConfigurationProperties.getOldEdition().getBundle();
   }
 }

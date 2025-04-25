@@ -1,5 +1,6 @@
 package es.pedrazamiguez.assessment.onlinebookstore.application.processor.purchase;
 
+import es.pedrazamiguez.assessment.onlinebookstore.domain.enums.BookCopyStatus;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.enums.PurchaseStatus;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.model.PurchaseContext;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.processor.PurchaseProcessor;
@@ -26,7 +27,7 @@ public class InventoryUpdateProcessor implements PurchaseProcessor {
             orderItem -> {
               final Long bookId = orderItem.getAllocation().getBook().getId();
               final Long copies = orderItem.getAllocation().getCopies();
-              this.bookCopyRepository.deleteCopies(bookId, copies);
+              this.bookCopyRepository.updateCopiesStatus(bookId, copies, BookCopyStatus.SOLD);
             });
 
     context.setStatus(PurchaseStatus.SUCCESS);

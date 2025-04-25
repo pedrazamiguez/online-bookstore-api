@@ -1,13 +1,10 @@
 package es.pedrazamiguez.assessment.onlinebookstore.repository.jpa;
 
-import es.pedrazamiguez.assessment.onlinebookstore.repository.projection.InventoryDetailsQueryResult;
 import es.pedrazamiguez.assessment.onlinebookstore.repository.entity.BookCopyEntity;
-
-import java.sql.Timestamp;
+import es.pedrazamiguez.assessment.onlinebookstore.repository.projection.InventoryDetailsQueryResult;
+import java.time.LocalDateTime;
 import java.util.List;
-
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
@@ -33,6 +30,8 @@ public interface BookCopyJpaRepository extends JpaRepository<BookCopyEntity, Lon
           from
             book_copies bc
             right join books b on bc.book_id = b.id
+          where
+            bc.status in (:statuses)
           group by
             bc.book_id, bc.book_id, b.title, b.author
           having
@@ -41,7 +40,8 @@ public interface BookCopyJpaRepository extends JpaRepository<BookCopyEntity, Lon
             1 desc
           """,
       nativeQuery = true)
-  List<InventoryDetailsQueryResult> findInventoryDetails(int count);
+  List<InventoryDetailsQueryResult> findInventoryDetailsAndStatusIn(
+      int count, List<String> statuses);
 
   @Query(
       value =
@@ -64,43 +64,32 @@ public interface BookCopyJpaRepository extends JpaRepository<BookCopyEntity, Lon
             inner join books b on bc.book_id = b.id
           where
             b.id = :bookId
+            and
+            bc.status in (:statuses)
           group by
             bc.book_id, bc.book_id, b.title, b.author
           """,
       nativeQuery = true)
-  InventoryDetailsQueryResult findInventoryDetailsForBook(Long bookId);
+  InventoryDetailsQueryResult findInventoryDetailsForBookAndStatusIn(
+      Long bookId, List<String> statuses);
 
-  @Modifying
   @Query(
       value =
           """
-          delete from
-            book_copies
+          select
+            bc.*
+          from
+            book_copies bc
           where
-            id in (
-              select
-                bc.id
-              from
-                book_copies bc
-              where
-                bc.book_id = :bookId
-              order by
-                bc.updated_at
-              limit :copies
-            )
+            bc.book_id = :bookId
+            and
+            bc.status in (:statuses)
+          order by
+            bc.updated_at
+          limit :copies
           """,
       nativeQuery = true)
-  void deleteByBookIdAndCopies(Long bookId, Long copies);
+  List<BookCopyEntity> findByBookIdAndStatusIn(Long bookId, Long copies, List<String> statuses);
 
-  @Modifying
-  @Query(
-      value =
-          """
-          delete from
-            book_copies
-          where
-            updated_at < :date
-          """,
-      nativeQuery = true)
-  void deleteByUpdatedAtBefore(Timestamp date);
+  List<BookCopyEntity> findByUpdatedAtBeforeAndStatusIn(LocalDateTime date, List<String> statuses);
 }

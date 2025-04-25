@@ -7,18 +7,24 @@ import es.pedrazamiguez.assessment.onlinebookstore.domain.model.PayableAmount;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@ExtendWith(MockitoExtension.class)
 class NewReleaseSubtotalPriceServiceImplTest {
 
   private NewReleaseSubtotalPriceServiceImpl service;
 
+  @Mock private DiscountConfigurationProperties discountConfigurationProperties;
+
   @BeforeEach
   void setUp() {
-    this.service = new NewReleaseSubtotalPriceServiceImpl();
+    this.service = new NewReleaseSubtotalPriceServiceImpl(this.discountConfigurationProperties);
   }
 
   @Test

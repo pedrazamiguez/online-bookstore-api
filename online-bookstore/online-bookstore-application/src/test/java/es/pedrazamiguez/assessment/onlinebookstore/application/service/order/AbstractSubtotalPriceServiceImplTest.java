@@ -1,23 +1,38 @@
 package es.pedrazamiguez.assessment.onlinebookstore.application.service.order;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import es.pedrazamiguez.assessment.onlinebookstore.domain.model.Book;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.model.BookAllocation;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.model.OrderItem;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.model.PayableAmount;
-import java.math.BigDecimal;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
 class AbstractSubtotalPriceServiceImplTest {
 
   private TestSubtotalPriceService service;
+  private DiscountConfigurationProperties discountConfig;
 
   @BeforeEach
   void setUp() {
-    this.service = new TestSubtotalPriceService();
+    // Initialize DiscountConfigurationProperties with test values
+    this.discountConfig = new DiscountConfigurationProperties();
+    this.discountConfig.setDefaultMinimumCopies(3L);
+    final DiscountConfigurationProperties.Regular regular = new DiscountConfigurationProperties.Regular();
+    regular.setBundle(new BigDecimal("0.9"));
+    this.discountConfig.setRegular(regular);
+    final DiscountConfigurationProperties.OldEdition oldEdition =
+        new DiscountConfigurationProperties.OldEdition();
+    oldEdition.setDefaultDiscount(new BigDecimal("0.8"));
+    oldEdition.setBundle(new BigDecimal("0.95"));
+    this.discountConfig.setOldEdition(oldEdition);
+
+    // Initialize the service with the configuration
+    this.service = new TestSubtotalPriceService(this.discountConfig);
   }
 
   @Test
@@ -27,7 +42,6 @@ class AbstractSubtotalPriceServiceImplTest {
     final OrderItem orderItem = this.createOrderItem(new BigDecimal("20.00"), 2L);
     this.service.setDefaultDiscount(new BigDecimal("0.9"));
     this.service.setAdditionalDiscount(new BigDecimal("0.8"));
-    this.service.setMinimumCopiesForDiscount(3L);
 
     // WHEN
     final PayableAmount result = this.service.calculateSubtotal(orderItem);
@@ -44,7 +58,6 @@ class AbstractSubtotalPriceServiceImplTest {
     final OrderItem orderItem = this.createOrderItem(new BigDecimal("20.00"), 3L);
     this.service.setDefaultDiscount(new BigDecimal("0.9"));
     this.service.setAdditionalDiscount(new BigDecimal("0.8"));
-    this.service.setMinimumCopiesForDiscount(3L);
 
     // WHEN
     final PayableAmount result = this.service.calculateSubtotal(orderItem);
@@ -61,7 +74,6 @@ class AbstractSubtotalPriceServiceImplTest {
     final OrderItem orderItem = this.createOrderItem(new BigDecimal("20.00"), 3L);
     this.service.setDefaultDiscount(BigDecimal.ONE);
     this.service.setAdditionalDiscount(BigDecimal.ONE);
-    this.service.setMinimumCopiesForDiscount(3L);
 
     // WHEN
     final PayableAmount result = this.service.calculateSubtotal(orderItem);
@@ -71,12 +83,12 @@ class AbstractSubtotalPriceServiceImplTest {
     assertThat(result.getSubtotal()).isEqualByComparingTo(new BigDecimal("60.00")); // 20 * 3 * 1
   }
 
-  // New test case to cover getAdditionalDiscount()
   @Test
   @DisplayName("Default additional discount applied when copies meet minimum")
   void givenMinimumCopiesMet_whenCalculatingSubtotal_thenDefaultAdditionalDiscountApplied() {
     // GIVEN
-    final MinimalTestSubtotalPriceService minimalService = new MinimalTestSubtotalPriceService();
+    final MinimalTestSubtotalPriceService minimalService =
+        new MinimalTestSubtotalPriceService(this.discountConfig);
     final OrderItem orderItem = this.createOrderItem(new BigDecimal("20.00"), 3L);
 
     // WHEN
@@ -99,11 +111,14 @@ class AbstractSubtotalPriceServiceImplTest {
     return orderItem;
   }
 
-  // Test-specific subclass (existing)
+  // Test-specific subclass
   private static class TestSubtotalPriceService extends AbstractSubtotalPriceServiceImpl {
     private BigDecimal defaultDiscount = BigDecimal.ONE;
     private BigDecimal additionalDiscount = BigDecimal.ONE;
-    private Long minimumCopiesForDiscount = 3L;
+
+    TestSubtotalPriceService(final DiscountConfigurationProperties discountConfig) {
+      super(discountConfig);
+    }
 
     @Override
     public String getBookTypeCode() {
@@ -127,25 +142,17 @@ class AbstractSubtotalPriceServiceImplTest {
     void setAdditionalDiscount(final BigDecimal additionalDiscount) {
       this.additionalDiscount = additionalDiscount;
     }
-
-    @Override
-    protected Long getMinimumCopiesForDiscount() {
-      return this.minimumCopiesForDiscount;
-    }
-
-    void setMinimumCopiesForDiscount(final Long minimumCopiesForDiscount) {
-      this.minimumCopiesForDiscount = minimumCopiesForDiscount;
-    }
   }
 
-  // New minimal test-specific subclass to cover default getAdditionalDiscount()
+  // Minimal test-specific subclass
   private static class MinimalTestSubtotalPriceService extends AbstractSubtotalPriceServiceImpl {
+    MinimalTestSubtotalPriceService(final DiscountConfigurationProperties discountConfig) {
+      super(discountConfig);
+    }
+
     @Override
     public String getBookTypeCode() {
       return "MINIMAL_TEST";
     }
-    // Do not override getAdditionalDiscount(), getDefaultDiscount(), or
-    // getMinimumCopiesForDiscount()
-    // Use their default implementations from AbstractSubtotalPriceServiceImpl
   }
 }

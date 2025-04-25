@@ -1,15 +1,15 @@
 package es.pedrazamiguez.assessment.onlinebookstore.application.usecase.inventory;
 
+import es.pedrazamiguez.assessment.onlinebookstore.domain.enums.BookCopyStatus;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.model.BookAllocation;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.repository.BookCopyRepository;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.service.book.AvailableBookCopiesService;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.usecase.inventory.DeleteFromInventoryUseCase;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
 
 @Slf4j
 @Component
@@ -26,7 +26,7 @@ public class DeleteFromInventoryUseCaseImpl implements DeleteFromInventoryUseCas
     log.info("Deleting {} copies of book with ID {} from inventory", copies, bookId);
 
     this.availableBookCopiesService.assure(bookId, copies);
-    this.bookCopyRepository.deleteCopies(bookId, copies);
+    this.bookCopyRepository.updateCopiesStatus(bookId, copies, BookCopyStatus.DELETED);
     return this.bookCopyRepository.getInventoryDetailsByBookId(bookId);
   }
 }

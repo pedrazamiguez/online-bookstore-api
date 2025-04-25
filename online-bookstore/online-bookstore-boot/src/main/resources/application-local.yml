@@ -19,3 +19,12 @@ spring:
 logging.level:
   org.hibernate:
     type: trace
+
+pricing:
+  discount:
+    default-minimum-copies: 3
+    regular:
+      bundle: 0.9
+    old-edition:
+      default: 0.8
+      bundle: 0.95

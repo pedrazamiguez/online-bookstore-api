@@ -105,7 +105,7 @@ In a production setting, the following components would be implemented or replac
 - **PostgreSQL** or **MongoDB** for persistent data storage
 - **Redis** for caching
 - **ElasticSearch** for advanced search features
-- **Microservice Architecture** with service discovery and API gateways
+- **Microservice Architecture** with service discovery and API gateway
 
 ### Pricing Strategy
 
@@ -141,16 +141,16 @@ making it easier to evolve the system over time.
 The core logic for completing a purchase is encapsulated in the `PerformPurchaseUseCase`, which orchestrates the
 following steps:
 
-1. **Retrieve Order**  
+1. **Order Retrieval**  
    The order associated with the currently authenticated user is retrieved.
 
-2. **Validate Order Contents**  
+2. **Order Validation**  
    Ensures the order contains at least one item. If not, an error is returned.
 
 3. **Stock Verification**  
    For each order line, the system checks whether there is sufficient stock available.
 
-4. **Subtotal Calculation & Discounts**  
+4. **Price Calculation & Discounts**  
    Applies pricing strategies depending on the book type (`NEW_RELEASE`, `REGULAR`, `OLD_EDITION`), calculating
    subtotals and applying relevant discounts.
 
@@ -162,7 +162,7 @@ following steps:
    Represents the logistics step — preparing the order for shipping. In a real-world app, this would involve warehouse
    and courier system integrations.
 
-7. **Order & Database Update**  
+7. **Order Placement**  
    The order status is updated (e.g., from `CREATED` to `PURCHASED`) and all necessary database records are updated
    accordingly.
 
@@ -174,10 +174,10 @@ following steps:
 
 **Architectural Notes**
 
-While this process is implemented as a single use case class for demonstration purposes, in a **production-grade system** this orchestration would ideally be handled using the **Chain of Responsibility Pattern**:
+This orchestration is handled using the **Chain of Responsibility Pattern**:
 
-- Each step (e.g., stock check, payment, shipping) would be encapsulated in its own **processor**.
-- These processors would be linked in a chain, with each one performing its task and passing control to the next.
+- Each step (e.g., stock check, payment, shipping) is encapsulated in its own **processor**.
+- These processors are linked in a chain, with each one performing its task and passing control to the next.
 - This design promotes **modularity**, **reusability**, and **separation of concerns**, making it easier to handle
   failures, retries, or alternate flows (e.g., different payment providers or loyalty systems).
 
@@ -188,11 +188,9 @@ dynamically depending on business rules or order properties.
 
 - Pagination and filtering for list endpoints
 - Order history and purchase analytics
+- Stock management system to track book locations across shelves, sections, or warehouses
+- Real-time inventory synchronization to prevent overselling and streamline restocking operations
 - Integration with external book metadata providers (e.g., ISBN DB)
 - Loyalty program rules engine for advanced reward systems
-- Refactor of the purchase process using a more extensible architecture (e.g., Chain of Responsibility) and improved
-  order mappers
-- Adjust inventory handling: instead of removing book copies upon purchase, mark them as "purchased" to keep historical
-  records intact and maintain accurate existence tracking
 - Implementation of customer loyalty point accumulation and redemption logic
 - Expansion of test coverage, including unit tests and end-to-end integration tests across critical flows
