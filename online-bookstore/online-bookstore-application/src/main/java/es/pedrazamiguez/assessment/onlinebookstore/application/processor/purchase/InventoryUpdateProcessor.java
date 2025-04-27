@@ -18,7 +18,7 @@ public class InventoryUpdateProcessor implements PurchaseProcessor {
 
   @Override
   public void process(final PurchaseContext context) {
-    final var purchasedOrder = context.getExistingOrder();
+    final var purchasedOrder = context.getPurchasedOrder();
 
     log.info("Updating inventory for orderId {}", purchasedOrder.getId());
     purchasedOrder

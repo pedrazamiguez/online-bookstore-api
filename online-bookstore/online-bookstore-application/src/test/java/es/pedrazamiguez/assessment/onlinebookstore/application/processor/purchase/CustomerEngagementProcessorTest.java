@@ -1,0 +1,49 @@
+package es.pedrazamiguez.assessment.onlinebookstore.application.processor.purchase;
+
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatCode;
+import static org.instancio.Select.field;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
+
+import es.pedrazamiguez.assessment.onlinebookstore.domain.model.Order;
+import es.pedrazamiguez.assessment.onlinebookstore.domain.model.PurchaseContext;
+import es.pedrazamiguez.assessment.onlinebookstore.domain.repository.LoyaltyPointRepository;
+import org.instancio.Instancio;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+@ExtendWith(MockitoExtension.class)
+class CustomerEngagementProcessorTest {
+
+  @InjectMocks private CustomerEngagementProcessor customerEngagementProcessor;
+
+  @Mock private LoyaltyPointRepository loyaltyPointRepository;
+
+  @Test
+  void givenOrder_whenProcess_thenEngageCustomer() {
+    // GIVEN
+    final var existingOrder =
+        Instancio.of(Order.class)
+            .generate(field(Order::getLines), gen -> gen.collection().size(3))
+            .create();
+    final var context =
+        Instancio.of(PurchaseContext.class)
+            .supply(field(PurchaseContext::getExistingOrder), gen -> existingOrder)
+            .create();
+
+    // WHEN
+    assertThatCode(() -> this.customerEngagementProcessor.process(context))
+        .doesNotThrowAnyException();
+
+    // THEN
+    verify(this.loyaltyPointRepository)
+        .addLoyaltyPoints(
+            context.getUsername(),
+            context.getPurchasedOrder().getId(),
+            context.getLoyaltyPointsEarned());
+    verifyNoMoreInteractions(this.loyaltyPointRepository);
+  }
+}
