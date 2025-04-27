@@ -1,3 +1,7 @@
 package es.pedrazamiguez.assessment.onlinebookstore.domain.usecase.loyalty;
 
-public interface GetLoyaltyPointsUseCase {}
+@FunctionalInterface
+public interface GetLoyaltyPointsUseCase {
+
+  Long getCurrentCustomerLoyaltyPoints();
+}

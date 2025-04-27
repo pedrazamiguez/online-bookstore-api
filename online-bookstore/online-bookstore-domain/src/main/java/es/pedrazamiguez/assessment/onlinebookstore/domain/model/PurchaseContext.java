@@ -18,7 +18,7 @@ public class PurchaseContext {
   private boolean paymentProcessed;
   private String shippingAddress;
   private boolean shippingPrepared;
-  private int loyaltyPointsEarned;
+  private Long loyaltyPointsEarned;
 
   public boolean isSuccessful() {
     return this.status == PurchaseStatus.SUCCESS || this.status == PurchaseStatus.PENDING;

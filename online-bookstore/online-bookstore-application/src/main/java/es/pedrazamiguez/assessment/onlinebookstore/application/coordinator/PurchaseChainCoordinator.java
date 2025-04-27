@@ -3,7 +3,6 @@ package es.pedrazamiguez.assessment.onlinebookstore.application.coordinator;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.enums.PaymentMethod;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.enums.PurchaseStatus;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.exception.PurchaseException;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.model.Order;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.model.PurchaseContext;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.processor.PurchaseProcessor;
 import java.util.List;

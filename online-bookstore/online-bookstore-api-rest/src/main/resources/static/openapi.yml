@@ -849,6 +849,12 @@ paths:
       description: Get current customer loyalty points - Requires role <code>USER</code>
       operationId: getCurrentCustomerLoyaltyPoints
       responses:
+        '200':
+          description: Current customer loyalty points retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoyaltyPoints'
         '500':
           description: Unexpected error
           content:
@@ -1149,6 +1155,14 @@ components:
           example: "219.90"
         status:
           $ref: '#/components/schemas/OrderStatus'
+
+    LoyaltyPoints:
+      type: object
+      properties:
+        available:
+          type: integer
+          format: int64
+          example: 12
 
     Error:
       type: object

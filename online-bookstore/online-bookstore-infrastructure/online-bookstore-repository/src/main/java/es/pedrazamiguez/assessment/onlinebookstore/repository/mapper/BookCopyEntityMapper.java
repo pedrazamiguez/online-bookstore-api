@@ -6,7 +6,7 @@ import es.pedrazamiguez.assessment.onlinebookstore.repository.entity.BookCopyEnt
 import es.pedrazamiguez.assessment.onlinebookstore.repository.entity.BookEntity;
 import es.pedrazamiguez.assessment.onlinebookstore.repository.projection.InventoryDetailsQueryResult;
 import java.util.List;
-import java.util.stream.IntStream;
+import java.util.stream.LongStream;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
@@ -15,7 +15,7 @@ import org.mapstruct.MappingConstants;
 public interface BookCopyEntityMapper {
 
   default List<BookCopyEntity> createBookCopies(final BookEntity bookEntity, final Long copies) {
-    return IntStream.range(0, copies.intValue())
+    return LongStream.range(0, copies)
         .mapToObj(
             i -> {
               final BookCopyEntity bookCopyEntity = new BookCopyEntity();
@@ -26,8 +26,7 @@ public interface BookCopyEntityMapper {
         .toList();
   }
 
-  default void patchWithStatus(
-      final BookCopyEntity bookCopyEntity, final BookCopyStatus status) {
+  default void patchWithStatus(final BookCopyEntity bookCopyEntity, final BookCopyStatus status) {
     bookCopyEntity.setStatus(status);
   }
 

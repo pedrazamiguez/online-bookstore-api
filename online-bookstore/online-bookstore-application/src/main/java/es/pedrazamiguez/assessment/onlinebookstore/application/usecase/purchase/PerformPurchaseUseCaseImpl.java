@@ -7,8 +7,10 @@ import es.pedrazamiguez.assessment.onlinebookstore.domain.model.Order;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.model.PurchaseContext;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.processor.PurchaseProcessor;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.repository.BookCopyRepository;
+import es.pedrazamiguez.assessment.onlinebookstore.domain.repository.LoyaltyPointRepository;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.repository.OrderRepository;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.service.book.AvailableBookCopiesService;
+import es.pedrazamiguez.assessment.onlinebookstore.domain.service.customer.LoyaltyPointsService;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.service.order.CurrentOrderService;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.service.order.FinalPriceService;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.service.payment.PaymentService;
@@ -37,11 +39,15 @@ public class PerformPurchaseUseCaseImpl implements PerformPurchaseUseCase {
 
   private final ShippingService shippingService;
 
-  private final OrderRepository orderRepository;
-
   private final FinalPriceService finalPriceService;
 
+  private final LoyaltyPointsService loyaltyPointsService;
+
+  private final OrderRepository orderRepository;
+
   private final BookCopyRepository bookCopyRepository;
+
+  private final LoyaltyPointRepository loyaltyPointRepository;
 
   @Override
   @Transactional
@@ -60,7 +66,8 @@ public class PerformPurchaseUseCaseImpl implements PerformPurchaseUseCase {
     processors.add(new ShippingProcessor(this.shippingService));
     processors.add(new OrderPlacementProcessor(this.orderRepository));
     processors.add(new InventoryUpdateProcessor(this.bookCopyRepository));
-    processors.add(new LoyaltyPointsCalculationProcessor());
+    processors.add(new LoyaltyPointsCalculationProcessor(this.loyaltyPointsService));
+    processors.add(new CustomerEngagementProcessor(this.loyaltyPointRepository));
 
     // Coordinate
     final PurchaseChainCoordinator purchaseChainCoordinator =

@@ -1,12 +1,12 @@
 package es.pedrazamiguez.assessment.onlinebookstore.repository.impl;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.enums.PaymentMethod;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.model.Order;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.enums.OrderStatus;
+import es.pedrazamiguez.assessment.onlinebookstore.domain.enums.PaymentMethod;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.exception.BookNotFoundException;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.exception.BookNotInOrderException;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.exception.CustomerNotFoundException;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.exception.OrderNotFoundException;
+import es.pedrazamiguez.assessment.onlinebookstore.domain.model.Order;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.repository.OrderRepository;
 import es.pedrazamiguez.assessment.onlinebookstore.repository.entity.BookEntity;
 import es.pedrazamiguez.assessment.onlinebookstore.repository.entity.CustomerEntity;
@@ -85,7 +85,7 @@ public class OrderRepositoryImpl implements OrderRepository {
   }
 
   @Override
-  public Order deleteOrderItems(final Long orderId) {
+  public void deleteOrderItems(final Long orderId) {
     log.info("Deleting order items for orderId: {}", orderId);
 
     final OrderEntity existingOrderEntity =
@@ -94,9 +94,7 @@ public class OrderRepositoryImpl implements OrderRepository {
             .orElseThrow(() -> new OrderNotFoundException(orderId));
 
     existingOrderEntity.getItems().clear();
-    final OrderEntity savedOrderEntity = this.orderJpaRepository.save(existingOrderEntity);
-
-    return this.orderEntityMapper.toDomain(savedOrderEntity);
+    this.orderJpaRepository.save(existingOrderEntity);
   }
 
   @Override

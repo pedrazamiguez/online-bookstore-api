@@ -26,5 +26,5 @@ pricing:
     regular:
       bundle: 0.9
     old-edition:
-      default: 0.8
+      default-discount: 0.8
       bundle: 0.95

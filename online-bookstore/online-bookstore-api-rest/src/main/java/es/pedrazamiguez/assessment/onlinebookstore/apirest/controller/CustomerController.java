@@ -1,6 +1,9 @@
 package es.pedrazamiguez.assessment.onlinebookstore.apirest.controller;
 
+import es.pedrazamiguez.assessment.onlinebookstore.apirest.mapper.CustomerRestMapper;
+import es.pedrazamiguez.assessment.onlinebookstore.domain.usecase.loyalty.GetLoyaltyPointsUseCase;
 import es.pedrazamiguez.assessment.onlinebookstore.openapi.api.CustomerApi;
+import es.pedrazamiguez.assessment.onlinebookstore.openapi.model.LoyaltyPointsDto;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.NotImplementedException;
 import org.springframework.http.ResponseEntity;
@@ -11,10 +14,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class CustomerController implements CustomerApi {
 
+  private final GetLoyaltyPointsUseCase getLoyaltyPointsUseCase;
+
+  private final CustomerRestMapper customerRestMapper;
+
   @Override
   @PreAuthorize("hasRole('USER')")
-  public ResponseEntity<Void> getCurrentCustomerLoyaltyPoints() {
-    throw new NotImplementedException("Not implemented yet");
+  public ResponseEntity<LoyaltyPointsDto> getCurrentCustomerLoyaltyPoints() {
+    final Long points = this.getLoyaltyPointsUseCase.getCurrentCustomerLoyaltyPoints();
+    final LoyaltyPointsDto loyaltyPointsDto = this.customerRestMapper.toLoyaltyPointsDto(points);
+    return ResponseEntity.ok(loyaltyPointsDto);
   }
 
   @Override
