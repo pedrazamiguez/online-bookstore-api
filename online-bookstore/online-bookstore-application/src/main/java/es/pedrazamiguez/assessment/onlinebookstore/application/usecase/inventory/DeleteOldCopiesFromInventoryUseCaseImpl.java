@@ -12,14 +12,14 @@ import org.springframework.transaction.annotation.Transactional;
 @Component
 @RequiredArgsConstructor
 public class DeleteOldCopiesFromInventoryUseCaseImpl
-    implements DeleteOldCopiesFromInventoryUseCase {
+        implements DeleteOldCopiesFromInventoryUseCase {
 
-  private final BookCopyRepository bookCopyRepository;
+    private final BookCopyRepository bookCopyRepository;
 
-  @Override
-  @Transactional
-  public void deleteOldCopies(final LocalDateTime olderThan) {
-    log.info("Deleting old copies from inventory older than {}", olderThan);
-    this.bookCopyRepository.deleteCopiesOlderThan(olderThan);
-  }
+    @Override
+    @Transactional
+    public void deleteOldCopies(final LocalDateTime olderThan) {
+        log.info("Deleting old copies from inventory older than {}", olderThan);
+        this.bookCopyRepository.deleteCopiesOlderThan(olderThan);
+    }
 }

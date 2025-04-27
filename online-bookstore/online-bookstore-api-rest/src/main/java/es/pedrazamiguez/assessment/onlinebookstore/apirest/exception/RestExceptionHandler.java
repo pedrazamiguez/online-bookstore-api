@@ -25,95 +25,95 @@ import org.springframework.web.servlet.resource.NoResourceFoundException;
 @RequiredArgsConstructor
 public class RestExceptionHandler {
 
-  private final ErrorRestMapper errorRestMapper;
+    private final ErrorRestMapper errorRestMapper;
 
-  @ExceptionHandler(NotImplementedException.class)
-  public ResponseEntity<ErrorDto> handleNotImplementedException(
-      final NotImplementedException e, final WebRequest request) {
-    final HttpStatus status = HttpStatus.NOT_IMPLEMENTED;
-    return ResponseEntity.status(status)
-        .contentType(MediaType.APPLICATION_JSON)
-        .body(this.errorRestMapper.toDto(status, e, request));
-  }
+    @ExceptionHandler(NotImplementedException.class)
+    public ResponseEntity<ErrorDto> handleNotImplementedException(
+            final NotImplementedException e, final WebRequest request) {
+        final HttpStatus status = HttpStatus.NOT_IMPLEMENTED;
+        return ResponseEntity.status(status)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(this.errorRestMapper.toDto(status, e, request));
+    }
 
-  @ExceptionHandler(MethodArgumentNotValidException.class)
-  public ResponseEntity<ErrorDto> handleMethodArgumentNotValidException(
-      final MethodArgumentNotValidException e, final WebRequest request) {
-    final HttpStatus status = HttpStatus.BAD_REQUEST;
-    return ResponseEntity.status(status)
-        .contentType(MediaType.APPLICATION_JSON)
-        .body(this.errorRestMapper.toDto(status, e, request));
-  }
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ErrorDto> handleMethodArgumentNotValidException(
+            final MethodArgumentNotValidException e, final WebRequest request) {
+        final HttpStatus status = HttpStatus.BAD_REQUEST;
+        return ResponseEntity.status(status)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(this.errorRestMapper.toDto(status, e, request));
+    }
 
-  @ExceptionHandler(ConstraintViolationException.class)
-  public ResponseEntity<ErrorDto> handleConstraintViolationException(
-      final ConstraintViolationException e, final WebRequest request) {
-    final HttpStatus status = HttpStatus.BAD_REQUEST;
-    return ResponseEntity.status(status)
-        .contentType(MediaType.APPLICATION_JSON)
-        .body(this.errorRestMapper.toDto(status, e, request));
-  }
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<ErrorDto> handleConstraintViolationException(
+            final ConstraintViolationException e, final WebRequest request) {
+        final HttpStatus status = HttpStatus.BAD_REQUEST;
+        return ResponseEntity.status(status)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(this.errorRestMapper.toDto(status, e, request));
+    }
 
-  @ExceptionHandler(MethodArgumentTypeMismatchException.class)
-  public ResponseEntity<ErrorDto> handleMethodArgumentTypeMismatchException(
-      final MethodArgumentTypeMismatchException e, final WebRequest request) {
-    final HttpStatus status = HttpStatus.BAD_REQUEST;
-    return ResponseEntity.status(status)
-        .contentType(MediaType.APPLICATION_JSON)
-        .body(this.errorRestMapper.toDto(status, e, request));
-  }
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    public ResponseEntity<ErrorDto> handleMethodArgumentTypeMismatchException(
+            final MethodArgumentTypeMismatchException e, final WebRequest request) {
+        final HttpStatus status = HttpStatus.BAD_REQUEST;
+        return ResponseEntity.status(status)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(this.errorRestMapper.toDto(status, e, request));
+    }
 
-  @ExceptionHandler(MissingServletRequestParameterException.class)
-  public ResponseEntity<ErrorDto> handleMissingServletRequestParameterException(
-      final MissingServletRequestParameterException e, final WebRequest request) {
-    final HttpStatus status = HttpStatus.BAD_REQUEST;
-    return ResponseEntity.status(status)
-        .contentType(MediaType.APPLICATION_JSON)
-        .body(this.errorRestMapper.toDto(status, e, request));
-  }
+    @ExceptionHandler(MissingServletRequestParameterException.class)
+    public ResponseEntity<ErrorDto> handleMissingServletRequestParameterException(
+            final MissingServletRequestParameterException e, final WebRequest request) {
+        final HttpStatus status = HttpStatus.BAD_REQUEST;
+        return ResponseEntity.status(status)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(this.errorRestMapper.toDto(status, e, request));
+    }
 
-  @ExceptionHandler(AuthorizationDeniedException.class)
-  public ResponseEntity<ErrorDto> handleAuthorizationDeniedException(
-      final AuthorizationDeniedException e, final WebRequest request) {
-    final HttpStatus status = HttpStatus.FORBIDDEN;
-    return ResponseEntity.status(status)
-        .contentType(MediaType.APPLICATION_JSON)
-        .body(this.errorRestMapper.toDto(status, e, request));
-  }
+    @ExceptionHandler(AuthorizationDeniedException.class)
+    public ResponseEntity<ErrorDto> handleAuthorizationDeniedException(
+            final AuthorizationDeniedException e, final WebRequest request) {
+        final HttpStatus status = HttpStatus.FORBIDDEN;
+        return ResponseEntity.status(status)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(this.errorRestMapper.toDto(status, e, request));
+    }
 
-  @ExceptionHandler(NoResourceFoundException.class)
-  public ResponseEntity<ErrorDto> handleNoResourceFoundException(
-      final NoResourceFoundException e, final WebRequest request) {
-    final HttpStatus status = HttpStatus.NOT_FOUND;
-    return ResponseEntity.status(status)
-        .contentType(MediaType.APPLICATION_JSON)
-        .body(this.errorRestMapper.toDto(status, e, request));
-  }
+    @ExceptionHandler(NoResourceFoundException.class)
+    public ResponseEntity<ErrorDto> handleNoResourceFoundException(
+            final NoResourceFoundException e, final WebRequest request) {
+        final HttpStatus status = HttpStatus.NOT_FOUND;
+        return ResponseEntity.status(status)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(this.errorRestMapper.toDto(status, e, request));
+    }
 
-  @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
-  public ResponseEntity<ErrorDto> handleHttpRequestMethodNotSupportedException(
-      final HttpRequestMethodNotSupportedException e, final WebRequest request) {
-    final HttpStatus status = HttpStatus.METHOD_NOT_ALLOWED;
-    return ResponseEntity.status(status)
-        .contentType(MediaType.APPLICATION_JSON)
-        .body(this.errorRestMapper.toDto(status, e, request));
-  }
+    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+    public ResponseEntity<ErrorDto> handleHttpRequestMethodNotSupportedException(
+            final HttpRequestMethodNotSupportedException e, final WebRequest request) {
+        final HttpStatus status = HttpStatus.METHOD_NOT_ALLOWED;
+        return ResponseEntity.status(status)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(this.errorRestMapper.toDto(status, e, request));
+    }
 
-  @ExceptionHandler(HttpMessageNotReadableException.class)
-  public ResponseEntity<ErrorDto> handleNotReadableException(
-      final HttpMessageNotReadableException e, final WebRequest request) {
-    final HttpStatus status = HttpStatus.UNPROCESSABLE_ENTITY;
-    return ResponseEntity.status(status)
-        .contentType(MediaType.APPLICATION_JSON)
-        .body(this.errorRestMapper.toDto(status, e, request));
-  }
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<ErrorDto> handleNotReadableException(
+            final HttpMessageNotReadableException e, final WebRequest request) {
+        final HttpStatus status = HttpStatus.UNPROCESSABLE_ENTITY;
+        return ResponseEntity.status(status)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(this.errorRestMapper.toDto(status, e, request));
+    }
 
-  @ExceptionHandler(Exception.class)
-  public ResponseEntity<ErrorDto> handleException(final Exception e, final WebRequest request) {
-    log.error("Unexpected error: {} - {}", e.getClass().getSimpleName(), e.getMessage(), e);
-    final HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
-    return ResponseEntity.status(status)
-        .contentType(MediaType.APPLICATION_JSON)
-        .body(this.errorRestMapper.toDto(status, e, request));
-  }
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ErrorDto> handleException(final Exception e, final WebRequest request) {
+        log.error("Unexpected error: {} - {}", e.getClass().getSimpleName(), e.getMessage(), e);
+        final HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
+        return ResponseEntity.status(status)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(this.errorRestMapper.toDto(status, e, request));
+    }
 }

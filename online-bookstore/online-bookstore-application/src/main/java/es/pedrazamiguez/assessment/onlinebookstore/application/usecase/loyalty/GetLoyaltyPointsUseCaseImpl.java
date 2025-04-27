@@ -12,15 +12,15 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class GetLoyaltyPointsUseCaseImpl implements GetLoyaltyPointsUseCase {
 
-  private final SecurityService securityService;
+    private final SecurityService securityService;
 
-  private final LoyaltyPointRepository loyaltyPointRepository;
+    private final LoyaltyPointRepository loyaltyPointRepository;
 
-  @Override
-  public Long getCurrentCustomerLoyaltyPoints() {
-    final String username = this.securityService.getCurrentUserName();
-    log.info("Getting loyalty points for user: {}", username);
+    @Override
+    public Long getCurrentCustomerLoyaltyPoints() {
+        final String username = this.securityService.getCurrentUserName();
+        log.info("Getting loyalty points for user: {}", username);
 
-    return this.loyaltyPointRepository.getLoyaltyPoints(username);
-  }
+        return this.loyaltyPointRepository.getLoyaltyPoints(username);
+    }
 }

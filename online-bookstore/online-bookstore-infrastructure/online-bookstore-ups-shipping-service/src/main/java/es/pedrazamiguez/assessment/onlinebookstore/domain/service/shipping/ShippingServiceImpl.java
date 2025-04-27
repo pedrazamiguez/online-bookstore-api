@@ -7,9 +7,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class ShippingServiceImpl implements ShippingService {
 
-  @Override
-  public void processShipping(final String shippingAddress, final Long orderId) {
+    @Override
+    public void processShipping(final String shippingAddress, final Long orderId) {
 
-    log.info("Processing shipping for orderId {} to address {}", orderId, shippingAddress);
-  }
+        log.info("Processing shipping for orderId {} to address {}", orderId, shippingAddress);
+    }
 }

@@ -17,29 +17,29 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class AddToOrderUseCaseImpl implements AddToOrderUseCase {
 
-  private final SecurityService securityService;
+    private final SecurityService securityService;
 
-  private final AvailableBookCopiesService availableBookCopiesService;
+    private final AvailableBookCopiesService availableBookCopiesService;
 
-  private final CurrentOrderService currentOrderService;
+    private final CurrentOrderService currentOrderService;
 
-  private final OrderRepository orderRepository;
+    private final OrderRepository orderRepository;
 
-  private final FinalPriceService finalPriceService;
+    private final FinalPriceService finalPriceService;
 
-  @Override
-  @Transactional
-  public Order addToOrder(final Long bookId, final Long copies) {
-    final String username = this.securityService.getCurrentUserName();
-    this.availableBookCopiesService.assure(bookId, copies);
+    @Override
+    @Transactional
+    public Order addToOrder(final Long bookId, final Long copies) {
+        final String username = this.securityService.getCurrentUserName();
+        this.availableBookCopiesService.assure(bookId, copies);
 
-    log.info("Adding {} copies of bookId {} to order for user: {}", copies, bookId, username);
-    final Order existingOrder = this.currentOrderService.getOrCreateOrder(username);
-    final Order updatedOrder =
-        this.orderRepository.saveOrderItem(existingOrder.getId(), bookId, copies);
+        log.info("Adding {} copies of bookId {} to order for user: {}", copies, bookId, username);
+        final Order existingOrder = this.currentOrderService.getOrCreateOrder(username);
+        final Order updatedOrder =
+                this.orderRepository.saveOrderItem(existingOrder.getId(), bookId, copies);
 
-    this.finalPriceService.calculate(updatedOrder);
+        this.finalPriceService.calculate(updatedOrder);
 
-    return updatedOrder;
-  }
+        return updatedOrder;
+    }
 }

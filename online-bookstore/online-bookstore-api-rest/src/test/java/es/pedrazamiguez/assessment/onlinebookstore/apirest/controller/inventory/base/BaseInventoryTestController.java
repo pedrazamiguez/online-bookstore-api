@@ -9,18 +9,19 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 public abstract class BaseInventoryTestController extends BaseInventoryTestData {
 
-  protected MockMvc mockMvc;
-  protected ObjectMapper objectMapper;
+    protected MockMvc mockMvc;
+    protected ObjectMapper objectMapper;
 
-  protected void setUp(final InventoryController inventoryController, final Object... exceptionHandlers) {
-    this.mockMvc =
-        MockMvcBuilders.standaloneSetup(inventoryController)
-            .setControllerAdvice(exceptionHandlers)
-            .build();
+    protected void setUp(
+            final InventoryController inventoryController, final Object... exceptionHandlers) {
+        this.mockMvc =
+                MockMvcBuilders.standaloneSetup(inventoryController)
+                        .setControllerAdvice(exceptionHandlers)
+                        .build();
 
-    this.objectMapper =
-        new ObjectMapper()
-            .registerModule(new JavaTimeModule())
-            .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-  }
+        this.objectMapper =
+                new ObjectMapper()
+                        .registerModule(new JavaTimeModule())
+                        .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+    }
 }

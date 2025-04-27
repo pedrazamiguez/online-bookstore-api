@@ -8,9 +8,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface LoyaltyPointJpaRepository extends JpaRepository<LoyaltyPointEntity, Long> {
 
-  @Query(
-      value =
-          """
+    @Query(
+            value =
+                    """
           select
             count(lp.id)
           from
@@ -20,6 +20,6 @@ public interface LoyaltyPointJpaRepository extends JpaRepository<LoyaltyPointEnt
             c.username = :username
             and lp.status in (:statuses)
           """,
-      nativeQuery = true)
-  Long countLoyaltyPointsByCustomerUsernameAndStatusIn(String username, String... statuses);
+            nativeQuery = true)
+    Long countLoyaltyPointsByCustomerUsernameAndStatusIn(String username, String... statuses);
 }

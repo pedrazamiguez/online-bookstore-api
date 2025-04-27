@@ -26,72 +26,76 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableMethodSecurity
 public class SecurityConfiguration {
 
-  private static final String SUPER_SECRET_PASSWORD = "12345678";
+    private static final String SUPER_SECRET_PASSWORD = "12345678";
 
-  @Bean
-  public SecurityFilterChain securityFilterChain(final HttpSecurity http) throws Exception {
-    http.sessionManagement(
-            session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-        .authorizeHttpRequests(
-            authorize ->
-                authorize
-                    // / (index)
-                    .requestMatchers(HttpMethod.GET, "/")
-                    .permitAll()
+    @Bean
+    public SecurityFilterChain securityFilterChain(final HttpSecurity http) throws Exception {
+        http.sessionManagement(
+                        session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeHttpRequests(
+                        authorize ->
+                                authorize
+                                        // / (index)
+                                        .requestMatchers(HttpMethod.GET, "/")
+                                        .permitAll()
 
-                    // swagger-ui
-                    .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/openapi.yml")
-                    .permitAll()
+                                        // swagger-ui
+                                        .requestMatchers(
+                                                "/v3/api-docs/**", "/swagger-ui/**", "/openapi.yml")
+                                        .permitAll()
 
-                    // /h2-console
-                    .requestMatchers("/h2-console/**")
-                    .hasAnyRole("USER", "ADMIN")
+                                        // /h2-console
+                                        .requestMatchers("/h2-console/**")
+                                        .hasAnyRole("USER", "ADMIN")
 
-                    // All other requests
-                    .anyRequest()
-                    .authenticated())
-        .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin))
-        .csrf(AbstractHttpConfigurer::disable)
-        .httpBasic(Customizer.withDefaults())
-        .authenticationManager(this.authenticationManager());
+                                        // All other requests
+                                        .anyRequest()
+                                        .authenticated())
+                .headers(
+                        headers ->
+                                headers.frameOptions(
+                                        HeadersConfigurer.FrameOptionsConfig::sameOrigin))
+                .csrf(AbstractHttpConfigurer::disable)
+                .httpBasic(Customizer.withDefaults())
+                .authenticationManager(this.authenticationManager());
 
-    return http.build();
-  }
+        return http.build();
+    }
 
-  private AuthenticationManager authenticationManager() {
-    final DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
-    authenticationProvider.setUserDetailsService(this.userDetailsService());
-    authenticationProvider.setPasswordEncoder(this.passwordEncoder());
+    private AuthenticationManager authenticationManager() {
+        final DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
+        authenticationProvider.setUserDetailsService(this.userDetailsService());
+        authenticationProvider.setPasswordEncoder(this.passwordEncoder());
 
-    final ProviderManager providerManager = new ProviderManager(authenticationProvider);
-    providerManager.setEraseCredentialsAfterAuthentication(false);
+        final ProviderManager providerManager = new ProviderManager(authenticationProvider);
+        providerManager.setEraseCredentialsAfterAuthentication(false);
 
-    return providerManager;
-  }
+        return providerManager;
+    }
 
-  private UserDetailsService userDetailsService() {
-    return new InMemoryUserDetailsManager(
-        this.buildWithUserRole("bob"),
-        this.buildWithUserRole("alice"),
-        this.buildWithAdminRole("admin"),
-        this.buildWithAdminRole("superadmin"));
-  }
+    private UserDetailsService userDetailsService() {
+        return new InMemoryUserDetailsManager(
+                this.buildWithUserRole("bob"),
+                this.buildWithUserRole("alice"),
+                this.buildWithAdminRole("admin"),
+                this.buildWithAdminRole("superadmin"));
+    }
 
-  private PasswordEncoder passwordEncoder() {
-    return PasswordEncoderFactories.createDelegatingPasswordEncoder();
-  }
+    private PasswordEncoder passwordEncoder() {
+        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+    }
 
-  private UserDetails buildWithUserRole(final String username) {
-    return User.withUsername(username)
-        .password(this.passwordEncoder().encode(SUPER_SECRET_PASSWORD))
-        .roles("USER")
-        .build();
-  }
+    private UserDetails buildWithUserRole(final String username) {
+        return User.withUsername(username)
+                .password(this.passwordEncoder().encode(SUPER_SECRET_PASSWORD))
+                .roles("USER")
+                .build();
+    }
 
-  private UserDetails buildWithAdminRole(final String username) {
-    return User.withUsername(username)
-        .password(this.passwordEncoder().encode(SUPER_SECRET_PASSWORD))
-        .roles("USER", "ADMIN")
-        .build();
-  }
+    private UserDetails buildWithAdminRole(final String username) {
+        return User.withUsername(username)
+                .password(this.passwordEncoder().encode(SUPER_SECRET_PASSWORD))
+                .roles("USER", "ADMIN")
+                .build();
+    }
 }

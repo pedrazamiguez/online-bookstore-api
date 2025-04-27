@@ -9,16 +9,16 @@ import lombok.Data;
 @AllArgsConstructor
 public class InventoryDetailsQueryResult {
 
-  private Long copies;
-  private Timestamp lastUpdatedAt;
-  private String lastUpdatedBy;
-  private Long bookId;
-  private String isbn;
-  private String title;
-  private String author;
-  private String publisher;
-  private Integer yearPublished;
-  private BigDecimal price;
-  private String genre;
-  private String typeCode;
+    private Long copies;
+    private Timestamp lastUpdatedAt;
+    private String lastUpdatedBy;
+    private Long bookId;
+    private String isbn;
+    private String title;
+    private String author;
+    private String publisher;
+    private Integer yearPublished;
+    private BigDecimal price;
+    private String genre;
+    private String typeCode;
 }

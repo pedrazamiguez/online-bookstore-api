@@ -5,20 +5,20 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class NewReleaseSubtotalPriceServiceImpl extends AbstractSubtotalPriceServiceImpl
-    implements SubtotalPriceService {
+        implements SubtotalPriceService {
 
-  public NewReleaseSubtotalPriceServiceImpl(
-      final DiscountConfigurationProperties discountConfigurationProperties) {
-    super(discountConfigurationProperties);
-  }
+    public NewReleaseSubtotalPriceServiceImpl(
+            final DiscountConfigurationProperties discountConfigurationProperties) {
+        super(discountConfigurationProperties);
+    }
 
-  @Override
-  public String getBookTypeCode() {
-    return "NEW_RELEASE";
-  }
+    @Override
+    public String getBookTypeCode() {
+        return "NEW_RELEASE";
+    }
 
-  @Override
-  protected boolean isAdditionalDiscountApplicable(final Long copies) {
-    return false;
-  }
+    @Override
+    protected boolean isAdditionalDiscountApplicable(final Long copies) {
+        return false;
+    }
 }

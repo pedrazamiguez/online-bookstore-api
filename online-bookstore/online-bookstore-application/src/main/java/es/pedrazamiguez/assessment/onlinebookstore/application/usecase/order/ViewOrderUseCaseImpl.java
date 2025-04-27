@@ -15,23 +15,23 @@ import org.springframework.util.CollectionUtils;
 @RequiredArgsConstructor
 public class ViewOrderUseCaseImpl implements ViewOrderUseCase {
 
-  private final SecurityService securityService;
+    private final SecurityService securityService;
 
-  private final CurrentOrderService currentOrderService;
+    private final CurrentOrderService currentOrderService;
 
-  private final FinalPriceService finalPriceService;
+    private final FinalPriceService finalPriceService;
 
-  @Override
-  @Transactional
-  public Optional<Order> getCurrentOrderForCustomer() {
-    final String username = this.securityService.getCurrentUserName();
-    final Order existingOrder = this.currentOrderService.getOrCreateOrder(username);
+    @Override
+    @Transactional
+    public Optional<Order> getCurrentOrderForCustomer() {
+        final String username = this.securityService.getCurrentUserName();
+        final Order existingOrder = this.currentOrderService.getOrCreateOrder(username);
 
-    if (CollectionUtils.isEmpty(existingOrder.getLines())) {
-      return Optional.empty();
+        if (CollectionUtils.isEmpty(existingOrder.getLines())) {
+            return Optional.empty();
+        }
+
+        this.finalPriceService.calculate(existingOrder);
+        return Optional.of(existingOrder);
     }
-
-    this.finalPriceService.calculate(existingOrder);
-    return Optional.of(existingOrder);
-  }
 }

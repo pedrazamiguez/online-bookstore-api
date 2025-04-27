@@ -19,45 +19,45 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class BooksController implements BookApi {
 
-  private final AddBookUseCase addBookUseCase;
+    private final AddBookUseCase addBookUseCase;
 
-  private final GetBookUseCase getBookUseCase;
+    private final GetBookUseCase getBookUseCase;
 
-  private final BookRestMapper bookRestMapper;
+    private final BookRestMapper bookRestMapper;
 
-  @Override
-  @PreAuthorize("hasRole('ADMIN')")
-  public ResponseEntity<BookDto> addBook(final BookRequestDto bookRequestDto) {
-    final Book bookToSave = this.bookRestMapper.toEntity(bookRequestDto);
-    final Book bookSaved = this.addBookUseCase.addBook(bookToSave);
-    final BookDto bookDto = this.bookRestMapper.toDto(bookSaved);
-    return ResponseEntity.status(HttpStatus.CREATED).body(bookDto);
-  }
+    @Override
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<BookDto> addBook(final BookRequestDto bookRequestDto) {
+        final Book bookToSave = this.bookRestMapper.toEntity(bookRequestDto);
+        final Book bookSaved = this.addBookUseCase.addBook(bookToSave);
+        final BookDto bookDto = this.bookRestMapper.toDto(bookSaved);
+        return ResponseEntity.status(HttpStatus.CREATED).body(bookDto);
+    }
 
-  @Override
-  @PreAuthorize("hasRole('ADMIN')")
-  public ResponseEntity<Void> deleteBook(final Long bookId) {
-    throw new NotImplementedException("Delete book not implemented yet");
-  }
+    @Override
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Void> deleteBook(final Long bookId) {
+        throw new NotImplementedException("Delete book not implemented yet");
+    }
 
-  @Override
-  @PreAuthorize("hasRole('USER')")
-  public ResponseEntity<List<BookDto>> getAllBooks() {
-    throw new NotImplementedException("Get all books not implemented yet");
-  }
+    @Override
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<List<BookDto>> getAllBooks() {
+        throw new NotImplementedException("Get all books not implemented yet");
+    }
 
-  @Override
-  @PreAuthorize("hasRole('USER')")
-  public ResponseEntity<BookDto> getBookById(final Long bookId) {
-    final Book bookFound = this.getBookUseCase.getBookDetails(bookId);
-    final BookDto bookDto = this.bookRestMapper.toDto(bookFound);
-    return ResponseEntity.ok(bookDto);
-  }
+    @Override
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<BookDto> getBookById(final Long bookId) {
+        final Book bookFound = this.getBookUseCase.getBookDetails(bookId);
+        final BookDto bookDto = this.bookRestMapper.toDto(bookFound);
+        return ResponseEntity.ok(bookDto);
+    }
 
-  @Override
-  @PreAuthorize("hasRole('ADMIN')")
-  public ResponseEntity<BookDto> updateBook(
-      final Long bookId, final BookRequestDto bookRequestDto) {
-    throw new NotImplementedException("Update book not implemented yet");
-  }
+    @Override
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<BookDto> updateBook(
+            final Long bookId, final BookRequestDto bookRequestDto) {
+        throw new NotImplementedException("Update book not implemented yet");
+    }
 }

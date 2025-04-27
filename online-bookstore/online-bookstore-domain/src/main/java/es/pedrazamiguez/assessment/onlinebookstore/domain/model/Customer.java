@@ -4,9 +4,9 @@ import lombok.Data;
 
 @Data
 public class Customer {
-  private Long id;
-  private String username;
-  private String email;
-  private String address;
-  private String phone;
+    private Long id;
+    private String username;
+    private String email;
+    private String address;
+    private String phone;
 }

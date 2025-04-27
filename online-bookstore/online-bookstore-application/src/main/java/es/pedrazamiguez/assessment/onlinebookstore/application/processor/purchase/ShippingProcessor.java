@@ -12,16 +12,16 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class ShippingProcessor implements PurchaseProcessor {
 
-  private final ShippingService shippingService;
+    private final ShippingService shippingService;
 
-  @Override
-  public void process(final PurchaseContext context) {
-    final var existingOrder = context.getExistingOrder();
+    @Override
+    public void process(final PurchaseContext context) {
+        final var existingOrder = context.getExistingOrder();
 
-    log.info("Preparing shipping for orderId {}", existingOrder.getId());
-    this.shippingService.processShipping(context.getShippingAddress(), existingOrder.getId());
+        log.info("Preparing shipping for orderId {}", existingOrder.getId());
+        this.shippingService.processShipping(context.getShippingAddress(), existingOrder.getId());
 
-    log.info("Shipping prepared for orderId {}", existingOrder.getId());
-    context.setShippingPrepared(true);
-  }
+        log.info("Shipping prepared for orderId {}", existingOrder.getId());
+        context.setShippingPrepared(true);
+    }
 }

@@ -5,5 +5,5 @@ import es.pedrazamiguez.assessment.onlinebookstore.domain.model.Book;
 @FunctionalInterface
 public interface AddBookUseCase {
 
-  Book addBook(Book book);
+    Book addBook(Book book);
 }

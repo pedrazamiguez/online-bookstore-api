@@ -13,11 +13,11 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class GetInventoryStatusUseCaseImpl implements GetInventoryStatusUseCase {
 
-  private final BookCopyRepository bookCopyRepository;
+    private final BookCopyRepository bookCopyRepository;
 
-  @Override
-  public List<BookAllocation> getInventoryStatus(final boolean includeOutOfStock) {
-    log.info("Getting inventory status with includeOutOfStock: {}", includeOutOfStock);
-    return this.bookCopyRepository.getInventoryDetails(includeOutOfStock);
-  }
+    @Override
+    public List<BookAllocation> getInventoryStatus(final boolean includeOutOfStock) {
+        log.info("Getting inventory status with includeOutOfStock: {}", includeOutOfStock);
+        return this.bookCopyRepository.getInventoryDetails(includeOutOfStock);
+    }
 }

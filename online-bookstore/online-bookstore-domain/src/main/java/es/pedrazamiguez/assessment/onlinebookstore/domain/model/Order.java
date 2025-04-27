@@ -8,10 +8,10 @@ import lombok.Data;
 
 @Data
 public class Order {
-  private Long id;
-  private List<OrderItem> lines;
-  private OrderStatus status;
-  private BigDecimal totalPrice;
-  private PaymentMethod paymentMethod;
-  private String shippingAddress;
+    private Long id;
+    private List<OrderItem> lines;
+    private OrderStatus status;
+    private BigDecimal totalPrice;
+    private PaymentMethod paymentMethod;
+    private String shippingAddress;
 }

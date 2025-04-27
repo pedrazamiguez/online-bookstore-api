@@ -12,17 +12,17 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class PaymentProcessor implements PurchaseProcessor {
 
-  private final PaymentService paymentService;
+    private final PaymentService paymentService;
 
-  @Override
-  public void process(final PurchaseContext context) {
-    final var existingOrder = context.getExistingOrder();
+    @Override
+    public void process(final PurchaseContext context) {
+        final var existingOrder = context.getExistingOrder();
 
-    log.info("Processing payment for orderId {}", existingOrder.getId());
-    this.paymentService.processPayment(
-        existingOrder.getTotalPrice(), context.getPaymentMethod(), existingOrder.getId());
+        log.info("Processing payment for orderId {}", existingOrder.getId());
+        this.paymentService.processPayment(
+                existingOrder.getTotalPrice(), context.getPaymentMethod(), existingOrder.getId());
 
-    log.info("Payment processed for orderId {}", existingOrder.getId());
-    context.setPaymentProcessed(true);
-  }
+        log.info("Payment processed for orderId {}", existingOrder.getId());
+        context.setPaymentProcessed(true);
+    }
 }

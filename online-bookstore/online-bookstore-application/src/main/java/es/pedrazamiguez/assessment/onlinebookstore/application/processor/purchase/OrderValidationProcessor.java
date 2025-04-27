@@ -10,12 +10,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class OrderValidationProcessor implements PurchaseProcessor {
 
-  @Override
-  public void process(final PurchaseContext context) {
-    final var existingOrder = context.getExistingOrder();
-    log.info("Validating order contents for orderId {}", existingOrder.getId());
-    if (existingOrder.getLines().isEmpty()) {
-      throw new OrderContainsNoItemsException(existingOrder.getId());
+    @Override
+    public void process(final PurchaseContext context) {
+        final var existingOrder = context.getExistingOrder();
+        log.info("Validating order contents for orderId {}", existingOrder.getId());
+        if (existingOrder.getLines().isEmpty()) {
+            throw new OrderContainsNoItemsException(existingOrder.getId());
+        }
     }
-  }
 }

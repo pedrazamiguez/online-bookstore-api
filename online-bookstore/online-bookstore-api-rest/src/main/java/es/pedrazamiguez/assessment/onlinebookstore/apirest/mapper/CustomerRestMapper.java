@@ -8,6 +8,6 @@ import org.mapstruct.MappingConstants;
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface CustomerRestMapper {
 
-  @Mapping(target = "available", source = "points")
-  LoyaltyPointsDto toLoyaltyPointsDto(Long points);
+    @Mapping(target = "available", source = "points")
+    LoyaltyPointsDto toLoyaltyPointsDto(Long points);
 }

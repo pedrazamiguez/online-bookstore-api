@@ -4,5 +4,5 @@ import es.pedrazamiguez.assessment.onlinebookstore.domain.model.Order;
 
 public interface FinalPriceService {
 
-  void calculate(Order order);
+    void calculate(Order order);
 }

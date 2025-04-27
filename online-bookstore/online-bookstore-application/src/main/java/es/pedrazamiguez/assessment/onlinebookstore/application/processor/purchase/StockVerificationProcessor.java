@@ -13,17 +13,17 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class StockVerificationProcessor implements PurchaseProcessor {
 
-  private final AvailableBookCopiesService availableBookCopiesService;
+    private final AvailableBookCopiesService availableBookCopiesService;
 
-  @Override
-  public void process(final PurchaseContext context) {
-    final var existingOrder = context.getExistingOrder();
-    log.info("Verifying stock for orderId {}", existingOrder.getId());
-    existingOrder.getLines().stream()
-        .map(OrderItem::getAllocation)
-        .forEach(
-            allocation ->
-                this.availableBookCopiesService.assure(
-                    allocation.getBook().getId(), allocation.getCopies()));
-  }
+    @Override
+    public void process(final PurchaseContext context) {
+        final var existingOrder = context.getExistingOrder();
+        log.info("Verifying stock for orderId {}", existingOrder.getId());
+        existingOrder.getLines().stream()
+                .map(OrderItem::getAllocation)
+                .forEach(
+                        allocation ->
+                                this.availableBookCopiesService.assure(
+                                        allocation.getBook().getId(), allocation.getCopies()));
+    }
 }

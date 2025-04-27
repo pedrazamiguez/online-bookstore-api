@@ -5,5 +5,5 @@ import es.pedrazamiguez.assessment.onlinebookstore.domain.model.Order;
 @FunctionalInterface
 public interface AddToOrderUseCase {
 
-  Order addToOrder(Long bookId, Long copies);
+    Order addToOrder(Long bookId, Long copies);
 }

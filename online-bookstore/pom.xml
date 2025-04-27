@@ -63,9 +63,11 @@
         <instancio.version>5.4.0</instancio.version>
         <logcaptor.version>2.11.0</logcaptor.version>
 
-        <openapi-generator.version>7.12.0</openapi-generator.version>
-        <maven-compiler-plugin.version>3.14.0</maven-compiler-plugin.version>
         <jacoco-maven-plugin.version>0.8.13</jacoco-maven-plugin.version>
+        <maven-compiler-plugin.version>3.14.0</maven-compiler-plugin.version>
+        <openapi-generator.version>7.12.0</openapi-generator.version>
+        <spotless.version>2.44.4</spotless.version>
+        <google-java-format.version>1.26.0</google-java-format.version>
 
         <sonar.coverage.jacoco.xmlReportPaths>
             ${project.basedir}/coverage-report/target/site/jacoco-aggregate/jacoco.xml
@@ -220,11 +222,6 @@
                     <version>${spring-boot.version}</version>
                 </plugin>
                 <plugin>
-                    <groupId>org.openapitools</groupId>
-                    <artifactId>openapi-generator-maven-plugin</artifactId>
-                    <version>${openapi-generator.version}</version>
-                </plugin>
-                <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>${maven-compiler-plugin.version}</version>
@@ -232,6 +229,40 @@
                         <source>${java.version}</source>
                         <target>${java.version}</target>
                     </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.openapitools</groupId>
+                    <artifactId>openapi-generator-maven-plugin</artifactId>
+                    <version>${openapi-generator.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>com.diffplug.spotless</groupId>
+                    <artifactId>spotless-maven-plugin</artifactId>
+                    <version>${spotless.version}</version>
+                    <configuration>
+                        <java>
+                            <includes>
+                                <include>src/main/java/**/*.java</include>
+                                <include>src/test/java/**/*.java</include>
+                            </includes>
+                            <googleJavaFormat>
+                                <version>${google-java-format.version}</version>
+                                <style>AOSP</style>
+                            </googleJavaFormat>
+                            <importOrder/>
+                            <removeUnusedImports/>
+                            <trimTrailingWhitespace/>
+                            <endWithNewline/>
+                        </java>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>check</goal>
+                            </goals>
+                            <phase>validate</phase>
+                        </execution>
+                    </executions>
                 </plugin>
             </plugins>
         </pluginManagement>

@@ -6,5 +6,5 @@ import java.util.List;
 @FunctionalInterface
 public interface GetInventoryStatusUseCase {
 
-  List<BookAllocation> getInventoryStatus(boolean includeOutOfStock);
+    List<BookAllocation> getInventoryStatus(boolean includeOutOfStock);
 }

@@ -8,13 +8,13 @@ import java.util.Optional;
 
 public interface BookCopyRepository {
 
-  void addCopies(Long bookId, Long copies);
+    void addCopies(Long bookId, Long copies);
 
-  void updateCopiesStatus(Long bookId, Long copies, BookCopyStatus status);
+    void updateCopiesStatus(Long bookId, Long copies, BookCopyStatus status);
 
-  void deleteCopiesOlderThan(LocalDateTime olderThan);
+    void deleteCopiesOlderThan(LocalDateTime olderThan);
 
-  List<BookAllocation> getInventoryDetails(boolean includeOutOfStock);
+    List<BookAllocation> getInventoryDetails(boolean includeOutOfStock);
 
-  Optional<BookAllocation> getInventoryDetailsByBookId(Long bookId);
+    Optional<BookAllocation> getInventoryDetailsByBookId(Long bookId);
 }

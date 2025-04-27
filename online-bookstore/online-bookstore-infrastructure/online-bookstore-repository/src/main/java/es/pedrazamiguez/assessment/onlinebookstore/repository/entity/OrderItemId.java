@@ -8,9 +8,9 @@ import lombok.Data;
 @Embeddable
 public class OrderItemId {
 
-  @Column(nullable = false)
-  private Long orderId;
+    @Column(nullable = false)
+    private Long orderId;
 
-  @Column(nullable = false)
-  private Integer lineNumber;
+    @Column(nullable = false)
+    private Integer lineNumber;
 }

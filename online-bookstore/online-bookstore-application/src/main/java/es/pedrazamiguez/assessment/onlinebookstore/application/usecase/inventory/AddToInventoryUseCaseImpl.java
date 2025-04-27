@@ -13,12 +13,12 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class AddToInventoryUseCaseImpl implements AddToInventoryUseCase {
 
-  private final BookCopyRepository bookCopyRepository;
+    private final BookCopyRepository bookCopyRepository;
 
-  @Override
-  public Optional<BookAllocation> addToInventory(final Long bookId, final Long copies) {
-    log.info("Adding {} copies of book with ID {} to inventory", copies, bookId);
-    this.bookCopyRepository.addCopies(bookId, copies);
-    return this.bookCopyRepository.getInventoryDetailsByBookId(bookId);
-  }
+    @Override
+    public Optional<BookAllocation> addToInventory(final Long bookId, final Long copies) {
+        log.info("Adding {} copies of book with ID {} to inventory", copies, bookId);
+        this.bookCopyRepository.addCopies(bookId, copies);
+        return this.bookCopyRepository.getInventoryDetailsByBookId(bookId);
+    }
 }

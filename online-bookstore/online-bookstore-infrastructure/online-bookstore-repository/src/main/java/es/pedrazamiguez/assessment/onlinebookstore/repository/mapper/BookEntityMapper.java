@@ -9,12 +9,12 @@ import org.mapstruct.MappingConstants;
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface BookEntityMapper {
 
-  Book toDomain(BookEntity bookEntity);
+    Book toDomain(BookEntity bookEntity);
 
-  @Mapping(target = "id", ignore = true)
-  @Mapping(target = "createdBy", ignore = true)
-  @Mapping(target = "createdAt", ignore = true)
-  @Mapping(target = "updatedBy", ignore = true)
-  @Mapping(target = "updatedAt", ignore = true)
-  BookEntity toEntity(Book book);
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "createdBy", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "updatedBy", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
+    BookEntity toEntity(Book book);
 }

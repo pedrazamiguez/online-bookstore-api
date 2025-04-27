@@ -5,7 +5,7 @@ import es.pedrazamiguez.assessment.onlinebookstore.domain.model.PayableAmount;
 
 public interface SubtotalPriceService {
 
-  String getBookTypeCode();
+    String getBookTypeCode();
 
-  PayableAmount calculateSubtotal(OrderItem orderItem);
+    PayableAmount calculateSubtotal(OrderItem orderItem);
 }

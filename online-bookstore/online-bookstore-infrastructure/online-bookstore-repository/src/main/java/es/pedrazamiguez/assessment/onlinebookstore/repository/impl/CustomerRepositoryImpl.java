@@ -14,15 +14,15 @@ import org.springframework.stereotype.Repository;
 @RequiredArgsConstructor
 public class CustomerRepositoryImpl implements CustomerRepository {
 
-  private final CustomerJpaRepository customerJpaRepository;
+    private final CustomerJpaRepository customerJpaRepository;
 
-  private final CustomerEntityMapper customerEntityMapper;
+    private final CustomerEntityMapper customerEntityMapper;
 
-  @Override
-  public Optional<Customer> findCustomerByUsername(final String username) {
-    log.info("Finding customer by username: {}", username);
-    return this.customerJpaRepository
-        .findByUsername(username)
-        .map(this.customerEntityMapper::toDomain);
-  }
+    @Override
+    public Optional<Customer> findCustomerByUsername(final String username) {
+        log.info("Finding customer by username: {}", username);
+        return this.customerJpaRepository
+                .findByUsername(username)
+                .map(this.customerEntityMapper::toDomain);
+    }
 }
