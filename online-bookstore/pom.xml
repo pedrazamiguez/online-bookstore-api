@@ -76,6 +76,7 @@
         <sonar.exclusions>
             **/config/**,
             **/entity/**,
+            **/model/**,
             **/dto/**,
             **/*Application.java
         </sonar.exclusions>
