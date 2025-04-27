@@ -29,9 +29,9 @@ public interface BookCopyJpaRepository extends JpaRepository<BookCopyEntity, Lon
             b.type_code
           from
             book_copies bc
-            right join books b on bc.book_id = b.id
-          where
-            bc.status in (:statuses)
+            right join books b
+              on bc.book_id = b.id
+              and bc.status in (:statuses)
           group by
             bc.book_id, bc.book_id, b.title, b.author
           having
