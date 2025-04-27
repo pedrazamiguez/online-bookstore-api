@@ -69,6 +69,28 @@ paths:
                 message: "getBookById.bookId: must be greater than or equal to 1"
                 path: "/v1/books/0"
                 timestamp: "2025-04-19T02:25:11.675837"
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                status: "UNAUTHORIZED"
+                message: "Authentication required"
+                path: "/v1/books/1"
+                timestamp: "2025-04-19T02:25:11.675837"
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                status: "FORBIDDEN"
+                message: "Access denied"
+                path: "/v1/books/1"
+                timestamp: "2025-04-19T02:25:11.675837"
         '404':
           description: Book not found
           content:
@@ -130,6 +152,28 @@ paths:
                 message: "author: must not be null"
                 path: "/v1/books/178"
                 timestamp: "2025-04-18T16:19:34.714622"
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                status: "UNAUTHORIZED"
+                message: "Authentication required"
+                path: "/v1/books/1"
+                timestamp: "2025-04-19T02:25:11.675837"
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                status: "FORBIDDEN"
+                message: "Access denied"
+                path: "/v1/books/1"
+                timestamp: "2025-04-19T02:25:11.675837"
         '404':
           description: Book not found
           content:
@@ -207,6 +251,28 @@ paths:
                 message: "getBookById.bookId: must be greater than or equal to 1"
                 path: "/v1/books/0"
                 timestamp: "2025-04-19T02:25:11.675837"
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                status: "UNAUTHORIZED"
+                message: "Authentication required"
+                path: "/v1/books/1"
+                timestamp: "2025-04-19T02:25:11.675837"
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                status: "FORBIDDEN"
+                message: "Access denied"
+                path: "/v1/books/1"
+                timestamp: "2025-04-19T02:25:11.675837"
         '404':
           description: Book not found
           content:
@@ -247,6 +313,28 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/BookList'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                status: "UNAUTHORIZED"
+                message: "Authentication required"
+                path: "/v1/books"
+                timestamp: "2025-04-19T02:25:11.675837"
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                status: "FORBIDDEN"
+                message: "Access denied"
+                path: "/v1/books"
+                timestamp: "2025-04-19T02:25:11.675837"
         '500':
           description: Unexpected error
           content:
@@ -287,6 +375,28 @@ paths:
                 message: "author: must not be null"
                 path: "/v1/books"
                 timestamp: "2025-04-18T16:19:34.714622"
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                status: "UNAUTHORIZED"
+                message: "Authentication required"
+                path: "/v1/books"
+                timestamp: "2025-04-19T02:25:11.675837"
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                status: "FORBIDDEN"
+                message: "Access denied"
+                path: "/v1/books"
+                timestamp: "2025-04-19T02:25:11.675837"
         '409':
           description: Book already exists
           content:
@@ -347,6 +457,28 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/InventoryItems'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                status: "UNAUTHORIZED"
+                message: "Authentication required"
+                path: "/v1/inventory"
+                timestamp: "2025-04-19T02:25:11.675837"
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                status: "FORBIDDEN"
+                message: "Access denied"
+                path: "/v1/inventory"
+                timestamp: "2025-04-19T02:25:11.675837"
         '500':
           description: Unexpected error
           content:
@@ -400,6 +532,28 @@ paths:
                 status: "BAD_REQUEST"
                 message: "copies: must not be null"
                 path: "/v1/inventory/books/178"
+                timestamp: "2025-04-19T02:25:11.675837"
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                status: "UNAUTHORIZED"
+                message: "Authentication required"
+                path: "/v1/inventory/books/1"
+                timestamp: "2025-04-19T02:25:11.675837"
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                status: "FORBIDDEN"
+                message: "Access denied"
+                path: "/v1/inventory/books/1"
                 timestamp: "2025-04-19T02:25:11.675837"
         '404':
           description: Book not found
@@ -481,6 +635,28 @@ paths:
                 message: "copies: must not be null"
                 path: "/v1/inventory/books/178"
                 timestamp: "2025-04-19T02:25:11.675837"
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                status: "UNAUTHORIZED"
+                message: "Authentication required"
+                path: "/v1/inventory/books/1"
+                timestamp: "2025-04-19T02:25:11.675837"
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                status: "FORBIDDEN"
+                message: "Access denied"
+                path: "/v1/inventory/books/1"
+                timestamp: "2025-04-19T02:25:11.675837"
         '409':
           description: Not enough copies in inventory
           content:
@@ -537,6 +713,28 @@ paths:
                 message: "The parameter 'date' of value '2025-14-18' could not be converted to type 'LocalDateTime'"
                 path: "/v1/inventory/books/older-than"
                 timestamp: "2025-04-18T16:19:34.714622"
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                status: "UNAUTHORIZED"
+                message: "Authentication required"
+                path: "/v1/inventory/books/1"
+                timestamp: "2025-04-19T02:25:11.675837"
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                status: "FORBIDDEN"
+                message: "Access denied"
+                path: "/v1/inventory/books/1"
+                timestamp: "2025-04-19T02:25:11.675837"
         '500':
           description: Unexpected error
           content:
@@ -568,6 +766,28 @@ paths:
                 $ref: '#/components/schemas/Order'
         '204':
           description: Current order is empty
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                status: "UNAUTHORIZED"
+                message: "Authentication required"
+                path: "/v1/orders/current"
+                timestamp: "2025-04-19T02:25:11.675837"
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                status: "FORBIDDEN"
+                message: "Access denied"
+                path: "/v1/orders/current"
+                timestamp: "2025-04-19T02:25:11.675837"
         '500':
           description: Unexpected error
           content:
@@ -591,6 +811,28 @@ paths:
       responses:
         '204':
           description: Current order cleared successfully
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                status: "UNAUTHORIZED"
+                message: "Authentication required"
+                path: "/v1/orders/current"
+                timestamp: "2025-04-19T02:25:11.675837"
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                status: "FORBIDDEN"
+                message: "Access denied"
+                path: "/v1/orders/current"
+                timestamp: "2025-04-19T02:25:11.675837"
         '500':
           description: Unexpected error
           content:
@@ -642,6 +884,28 @@ paths:
                 status: "BAD_REQUEST"
                 message: "copies: must not be null"
                 path: "/v1/orders/current/books/178"
+                timestamp: "2025-04-19T02:25:11.675837"
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                status: "UNAUTHORIZED"
+                message: "Authentication required"
+                path: "/v1/orders/current/books/1"
+                timestamp: "2025-04-19T02:25:11.675837"
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                status: "FORBIDDEN"
+                message: "Access denied"
+                path: "/v1/orders/current/books/1"
                 timestamp: "2025-04-19T02:25:11.675837"
         '409':
           description: Not enough copies in inventory
@@ -703,6 +967,28 @@ paths:
                 $ref: '#/components/schemas/Order'
         '204':
           description: Book copies removed from current order successfully
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                status: "UNAUTHORIZED"
+                message: "Authentication required"
+                path: "/v1/orders/current/books/1"
+                timestamp: "2025-04-19T02:25:11.675837"
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                status: "FORBIDDEN"
+                message: "Access denied"
+                path: "/v1/orders/current/books/1"
+                timestamp: "2025-04-19T02:25:11.675837"
         '500':
           description: Unexpected error
           content:
@@ -748,6 +1034,28 @@ paths:
                     subtotal: "59.37"
                 totalPrice: "59.37"
                 status: PURCHASED
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                status: "UNAUTHORIZED"
+                message: "Authentication required"
+                path: "/v1/orders/current/purchase"
+                timestamp: "2025-04-19T02:25:11.675837"
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                status: "FORBIDDEN"
+                message: "Access denied"
+                path: "/v1/orders/current/purchase"
+                timestamp: "2025-04-19T02:25:11.675837"
         '409':
           description: Not enough copies in inventory
           content:
@@ -793,6 +1101,28 @@ paths:
       description: Get order history for the current customer - Requires role <code>USER</code>
       operationId: getOrderHistory
       responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                status: "UNAUTHORIZED"
+                message: "Authentication required"
+                path: "/v1/orders"
+                timestamp: "2025-04-19T02:25:11.675837"
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                status: "FORBIDDEN"
+                message: "Access denied"
+                path: "/v1/orders"
+                timestamp: "2025-04-19T02:25:11.675837"
         '500':
           description: Unexpected error
           content:
@@ -826,6 +1156,28 @@ paths:
             minimum: 1
           example: 178
       responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                status: "UNAUTHORIZED"
+                message: "Authentication required"
+                path: "/v1/orders/1"
+                timestamp: "2025-04-19T02:25:11.675837"
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                status: "FORBIDDEN"
+                message: "Access denied"
+                path: "/v1/orders/1"
+                timestamp: "2025-04-19T02:25:11.675837"
         '500':
           description: Unexpected error
           content:
@@ -855,6 +1207,28 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/LoyaltyPoints'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                status: "UNAUTHORIZED"
+                message: "Authentication required"
+                path: "/v1/customers/loyalty-points"
+                timestamp: "2025-04-19T02:25:11.675837"
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                status: "FORBIDDEN"
+                message: "Access denied"
+                path: "/v1/customers/loyalty-points"
+                timestamp: "2025-04-19T02:25:11.675837"
         '500':
           description: Unexpected error
           content:
@@ -888,6 +1262,28 @@ paths:
             minimum: 1
           example: 178
       responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                status: "UNAUTHORIZED"
+                message: "Authentication required"
+                path: "/v1/customers/2/loyalty-points"
+                timestamp: "2025-04-19T02:25:11.675837"
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                status: "FORBIDDEN"
+                message: "Access denied"
+                path: "/v1/customers/2/loyalty-points"
+                timestamp: "2025-04-19T02:25:11.675837"
         '500':
           description: Unexpected error
           content:
