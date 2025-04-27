@@ -10,24 +10,24 @@ import org.hibernate.envers.Audited;
 @Audited
 @Entity
 @Table(
-        name = "customers",
-        indexes = {
-            @Index(name = "idx_customers_username", columnList = "username"),
-            @Index(name = "idx_customers_email", columnList = "email"),
-        })
+    name = "customers",
+    indexes = {
+      @Index(name = "idx_customers_username", columnList = "username"),
+      @Index(name = "idx_customers_email", columnList = "email"),
+    })
 public class CustomerEntity extends AuditEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.SEQUENCE)
+  private Long id;
 
-    @Column(unique = true, nullable = false)
-    private String username;
+  @Column(unique = true, nullable = false)
+  private String username;
 
-    @Column(unique = true, nullable = false)
-    private String email;
+  @Column(unique = true, nullable = false)
+  private String email;
 
-    @Column private String address;
+  @Column private String address;
 
-    @Column private String phone;
+  @Column private String phone;
 }

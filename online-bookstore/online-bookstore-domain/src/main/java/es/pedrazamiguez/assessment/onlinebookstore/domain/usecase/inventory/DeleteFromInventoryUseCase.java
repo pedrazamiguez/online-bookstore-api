@@ -6,5 +6,5 @@ import java.util.Optional;
 @FunctionalInterface
 public interface DeleteFromInventoryUseCase {
 
-    Optional<BookAllocation> deleteFromInventory(Long bookId, Long copies);
+  Optional<BookAllocation> deleteFromInventory(Long bookId, Long copies);
 }

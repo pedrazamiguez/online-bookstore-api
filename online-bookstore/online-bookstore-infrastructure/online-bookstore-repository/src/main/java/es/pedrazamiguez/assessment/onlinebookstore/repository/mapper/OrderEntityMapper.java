@@ -16,150 +16,145 @@ import org.springframework.util.ObjectUtils;
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface OrderEntityMapper {
 
-    @Mapping(target = "lines", source = "items")
-    Order toDomain(OrderEntity orderEntity);
+  @Mapping(target = "lines", source = "items")
+  Order toDomain(OrderEntity orderEntity);
 
-    @Mapping(target = "items", source = "lines")
-    OrderEntity toEntity(Order order);
+  @Mapping(target = "items", source = "lines")
+  OrderEntity toEntity(Order order);
 
-    default Long mapOrderItemId(final OrderItemId value) {
-        if (ObjectUtils.isEmpty(value)) {
-            return null;
-        }
-
-        return value.getOrderId();
+  default Long mapOrderItemId(final OrderItemId value) {
+    if (ObjectUtils.isEmpty(value)) {
+      return null;
     }
 
-    @Mapping(target = "orderId", source = "order.id")
-    @Mapping(target = "allocation.copies", source = "quantity")
-    @Mapping(target = "allocation.book", source = "book")
-    @Mapping(target = "payableAmount.discount", source = "purchasedDiscountRate")
-    @Mapping(
-            target = "payableAmount.subtotal",
-            expression = "java( this.getSubTotal(orderItemEntity) )")
-    OrderItem orderItemEntityToOrderItem(OrderItemEntity orderItemEntity);
+    return value.getOrderId();
+  }
 
-    default BigDecimal getBookPrice(final OrderItemEntity orderItemEntity) {
-        if (ObjectUtils.isEmpty(orderItemEntity)) {
-            return BigDecimal.ZERO;
-        }
+  @Mapping(target = "orderId", source = "order.id")
+  @Mapping(target = "allocation.copies", source = "quantity")
+  @Mapping(target = "allocation.book", source = "book")
+  @Mapping(target = "payableAmount.discount", source = "purchasedDiscountRate")
+  @Mapping(
+      target = "payableAmount.subtotal",
+      expression = "java( this.getSubTotal(orderItemEntity) )")
+  OrderItem orderItemEntityToOrderItem(OrderItemEntity orderItemEntity);
 
-        if (ObjectUtils.isEmpty(orderItemEntity.getPurchasedUnitPrice())) {
-            return orderItemEntity.getBook().getPrice();
-        }
-
-        return orderItemEntity.getPurchasedUnitPrice();
+  default BigDecimal getBookPrice(final OrderItemEntity orderItemEntity) {
+    if (ObjectUtils.isEmpty(orderItemEntity)) {
+      return BigDecimal.ZERO;
     }
 
-    default BigDecimal getSubTotal(final OrderItemEntity orderItemEntity) {
-        if (ObjectUtils.isEmpty(orderItemEntity)) {
-            return BigDecimal.ZERO;
-        }
-
-        if (ObjectUtils.isEmpty(orderItemEntity.getPurchasedUnitPrice())) {
-            return BigDecimal.ZERO;
-        }
-
-        return orderItemEntity
-                .getPurchasedUnitPrice()
-                .multiply(new BigDecimal(orderItemEntity.getQuantity()))
-                .multiply(orderItemEntity.getPurchasedDiscountRate());
+    if (ObjectUtils.isEmpty(orderItemEntity.getPurchasedUnitPrice())) {
+      return orderItemEntity.getBook().getPrice();
     }
 
-    @Mapping(target = "order.id", source = "orderId")
-    @Mapping(target = "quantity", source = "allocation.copies")
-    @Mapping(target = "book", source = "allocation.book")
-    @Mapping(target = "purchasedUnitPrice", source = "allocation.book.price")
-    @Mapping(target = "purchasedDiscountRate", source = "payableAmount.discount")
-    OrderItemEntity orderItemToOrderItemEntity(OrderItem orderItem);
+    return orderItemEntity.getPurchasedUnitPrice();
+  }
 
-    default OrderEntity toNewOrderEntity(final CustomerEntity customerEntity) {
-        final OrderEntity orderEntity = new OrderEntity();
-        orderEntity.setCustomer(customerEntity);
-        orderEntity.setStatus(OrderStatus.CREATED);
-        orderEntity.setTotalPrice(BigDecimal.ZERO);
-        return orderEntity;
+  default BigDecimal getSubTotal(final OrderItemEntity orderItemEntity) {
+    if (ObjectUtils.isEmpty(orderItemEntity)) {
+      return BigDecimal.ZERO;
     }
 
-    default void patchAdditionWithExistingOrderItem(
-            final OrderEntity orderEntity, final Long bookId, final Long quantity) {
-
-        final Optional<OrderItemEntity> optionalItem =
-                orderEntity.getItems().stream()
-                        .filter(item -> bookId.equals(item.getBook().getId()))
-                        .findFirst();
-
-        optionalItem.ifPresent(
-                existingItem -> existingItem.setQuantity(existingItem.getQuantity() + quantity));
+    if (ObjectUtils.isEmpty(orderItemEntity.getPurchasedUnitPrice())) {
+      return BigDecimal.ZERO;
     }
 
-    default void patchSubstractionWithExistingOrderItem(
-            final OrderEntity orderEntity, final Long bookId, final Long quantity) {
+    return orderItemEntity
+        .getPurchasedUnitPrice()
+        .multiply(new BigDecimal(orderItemEntity.getQuantity()))
+        .multiply(orderItemEntity.getPurchasedDiscountRate());
+  }
 
-        final Optional<OrderItemEntity> optionalItem =
-                orderEntity.getItems().stream()
-                        .filter(item -> bookId.equals(item.getBook().getId()))
-                        .findFirst();
+  @Mapping(target = "order.id", source = "orderId")
+  @Mapping(target = "quantity", source = "allocation.copies")
+  @Mapping(target = "book", source = "allocation.book")
+  @Mapping(target = "purchasedUnitPrice", source = "allocation.book.price")
+  @Mapping(target = "purchasedDiscountRate", source = "payableAmount.discount")
+  OrderItemEntity orderItemToOrderItemEntity(OrderItem orderItem);
 
-        optionalItem.ifPresent(
-                existingItem -> {
-                    if (existingItem.getQuantity() > quantity) {
-                        existingItem.setQuantity(existingItem.getQuantity() - quantity);
-                    } else {
-                        orderEntity.getItems().remove(existingItem);
-                    }
-                });
-    }
+  default OrderEntity toNewOrderEntity(final CustomerEntity customerEntity) {
+    final OrderEntity orderEntity = new OrderEntity();
+    orderEntity.setCustomer(customerEntity);
+    orderEntity.setStatus(OrderStatus.CREATED);
+    orderEntity.setTotalPrice(BigDecimal.ZERO);
+    return orderEntity;
+  }
 
-    default void patchAdditionWithNewOrderItem(
-            final OrderEntity orderEntity, final BookEntity bookEntity, final Long quantity) {
+  default void patchAdditionWithExistingOrderItem(
+      final OrderEntity orderEntity, final Long bookId, final Long quantity) {
 
-        final List<OrderItemEntity> items = orderEntity.getItems();
+    final Optional<OrderItemEntity> optionalItem =
+        orderEntity.getItems().stream()
+            .filter(item -> bookId.equals(item.getBook().getId()))
+            .findFirst();
 
-        final OrderItemEntity newOrderItem = new OrderItemEntity();
+    optionalItem.ifPresent(
+        existingItem -> existingItem.setQuantity(existingItem.getQuantity() + quantity));
+  }
 
-        final OrderItemId orderItemId = new OrderItemId();
-        orderItemId.setOrderId(orderEntity.getId());
-        orderItemId.setLineNumber(items.size() + 1);
+  default void patchSubstractionWithExistingOrderItem(
+      final OrderEntity orderEntity, final Long bookId, final Long quantity) {
 
-        newOrderItem.setId(orderItemId);
-        newOrderItem.setOrder(orderEntity);
-        newOrderItem.setBook(bookEntity);
-        newOrderItem.setQuantity(quantity);
+    final Optional<OrderItemEntity> optionalItem =
+        orderEntity.getItems().stream()
+            .filter(item -> bookId.equals(item.getBook().getId()))
+            .findFirst();
 
-        items.add(newOrderItem);
-    }
+    optionalItem.ifPresent(
+        existingItem -> {
+          if (existingItem.getQuantity() > quantity) {
+            existingItem.setQuantity(existingItem.getQuantity() - quantity);
+          } else {
+            orderEntity.getItems().remove(existingItem);
+          }
+        });
+  }
 
-    default void patchOrderRequest(
-            final OrderEntity orderEntity,
-            final PaymentMethod paymentMethod,
-            final String shippingAddress) {
-        orderEntity.setShippingAddress(shippingAddress);
-        orderEntity.setPaymentMethod(paymentMethod);
-    }
+  default void patchAdditionWithNewOrderItem(
+      final OrderEntity orderEntity, final BookEntity bookEntity, final Long quantity) {
 
-    default void patchOrderItems(final OrderEntity orderEntity, final Order order) {
-        orderEntity
-                .getItems()
-                .forEach(
-                        orderItemEntity -> {
-                            final Long bookId = orderItemEntity.getBook().getId();
-                            final OrderItem orderItem =
-                                    order.getLines().stream()
-                                            .filter(
-                                                    line ->
-                                                            line.getAllocation()
-                                                                    .getBook()
-                                                                    .getId()
-                                                                    .equals(bookId))
-                                            .findFirst()
-                                            .orElse(null);
-                            if (!ObjectUtils.isEmpty(orderItem)) {
-                                orderItemEntity.setPurchasedUnitPrice(
-                                        orderItem.getAllocation().getBook().getPrice());
-                                orderItemEntity.setPurchasedDiscountRate(
-                                        orderItem.getPayableAmount().getDiscount());
-                            }
-                        });
-    }
+    final List<OrderItemEntity> items = orderEntity.getItems();
+
+    final OrderItemEntity newOrderItem = new OrderItemEntity();
+
+    final OrderItemId orderItemId = new OrderItemId();
+    orderItemId.setOrderId(orderEntity.getId());
+    orderItemId.setLineNumber(items.size() + 1);
+
+    newOrderItem.setId(orderItemId);
+    newOrderItem.setOrder(orderEntity);
+    newOrderItem.setBook(bookEntity);
+    newOrderItem.setQuantity(quantity);
+
+    items.add(newOrderItem);
+  }
+
+  default void patchOrderRequest(
+      final OrderEntity orderEntity,
+      final PaymentMethod paymentMethod,
+      final String shippingAddress) {
+    orderEntity.setShippingAddress(shippingAddress);
+    orderEntity.setPaymentMethod(paymentMethod);
+  }
+
+  default void patchOrderItems(final OrderEntity orderEntity, final Order order) {
+    orderEntity
+        .getItems()
+        .forEach(
+            orderItemEntity -> {
+              final Long bookId = orderItemEntity.getBook().getId();
+              final OrderItem orderItem =
+                  order.getLines().stream()
+                      .filter(line -> line.getAllocation().getBook().getId().equals(bookId))
+                      .findFirst()
+                      .orElse(null);
+              if (!ObjectUtils.isEmpty(orderItem)) {
+                orderItemEntity.setPurchasedUnitPrice(
+                    orderItem.getAllocation().getBook().getPrice());
+                orderItemEntity.setPurchasedDiscountRate(
+                    orderItem.getPayableAmount().getDiscount());
+              }
+            });
+  }
 }

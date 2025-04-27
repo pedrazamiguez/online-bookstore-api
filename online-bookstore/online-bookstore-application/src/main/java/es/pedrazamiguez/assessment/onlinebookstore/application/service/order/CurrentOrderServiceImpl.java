@@ -11,13 +11,13 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class CurrentOrderServiceImpl implements CurrentOrderService {
 
-    private final OrderRepository orderRepository;
+  private final OrderRepository orderRepository;
 
-    @Override
-    public Order getOrCreateOrder(final String username) {
-        final Optional<Order> optionalOrder =
-                this.orderRepository.findCreatedOrderForCustomer(username);
+  @Override
+  public Order getOrCreateOrder(final String username) {
+    final Optional<Order> optionalOrder =
+        this.orderRepository.findCreatedOrderForCustomer(username);
 
-        return optionalOrder.orElseGet(() -> this.orderRepository.createNewOrder(username));
-    }
+    return optionalOrder.orElseGet(() -> this.orderRepository.createNewOrder(username));
+  }
 }

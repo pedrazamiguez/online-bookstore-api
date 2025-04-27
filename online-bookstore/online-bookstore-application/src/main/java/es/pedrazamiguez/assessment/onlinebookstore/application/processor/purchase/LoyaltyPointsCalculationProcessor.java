@@ -12,16 +12,16 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class LoyaltyPointsCalculationProcessor implements PurchaseProcessor {
 
-    private final LoyaltyPointsService loyaltyPointsService;
+  private final LoyaltyPointsService loyaltyPointsService;
 
-    @Override
-    public void process(final PurchaseContext context) {
-        final var existingOrder = context.getExistingOrder();
+  @Override
+  public void process(final PurchaseContext context) {
+    final var existingOrder = context.getExistingOrder();
 
-        log.info("Calculating loyalty points for order: {}", existingOrder.getId());
-        final var loyaltyPoints = this.loyaltyPointsService.calculateLoyaltyPoints(existingOrder);
+    log.info("Calculating loyalty points for order: {}", existingOrder.getId());
+    final var loyaltyPoints = this.loyaltyPointsService.calculateLoyaltyPoints(existingOrder);
 
-        log.info("Loyalty points calculated: {}", loyaltyPoints);
-        context.setLoyaltyPointsEarned(loyaltyPoints);
-    }
+    log.info("Loyalty points calculated: {}", loyaltyPoints);
+    context.setLoyaltyPointsEarned(loyaltyPoints);
+  }
 }

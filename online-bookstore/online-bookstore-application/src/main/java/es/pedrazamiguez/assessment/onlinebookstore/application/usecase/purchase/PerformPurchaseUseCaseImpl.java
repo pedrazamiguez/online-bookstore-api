@@ -16,20 +16,19 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class PerformPurchaseUseCaseImpl implements PerformPurchaseUseCase {
 
-    private final SecurityService securityService;
+  private final SecurityService securityService;
 
-    private final PurchaseChainCoordinator purchaseChainCoordinator;
+  private final PurchaseChainCoordinator purchaseChainCoordinator;
 
-    @Override
-    @Transactional
-    public Order purchase(final Order orderRequest) {
-        final String username = this.securityService.getCurrentUserName();
-        final PaymentMethod paymentMethod = orderRequest.getPaymentMethod();
-        final String shippingAddress = orderRequest.getShippingAddress();
+  @Override
+  @Transactional
+  public Order purchase(final Order orderRequest) {
+    final String username = this.securityService.getCurrentUserName();
+    final PaymentMethod paymentMethod = orderRequest.getPaymentMethod();
+    final String shippingAddress = orderRequest.getShippingAddress();
 
-        final PurchaseContext purchaseContext =
-                this.purchaseChainCoordinator.executeChain(
-                        username, paymentMethod, shippingAddress);
-        return purchaseContext.getPurchasedOrder();
-    }
+    final PurchaseContext purchaseContext =
+        this.purchaseChainCoordinator.executeChain(username, paymentMethod, shippingAddress);
+    return purchaseContext.getPurchasedOrder();
+  }
 }

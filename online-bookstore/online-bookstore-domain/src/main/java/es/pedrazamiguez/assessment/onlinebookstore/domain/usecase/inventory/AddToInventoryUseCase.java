@@ -6,5 +6,5 @@ import java.util.Optional;
 @FunctionalInterface
 public interface AddToInventoryUseCase {
 
-    Optional<BookAllocation> addToInventory(Long bookId, Long copies);
+  Optional<BookAllocation> addToInventory(Long bookId, Long copies);
 }

@@ -21,74 +21,73 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class OrderController implements OrderApi {
 
-    private final ViewOrderUseCase viewOrderUseCase;
+  private final ViewOrderUseCase viewOrderUseCase;
 
-    private final AddToOrderUseCase addToOrderUseCase;
+  private final AddToOrderUseCase addToOrderUseCase;
 
-    private final ClearOrderUseCase clearOrderUseCase;
+  private final ClearOrderUseCase clearOrderUseCase;
 
-    private final RemoveFromOrderUseCase removeFromOrderUseCase;
+  private final RemoveFromOrderUseCase removeFromOrderUseCase;
 
-    private final PerformPurchaseUseCase performPurchaseUseCase;
+  private final PerformPurchaseUseCase performPurchaseUseCase;
 
-    private final OrderRestMapper orderRestMapper;
+  private final OrderRestMapper orderRestMapper;
 
-    @Override
-    @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<OrderDto> addBookToCurrentOrder(
-            final Long bookId, final AllocationDto allocationDto) {
+  @Override
+  @PreAuthorize("hasRole('USER')")
+  public ResponseEntity<OrderDto> addBookToCurrentOrder(
+      final Long bookId, final AllocationDto allocationDto) {
 
-        final Order order = this.addToOrderUseCase.addToOrder(bookId, allocationDto.getCopies());
-        return ResponseEntity.ok(this.orderRestMapper.toDto(order));
-    }
+    final Order order = this.addToOrderUseCase.addToOrder(bookId, allocationDto.getCopies());
+    return ResponseEntity.ok(this.orderRestMapper.toDto(order));
+  }
 
-    @Override
-    @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<Void> clearCurrentOrder() {
-        this.clearOrderUseCase.clearOrderItems();
-        return ResponseEntity.noContent().build();
-    }
+  @Override
+  @PreAuthorize("hasRole('USER')")
+  public ResponseEntity<Void> clearCurrentOrder() {
+    this.clearOrderUseCase.clearOrderItems();
+    return ResponseEntity.noContent().build();
+  }
 
-    @Override
-    @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<OrderDto> getCurrentOrder() {
-        return this.viewOrderUseCase
-                .getCurrentOrderForCustomer()
-                .map(this.orderRestMapper::toDto)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.noContent().build());
-    }
+  @Override
+  @PreAuthorize("hasRole('USER')")
+  public ResponseEntity<OrderDto> getCurrentOrder() {
+    return this.viewOrderUseCase
+        .getCurrentOrderForCustomer()
+        .map(this.orderRestMapper::toDto)
+        .map(ResponseEntity::ok)
+        .orElse(ResponseEntity.noContent().build());
+  }
 
-    @Override
-    @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<Void> getOrderById(final Long orderId) {
-        throw new NotImplementedException("Not implemented yet");
-    }
+  @Override
+  @PreAuthorize("hasRole('USER')")
+  public ResponseEntity<Void> getOrderById(final Long orderId) {
+    throw new NotImplementedException("Not implemented yet");
+  }
 
-    @Override
-    @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<Void> getOrderHistory() {
-        throw new NotImplementedException("Not implemented yet");
-    }
+  @Override
+  @PreAuthorize("hasRole('USER')")
+  public ResponseEntity<Void> getOrderHistory() {
+    throw new NotImplementedException("Not implemented yet");
+  }
 
-    @PreAuthorize("hasRole('USER')")
-    @Override
-    public ResponseEntity<OrderDto> purchaseCurrentOrder(
-            final PurchaseRequestDto purchaseRequestODto) {
+  @PreAuthorize("hasRole('USER')")
+  @Override
+  public ResponseEntity<OrderDto> purchaseCurrentOrder(
+      final PurchaseRequestDto purchaseRequestODto) {
 
-        final Order orderRequest = this.orderRestMapper.toDomain(purchaseRequestODto);
-        final Order purchasedOrder = this.performPurchaseUseCase.purchase(orderRequest);
-        return ResponseEntity.ok(this.orderRestMapper.toDto(purchasedOrder));
-    }
+    final Order orderRequest = this.orderRestMapper.toDomain(purchaseRequestODto);
+    final Order purchasedOrder = this.performPurchaseUseCase.purchase(orderRequest);
+    return ResponseEntity.ok(this.orderRestMapper.toDto(purchasedOrder));
+  }
 
-    @Override
-    @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<OrderDto> removeBookFromCurrentOrder(
-            final Long bookId, final Long copies) {
-        return this.removeFromOrderUseCase
-                .removeFromOrder(bookId, copies)
-                .map(this.orderRestMapper::toDto)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.noContent().build());
-    }
+  @Override
+  @PreAuthorize("hasRole('USER')")
+  public ResponseEntity<OrderDto> removeBookFromCurrentOrder(final Long bookId, final Long copies) {
+    return this.removeFromOrderUseCase
+        .removeFromOrder(bookId, copies)
+        .map(this.orderRestMapper::toDto)
+        .map(ResponseEntity::ok)
+        .orElse(ResponseEntity.noContent().build());
+  }
 }

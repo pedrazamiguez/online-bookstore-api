@@ -11,27 +11,27 @@ import org.hibernate.envers.Audited;
 @Audited
 @Entity
 @Table(
-        name = "loyalty_points",
-        indexes = {
-            @Index(name = "idx_loyalty_points_customer_id", columnList = "customer_id"),
-            @Index(name = "idx_loyalty_points_order_id", columnList = "order_id"),
-            @Index(name = "idx_loyalty_points_status", columnList = "status"),
-        })
+    name = "loyalty_points",
+    indexes = {
+      @Index(name = "idx_loyalty_points_customer_id", columnList = "customer_id"),
+      @Index(name = "idx_loyalty_points_order_id", columnList = "order_id"),
+      @Index(name = "idx_loyalty_points_status", columnList = "status"),
+    })
 public class LoyaltyPointEntity extends AuditEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.SEQUENCE)
+  private Long id;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "customer_id")
-    private CustomerEntity customer;
+  @ManyToOne(optional = false)
+  @JoinColumn(name = "customer_id")
+  private CustomerEntity customer;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "order_id")
-    private OrderEntity order;
+  @ManyToOne(optional = false)
+  @JoinColumn(name = "order_id")
+  private OrderEntity order;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private LoyaltyPointStatus status;
+  @Enumerated(EnumType.STRING)
+  @Column(nullable = false)
+  private LoyaltyPointStatus status;
 }

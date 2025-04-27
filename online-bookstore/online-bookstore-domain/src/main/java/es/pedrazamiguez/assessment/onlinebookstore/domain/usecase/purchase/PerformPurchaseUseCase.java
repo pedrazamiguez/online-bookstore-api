@@ -5,5 +5,5 @@ import es.pedrazamiguez.assessment.onlinebookstore.domain.model.Order;
 @FunctionalInterface
 public interface PerformPurchaseUseCase {
 
-    Order purchase(Order orderRequest);
+  Order purchase(Order orderRequest);
 }

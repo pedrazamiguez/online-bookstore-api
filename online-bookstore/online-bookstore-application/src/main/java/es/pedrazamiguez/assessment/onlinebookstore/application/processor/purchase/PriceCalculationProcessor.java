@@ -12,12 +12,12 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class PriceCalculationProcessor implements PurchaseProcessor {
 
-    private final FinalPriceService finalPriceService;
+  private final FinalPriceService finalPriceService;
 
-    @Override
-    public void process(final PurchaseContext context) {
-        final var existingOrder = context.getExistingOrder();
-        log.info("Calculating subtotal for orderId {}", existingOrder.getId());
-        this.finalPriceService.calculate(existingOrder);
-    }
+  @Override
+  public void process(final PurchaseContext context) {
+    final var existingOrder = context.getExistingOrder();
+    log.info("Calculating subtotal for orderId {}", existingOrder.getId());
+    this.finalPriceService.calculate(existingOrder);
+  }
 }

@@ -12,18 +12,18 @@ import org.mapstruct.MappingConstants;
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface LoyaltyPointMapper {
 
-    default List<LoyaltyPointEntity> toEarnedLoyaltyPoints(
-            final CustomerEntity customerEntity, final OrderEntity orderEntity, final Long points) {
+  default List<LoyaltyPointEntity> toEarnedLoyaltyPoints(
+      final CustomerEntity customerEntity, final OrderEntity orderEntity, final Long points) {
 
-        return LongStream.range(0, points)
-                .mapToObj(
-                        i -> {
-                            final LoyaltyPointEntity loyaltyPointEntity = new LoyaltyPointEntity();
-                            loyaltyPointEntity.setCustomer(customerEntity);
-                            loyaltyPointEntity.setOrder(orderEntity);
-                            loyaltyPointEntity.setStatus(LoyaltyPointStatus.EARNED);
-                            return loyaltyPointEntity;
-                        })
-                .toList();
-    }
+    return LongStream.range(0, points)
+        .mapToObj(
+            i -> {
+              final LoyaltyPointEntity loyaltyPointEntity = new LoyaltyPointEntity();
+              loyaltyPointEntity.setCustomer(customerEntity);
+              loyaltyPointEntity.setOrder(orderEntity);
+              loyaltyPointEntity.setStatus(LoyaltyPointStatus.EARNED);
+              return loyaltyPointEntity;
+            })
+        .toList();
+  }
 }

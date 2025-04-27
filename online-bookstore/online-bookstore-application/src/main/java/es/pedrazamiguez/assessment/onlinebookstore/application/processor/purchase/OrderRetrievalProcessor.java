@@ -12,14 +12,14 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class OrderRetrievalProcessor implements PurchaseProcessor {
 
-    private final CurrentOrderService currentOrderService;
+  private final CurrentOrderService currentOrderService;
 
-    @Override
-    public void process(final PurchaseContext context) {
-        final String username = context.getUsername();
-        log.info("Getting current order for user: {}", username);
+  @Override
+  public void process(final PurchaseContext context) {
+    final String username = context.getUsername();
+    log.info("Getting current order for user: {}", username);
 
-        final var existingOrder = this.currentOrderService.getOrCreateOrder(username);
-        context.setExistingOrder(existingOrder);
-    }
+    final var existingOrder = this.currentOrderService.getOrCreateOrder(username);
+    context.setExistingOrder(existingOrder);
+  }
 }

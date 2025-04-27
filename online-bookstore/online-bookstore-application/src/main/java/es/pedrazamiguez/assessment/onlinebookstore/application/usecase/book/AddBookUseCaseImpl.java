@@ -12,11 +12,11 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class AddBookUseCaseImpl implements AddBookUseCase {
 
-    private final BookRepository bookRepository;
+  private final BookRepository bookRepository;
 
-    @Override
-    public Book addBook(final Book book) {
-        log.info("Adding book: {}", book);
-        return this.bookRepository.save(book);
-    }
+  @Override
+  public Book addBook(final Book book) {
+    log.info("Adding book: {}", book);
+    return this.bookRepository.save(book);
+  }
 }

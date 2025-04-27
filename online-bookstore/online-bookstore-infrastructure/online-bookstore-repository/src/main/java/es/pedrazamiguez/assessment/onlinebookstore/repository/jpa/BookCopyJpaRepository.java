@@ -11,9 +11,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface BookCopyJpaRepository extends JpaRepository<BookCopyEntity, Long> {
 
-    @Query(
-            value =
-                    """
+  @Query(
+      value =
+          """
           select
             count(bc.id) as copies,
             max(bc.updated_at) as last_updated_at,
@@ -39,13 +39,13 @@ public interface BookCopyJpaRepository extends JpaRepository<BookCopyEntity, Lon
           order by
             1 desc
           """,
-            nativeQuery = true)
-    List<InventoryDetailsQueryResult> findInventoryDetailsAndStatusIn(
-            int count, List<String> statuses);
+      nativeQuery = true)
+  List<InventoryDetailsQueryResult> findInventoryDetailsAndStatusIn(
+      int count, List<String> statuses);
 
-    @Query(
-            value =
-                    """
+  @Query(
+      value =
+          """
           select
             count(bc.id) as copies,
             max(bc.updated_at) as last_updated_at,
@@ -69,13 +69,13 @@ public interface BookCopyJpaRepository extends JpaRepository<BookCopyEntity, Lon
           group by
             bc.book_id, bc.book_id, b.title, b.author
           """,
-            nativeQuery = true)
-    InventoryDetailsQueryResult findInventoryDetailsForBookAndStatusIn(
-            Long bookId, List<String> statuses);
+      nativeQuery = true)
+  InventoryDetailsQueryResult findInventoryDetailsForBookAndStatusIn(
+      Long bookId, List<String> statuses);
 
-    @Query(
-            value =
-                    """
+  @Query(
+      value =
+          """
           select
             bc.*
           from
@@ -88,9 +88,8 @@ public interface BookCopyJpaRepository extends JpaRepository<BookCopyEntity, Lon
             bc.updated_at
           limit :copies
           """,
-            nativeQuery = true)
-    List<BookCopyEntity> findByBookIdAndStatusIn(Long bookId, Long copies, List<String> statuses);
+      nativeQuery = true)
+  List<BookCopyEntity> findByBookIdAndStatusIn(Long bookId, Long copies, List<String> statuses);
 
-    List<BookCopyEntity> findByUpdatedAtBeforeAndStatusIn(
-            LocalDateTime date, List<String> statuses);
+  List<BookCopyEntity> findByUpdatedAtBeforeAndStatusIn(LocalDateTime date, List<String> statuses);
 }

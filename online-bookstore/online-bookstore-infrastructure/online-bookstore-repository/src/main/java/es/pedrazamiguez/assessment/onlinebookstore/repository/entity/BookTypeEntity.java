@@ -12,13 +12,13 @@ import org.hibernate.envers.Audited;
 @Audited
 @Table(name = "book_types")
 public class BookTypeEntity {
-    @Id
-    @Column(nullable = false, updatable = false)
-    private String code;
+  @Id
+  @Column(nullable = false, updatable = false)
+  private String code;
 
-    @Column(nullable = false)
-    private String name;
+  @Column(nullable = false)
+  private String name;
 
-    @Column(nullable = false)
-    private String description;
+  @Column(nullable = false)
+  private String description;
 }

@@ -6,5 +6,5 @@ import java.util.Optional;
 @FunctionalInterface
 public interface RemoveFromOrderUseCase {
 
-    Optional<Order> removeFromOrder(Long bookId, Long copies);
+  Optional<Order> removeFromOrder(Long bookId, Long copies);
 }

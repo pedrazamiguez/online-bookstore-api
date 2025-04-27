@@ -6,5 +6,5 @@ import java.util.Optional;
 @FunctionalInterface
 public interface ViewOrderUseCase {
 
-    Optional<Order> getCurrentOrderForCustomer();
+  Optional<Order> getCurrentOrderForCustomer();
 }

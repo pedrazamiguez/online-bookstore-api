@@ -12,11 +12,11 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class GetBookUseCaseImpl implements GetBookUseCase {
 
-    private final BookRepository bookRepository;
+  private final BookRepository bookRepository;
 
-    @Override
-    public Book getBookDetails(Long bookId) {
-        log.info("Fetching book details for bookId: {}", bookId);
-        return this.bookRepository.findById(bookId);
-    }
+  @Override
+  public Book getBookDetails(Long bookId) {
+    log.info("Fetching book details for bookId: {}", bookId);
+    return this.bookRepository.findById(bookId);
+  }
 }

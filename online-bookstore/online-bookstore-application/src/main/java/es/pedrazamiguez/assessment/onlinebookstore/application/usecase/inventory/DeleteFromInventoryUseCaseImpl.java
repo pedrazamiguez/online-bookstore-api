@@ -16,17 +16,17 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class DeleteFromInventoryUseCaseImpl implements DeleteFromInventoryUseCase {
 
-    private final AvailableBookCopiesService availableBookCopiesService;
+  private final AvailableBookCopiesService availableBookCopiesService;
 
-    private final BookCopyRepository bookCopyRepository;
+  private final BookCopyRepository bookCopyRepository;
 
-    @Override
-    @Transactional
-    public Optional<BookAllocation> deleteFromInventory(final Long bookId, final Long copies) {
-        log.info("Deleting {} copies of book with ID {} from inventory", copies, bookId);
+  @Override
+  @Transactional
+  public Optional<BookAllocation> deleteFromInventory(final Long bookId, final Long copies) {
+    log.info("Deleting {} copies of book with ID {} from inventory", copies, bookId);
 
-        this.availableBookCopiesService.assure(bookId, copies);
-        this.bookCopyRepository.updateCopiesStatus(bookId, copies, BookCopyStatus.DELETED);
-        return this.bookCopyRepository.getInventoryDetailsByBookId(bookId);
-    }
+    this.availableBookCopiesService.assure(bookId, copies);
+    this.bookCopyRepository.updateCopiesStatus(bookId, copies, BookCopyStatus.DELETED);
+    return this.bookCopyRepository.getInventoryDetailsByBookId(bookId);
+  }
 }

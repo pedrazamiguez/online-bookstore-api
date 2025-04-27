@@ -4,7 +4,7 @@ import es.pedrazamiguez.assessment.onlinebookstore.domain.model.Book;
 
 public interface BookRepository {
 
-    Book findById(Long bookId);
+  Book findById(Long bookId);
 
-    Book save(Book book);
+  Book save(Book book);
 }

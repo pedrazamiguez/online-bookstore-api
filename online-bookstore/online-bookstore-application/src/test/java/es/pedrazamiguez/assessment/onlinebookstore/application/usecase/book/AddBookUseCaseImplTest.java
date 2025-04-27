@@ -15,23 +15,23 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 class AddBookUseCaseImplTest {
 
-    @InjectMocks private AddBookUseCaseImpl addBookUseCaseImpl;
+  @InjectMocks private AddBookUseCaseImpl addBookUseCaseImpl;
 
-    @Mock private BookRepository bookRepository;
+  @Mock private BookRepository bookRepository;
 
-    @Test
-    void testAddBook() {
-        // GIVEN
-        final var book = Instancio.create(Book.class);
-        when(this.bookRepository.save(book)).thenReturn(book);
+  @Test
+  void testAddBook() {
+    // GIVEN
+    final var book = Instancio.create(Book.class);
+    when(this.bookRepository.save(book)).thenReturn(book);
 
-        // WHEN
-        final var result = this.addBookUseCaseImpl.addBook(book);
+    // WHEN
+    final var result = this.addBookUseCaseImpl.addBook(book);
 
-        // THEN
-        assertThat(result).isNotNull();
-        assertThat(result).isEqualTo(book);
+    // THEN
+    assertThat(result).isNotNull();
+    assertThat(result).isEqualTo(book);
 
-        verify(this.bookRepository, times(1)).save(book);
-    }
+    verify(this.bookRepository, times(1)).save(book);
+  }
 }

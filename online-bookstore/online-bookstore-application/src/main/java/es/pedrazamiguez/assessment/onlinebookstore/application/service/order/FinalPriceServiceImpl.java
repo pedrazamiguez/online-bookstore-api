@@ -13,24 +13,23 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class FinalPriceServiceImpl implements FinalPriceService {
 
-    private final CalculateSubtotalAdapter calculateSubtotalAdapter;
+  private final CalculateSubtotalAdapter calculateSubtotalAdapter;
 
-    @Override
-    public void calculate(final Order order) {
-        log.info("Calculating final price for orderId {}", order.getId());
+  @Override
+  public void calculate(final Order order) {
+    log.info("Calculating final price for orderId {}", order.getId());
 
-        final BigDecimal totalPrice =
-                order.getLines().stream()
-                        .map(
-                                line -> {
-                                    line.setPayableAmount(
-                                            this.calculateSubtotalAdapter.calculateSubtotal(line));
-                                    return line.getPayableAmount().getSubtotal();
-                                })
-                        .reduce(BigDecimal.ZERO, BigDecimal::add);
+    final BigDecimal totalPrice =
+        order.getLines().stream()
+            .map(
+                line -> {
+                  line.setPayableAmount(this.calculateSubtotalAdapter.calculateSubtotal(line));
+                  return line.getPayableAmount().getSubtotal();
+                })
+            .reduce(BigDecimal.ZERO, BigDecimal::add);
 
-        order.setTotalPrice(totalPrice);
+    order.setTotalPrice(totalPrice);
 
-        log.info("Final price for orderId {} is {}", order.getId(), totalPrice);
-    }
+    log.info("Final price for orderId {} is {}", order.getId(), totalPrice);
+  }
 }

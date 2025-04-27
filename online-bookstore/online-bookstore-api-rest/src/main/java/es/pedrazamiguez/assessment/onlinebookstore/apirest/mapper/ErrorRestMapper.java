@@ -16,17 +16,17 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 @DecoratedWith(ErrorRestMapperDecorator.class)
 public interface ErrorRestMapper {
 
-    @Mapping(target = "status", expression = "java( status.name() )")
-    @Mapping(target = "timestamp", expression = "java( java.time.LocalDateTime.now() )")
-    ErrorDto toDto(HttpStatus status, String message, String path);
+  @Mapping(target = "status", expression = "java( status.name() )")
+  @Mapping(target = "timestamp", expression = "java( java.time.LocalDateTime.now() )")
+  ErrorDto toDto(HttpStatus status, String message, String path);
 
-    ErrorDto toDto(HttpStatus status, Exception e, WebRequest request);
+  ErrorDto toDto(HttpStatus status, Exception e, WebRequest request);
 
-    ErrorDto toDto(HttpStatus status, MethodArgumentNotValidException e, WebRequest request);
+  ErrorDto toDto(HttpStatus status, MethodArgumentNotValidException e, WebRequest request);
 
-    ErrorDto toDto(HttpStatus status, ConstraintViolationException e, WebRequest request);
+  ErrorDto toDto(HttpStatus status, ConstraintViolationException e, WebRequest request);
 
-    ErrorDto toDto(HttpStatus status, MethodArgumentTypeMismatchException e, WebRequest request);
+  ErrorDto toDto(HttpStatus status, MethodArgumentTypeMismatchException e, WebRequest request);
 
-    ErrorDto toDto(HttpStatus status, HttpMessageNotReadableException e, WebRequest request);
+  ErrorDto toDto(HttpStatus status, HttpMessageNotReadableException e, WebRequest request);
 }

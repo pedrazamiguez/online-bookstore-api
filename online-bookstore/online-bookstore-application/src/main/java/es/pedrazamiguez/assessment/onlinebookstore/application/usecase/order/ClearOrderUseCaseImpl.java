@@ -15,20 +15,20 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class ClearOrderUseCaseImpl implements ClearOrderUseCase {
 
-    private final SecurityService securityService;
+  private final SecurityService securityService;
 
-    private final CurrentOrderService currentOrderService;
+  private final CurrentOrderService currentOrderService;
 
-    private final OrderRepository orderRepository;
+  private final OrderRepository orderRepository;
 
-    @Override
-    @Transactional
-    public void clearOrderItems() {
-        final String username = this.securityService.getCurrentUserName();
+  @Override
+  @Transactional
+  public void clearOrderItems() {
+    final String username = this.securityService.getCurrentUserName();
 
-        log.info("Clearing order items for user: {}", username);
-        final Order existingOrder = this.currentOrderService.getOrCreateOrder(username);
+    log.info("Clearing order items for user: {}", username);
+    final Order existingOrder = this.currentOrderService.getOrCreateOrder(username);
 
-        this.orderRepository.deleteOrderItems(existingOrder.getId());
-    }
+    this.orderRepository.deleteOrderItems(existingOrder.getId());
+  }
 }

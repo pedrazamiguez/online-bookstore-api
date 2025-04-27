@@ -17,50 +17,50 @@ import org.springframework.web.context.request.WebRequest;
 @RequiredArgsConstructor
 public class BookstoreExceptionHandler {
 
-    private final ErrorRestMapper errorRestMapper;
+  private final ErrorRestMapper errorRestMapper;
 
-    @ExceptionHandler(BookNotFoundException.class)
-    public ResponseEntity<ErrorDto> handleBookNotFoundException(
-            final BookNotFoundException e, final WebRequest request) {
-        final HttpStatus status = HttpStatus.NOT_FOUND;
-        return ResponseEntity.status(status)
-                .contentType(MediaType.APPLICATION_JSON)
-                .body(this.errorRestMapper.toDto(status, e, request));
-    }
+  @ExceptionHandler(BookNotFoundException.class)
+  public ResponseEntity<ErrorDto> handleBookNotFoundException(
+      final BookNotFoundException e, final WebRequest request) {
+    final HttpStatus status = HttpStatus.NOT_FOUND;
+    return ResponseEntity.status(status)
+        .contentType(MediaType.APPLICATION_JSON)
+        .body(this.errorRestMapper.toDto(status, e, request));
+  }
 
-    @ExceptionHandler(BookAlreadyExistsException.class)
-    public ResponseEntity<ErrorDto> handleBookAlreadyExistsException(
-            final BookAlreadyExistsException e, final WebRequest request) {
-        final HttpStatus status = HttpStatus.CONFLICT;
-        return ResponseEntity.status(status)
-                .contentType(MediaType.APPLICATION_JSON)
-                .body(this.errorRestMapper.toDto(status, e, request));
-    }
+  @ExceptionHandler(BookAlreadyExistsException.class)
+  public ResponseEntity<ErrorDto> handleBookAlreadyExistsException(
+      final BookAlreadyExistsException e, final WebRequest request) {
+    final HttpStatus status = HttpStatus.CONFLICT;
+    return ResponseEntity.status(status)
+        .contentType(MediaType.APPLICATION_JSON)
+        .body(this.errorRestMapper.toDto(status, e, request));
+  }
 
-    @ExceptionHandler(NotEnoughBookCopiesException.class)
-    public ResponseEntity<ErrorDto> handleNotEnoughBookCopiesException(
-            final NotEnoughBookCopiesException e, final WebRequest request) {
-        final HttpStatus status = HttpStatus.CONFLICT;
-        return ResponseEntity.status(status)
-                .contentType(MediaType.APPLICATION_JSON)
-                .body(this.errorRestMapper.toDto(status, e, request));
-    }
+  @ExceptionHandler(NotEnoughBookCopiesException.class)
+  public ResponseEntity<ErrorDto> handleNotEnoughBookCopiesException(
+      final NotEnoughBookCopiesException e, final WebRequest request) {
+    final HttpStatus status = HttpStatus.CONFLICT;
+    return ResponseEntity.status(status)
+        .contentType(MediaType.APPLICATION_JSON)
+        .body(this.errorRestMapper.toDto(status, e, request));
+  }
 
-    @ExceptionHandler(BookNotInOrderException.class)
-    public ResponseEntity<ErrorDto> handleBookNotInOrderException(
-            final BookNotInOrderException e, final WebRequest request) {
-        final HttpStatus status = HttpStatus.CONFLICT;
-        return ResponseEntity.status(status)
-                .contentType(MediaType.APPLICATION_JSON)
-                .body(this.errorRestMapper.toDto(status, e, request));
-    }
+  @ExceptionHandler(BookNotInOrderException.class)
+  public ResponseEntity<ErrorDto> handleBookNotInOrderException(
+      final BookNotInOrderException e, final WebRequest request) {
+    final HttpStatus status = HttpStatus.CONFLICT;
+    return ResponseEntity.status(status)
+        .contentType(MediaType.APPLICATION_JSON)
+        .body(this.errorRestMapper.toDto(status, e, request));
+  }
 
-    @ExceptionHandler(OrderContainsNoItemsException.class)
-    public ResponseEntity<ErrorDto> handleOrderContainsNoItemsException(
-            final OrderContainsNoItemsException e, final WebRequest request) {
-        final HttpStatus status = HttpStatus.PRECONDITION_FAILED;
-        return ResponseEntity.status(status)
-                .contentType(MediaType.APPLICATION_JSON)
-                .body(this.errorRestMapper.toDto(status, e, request));
-    }
+  @ExceptionHandler(OrderContainsNoItemsException.class)
+  public ResponseEntity<ErrorDto> handleOrderContainsNoItemsException(
+      final OrderContainsNoItemsException e, final WebRequest request) {
+    final HttpStatus status = HttpStatus.PRECONDITION_FAILED;
+    return ResponseEntity.status(status)
+        .contentType(MediaType.APPLICATION_JSON)
+        .body(this.errorRestMapper.toDto(status, e, request));
+  }
 }

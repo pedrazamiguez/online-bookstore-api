@@ -11,14 +11,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class SecurityServiceImpl implements SecurityService {
 
-    @Override
-    public String getCurrentUserName() {
-        final Optional<String> optionalUsername =
-                Optional.ofNullable(SecurityContextHolder.getContext())
-                        .map(SecurityContext::getAuthentication)
-                        .filter(Authentication::isAuthenticated)
-                        .map(Authentication::getName);
+  @Override
+  public String getCurrentUserName() {
+    final Optional<String> optionalUsername =
+        Optional.ofNullable(SecurityContextHolder.getContext())
+            .map(SecurityContext::getAuthentication)
+            .filter(Authentication::isAuthenticated)
+            .map(Authentication::getName);
 
-        return optionalUsername.orElseThrow(CurrentUserNotFoundException::new);
-    }
+    return optionalUsername.orElseThrow(CurrentUserNotFoundException::new);
+  }
 }

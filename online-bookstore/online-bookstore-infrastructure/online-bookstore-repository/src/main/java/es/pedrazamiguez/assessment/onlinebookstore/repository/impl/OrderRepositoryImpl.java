@@ -25,135 +25,126 @@ import org.springframework.stereotype.Repository;
 @RequiredArgsConstructor
 public class OrderRepositoryImpl implements OrderRepository {
 
-    private final OrderJpaRepository orderJpaRepository;
+  private final OrderJpaRepository orderJpaRepository;
 
-    private final CustomerJpaRepository customerJpaRepository;
+  private final CustomerJpaRepository customerJpaRepository;
 
-    private final BookJpaRepository bookJpaRepository;
+  private final BookJpaRepository bookJpaRepository;
 
-    private final OrderEntityMapper orderEntityMapper;
+  private final OrderEntityMapper orderEntityMapper;
 
-    @Override
-    public Optional<Order> findCreatedOrderForCustomer(final String username) {
-        log.info("Finding created order for customer: {}", username);
-        return this.orderJpaRepository
-                .findOneByCustomer_usernameAndStatusOrderByUpdatedAtDesc(
-                        username, OrderStatus.CREATED)
-                .map(this.orderEntityMapper::toDomain);
+  @Override
+  public Optional<Order> findCreatedOrderForCustomer(final String username) {
+    log.info("Finding created order for customer: {}", username);
+    return this.orderJpaRepository
+        .findOneByCustomer_usernameAndStatusOrderByUpdatedAtDesc(username, OrderStatus.CREATED)
+        .map(this.orderEntityMapper::toDomain);
+  }
+
+  @Override
+  public Order createNewOrder(final String username) {
+    log.info("Creating new order for customer: {}", username);
+    final CustomerEntity customerEntity =
+        this.customerJpaRepository
+            .findByUsername(username)
+            .orElseThrow(() -> new CustomerNotFoundException(username));
+
+    final OrderEntity orderEntityToSave = this.orderEntityMapper.toNewOrderEntity(customerEntity);
+    final OrderEntity savedOrderEntity = this.orderJpaRepository.save(orderEntityToSave);
+    return this.orderEntityMapper.toDomain(savedOrderEntity);
+  }
+
+  @Override
+  public Order saveOrderItem(final Long orderId, final Long bookId, final Long quantity) {
+    log.info(
+        "Saving order item for orderId: {}, bookId: {}, quantity: {}", orderId, bookId, quantity);
+
+    final OrderEntity existingOrderEntity =
+        this.orderJpaRepository
+            .findById(orderId)
+            .orElseThrow(() -> new OrderNotFoundException(orderId));
+
+    this.patchWithAddedItem(existingOrderEntity, bookId, quantity);
+    final OrderEntity savedOrderEntity = this.orderJpaRepository.save(existingOrderEntity);
+    return this.orderEntityMapper.toDomain(savedOrderEntity);
+  }
+
+  @Override
+  public Order deleteOrderItem(final Long orderId, final Long bookId, final Long quantity) {
+    log.info(
+        "Deleting order item for orderId: {}, bookId: {}, quantity: {}", orderId, bookId, quantity);
+
+    final OrderEntity existingOrderEntity =
+        this.orderJpaRepository
+            .findById(orderId)
+            .orElseThrow(() -> new OrderNotFoundException(orderId));
+
+    this.patchWithDeletedItem(existingOrderEntity, bookId, quantity);
+    final OrderEntity savedOrderEntity = this.orderJpaRepository.save(existingOrderEntity);
+    return this.orderEntityMapper.toDomain(savedOrderEntity);
+  }
+
+  @Override
+  public void deleteOrderItems(final Long orderId) {
+    log.info("Deleting order items for orderId: {}", orderId);
+
+    final OrderEntity existingOrderEntity =
+        this.orderJpaRepository
+            .findById(orderId)
+            .orElseThrow(() -> new OrderNotFoundException(orderId));
+
+    existingOrderEntity.getItems().clear();
+    this.orderJpaRepository.save(existingOrderEntity);
+  }
+
+  @Override
+  public Order purchaseOrder(
+      final Order order, final PaymentMethod paymentMethod, final String shippingAddress) {
+
+    final Long orderId = order.getId();
+    log.info("Purchasing order for orderId: {}", order);
+
+    final OrderEntity existingOrderEntity =
+        this.orderJpaRepository
+            .findById(orderId)
+            .orElseThrow(() -> new OrderNotFoundException(orderId));
+
+    this.orderEntityMapper.patchOrderRequest(existingOrderEntity, paymentMethod, shippingAddress);
+    this.orderEntityMapper.patchOrderItems(existingOrderEntity, order);
+    existingOrderEntity.setTotalPrice(order.getTotalPrice());
+    existingOrderEntity.setStatus(OrderStatus.PURCHASED);
+
+    final OrderEntity savedOrderEntity = this.orderJpaRepository.save(existingOrderEntity);
+    return this.orderEntityMapper.toDomain(savedOrderEntity);
+  }
+
+  private boolean isBookInOrder(final OrderEntity orderEntity, final Long bookId) {
+    return orderEntity.getItems().stream()
+        .anyMatch(orderItem -> bookId.equals(orderItem.getBook().getId()));
+  }
+
+  private void patchWithAddedItem(
+      final OrderEntity existingOrderEntity, final Long bookId, final Long quantity) {
+    if (this.isBookInOrder(existingOrderEntity, bookId)) {
+      this.orderEntityMapper.patchAdditionWithExistingOrderItem(
+          existingOrderEntity, bookId, quantity);
+    } else {
+      final BookEntity bookEntity =
+          this.bookJpaRepository
+              .findById(bookId)
+              .orElseThrow(() -> new BookNotFoundException(bookId));
+      this.orderEntityMapper.patchAdditionWithNewOrderItem(
+          existingOrderEntity, bookEntity, quantity);
     }
+  }
 
-    @Override
-    public Order createNewOrder(final String username) {
-        log.info("Creating new order for customer: {}", username);
-        final CustomerEntity customerEntity =
-                this.customerJpaRepository
-                        .findByUsername(username)
-                        .orElseThrow(() -> new CustomerNotFoundException(username));
-
-        final OrderEntity orderEntityToSave =
-                this.orderEntityMapper.toNewOrderEntity(customerEntity);
-        final OrderEntity savedOrderEntity = this.orderJpaRepository.save(orderEntityToSave);
-        return this.orderEntityMapper.toDomain(savedOrderEntity);
+  private void patchWithDeletedItem(
+      final OrderEntity existingOrderEntity, final Long bookId, final Long quantity) {
+    if (this.isBookInOrder(existingOrderEntity, bookId)) {
+      this.orderEntityMapper.patchSubstractionWithExistingOrderItem(
+          existingOrderEntity, bookId, quantity);
+    } else {
+      throw new BookNotInOrderException(bookId, existingOrderEntity.getId());
     }
-
-    @Override
-    public Order saveOrderItem(final Long orderId, final Long bookId, final Long quantity) {
-        log.info(
-                "Saving order item for orderId: {}, bookId: {}, quantity: {}",
-                orderId,
-                bookId,
-                quantity);
-
-        final OrderEntity existingOrderEntity =
-                this.orderJpaRepository
-                        .findById(orderId)
-                        .orElseThrow(() -> new OrderNotFoundException(orderId));
-
-        this.patchWithAddedItem(existingOrderEntity, bookId, quantity);
-        final OrderEntity savedOrderEntity = this.orderJpaRepository.save(existingOrderEntity);
-        return this.orderEntityMapper.toDomain(savedOrderEntity);
-    }
-
-    @Override
-    public Order deleteOrderItem(final Long orderId, final Long bookId, final Long quantity) {
-        log.info(
-                "Deleting order item for orderId: {}, bookId: {}, quantity: {}",
-                orderId,
-                bookId,
-                quantity);
-
-        final OrderEntity existingOrderEntity =
-                this.orderJpaRepository
-                        .findById(orderId)
-                        .orElseThrow(() -> new OrderNotFoundException(orderId));
-
-        this.patchWithDeletedItem(existingOrderEntity, bookId, quantity);
-        final OrderEntity savedOrderEntity = this.orderJpaRepository.save(existingOrderEntity);
-        return this.orderEntityMapper.toDomain(savedOrderEntity);
-    }
-
-    @Override
-    public void deleteOrderItems(final Long orderId) {
-        log.info("Deleting order items for orderId: {}", orderId);
-
-        final OrderEntity existingOrderEntity =
-                this.orderJpaRepository
-                        .findById(orderId)
-                        .orElseThrow(() -> new OrderNotFoundException(orderId));
-
-        existingOrderEntity.getItems().clear();
-        this.orderJpaRepository.save(existingOrderEntity);
-    }
-
-    @Override
-    public Order purchaseOrder(
-            final Order order, final PaymentMethod paymentMethod, final String shippingAddress) {
-
-        final Long orderId = order.getId();
-        log.info("Purchasing order for orderId: {}", order);
-
-        final OrderEntity existingOrderEntity =
-                this.orderJpaRepository
-                        .findById(orderId)
-                        .orElseThrow(() -> new OrderNotFoundException(orderId));
-
-        this.orderEntityMapper.patchOrderRequest(
-                existingOrderEntity, paymentMethod, shippingAddress);
-        this.orderEntityMapper.patchOrderItems(existingOrderEntity, order);
-        existingOrderEntity.setTotalPrice(order.getTotalPrice());
-        existingOrderEntity.setStatus(OrderStatus.PURCHASED);
-
-        final OrderEntity savedOrderEntity = this.orderJpaRepository.save(existingOrderEntity);
-        return this.orderEntityMapper.toDomain(savedOrderEntity);
-    }
-
-    private boolean isBookInOrder(final OrderEntity orderEntity, final Long bookId) {
-        return orderEntity.getItems().stream()
-                .anyMatch(orderItem -> bookId.equals(orderItem.getBook().getId()));
-    }
-
-    private void patchWithAddedItem(
-            final OrderEntity existingOrderEntity, final Long bookId, final Long quantity) {
-        if (this.isBookInOrder(existingOrderEntity, bookId)) {
-            this.orderEntityMapper.patchAdditionWithExistingOrderItem(
-                    existingOrderEntity, bookId, quantity);
-        } else {
-            final BookEntity bookEntity =
-                    this.bookJpaRepository
-                            .findById(bookId)
-                            .orElseThrow(() -> new BookNotFoundException(bookId));
-            this.orderEntityMapper.patchAdditionWithNewOrderItem(
-                    existingOrderEntity, bookEntity, quantity);
-        }
-    }
-
-    private void patchWithDeletedItem(
-            final OrderEntity existingOrderEntity, final Long bookId, final Long quantity) {
-        if (this.isBookInOrder(existingOrderEntity, bookId)) {
-            this.orderEntityMapper.patchSubstractionWithExistingOrderItem(
-                    existingOrderEntity, bookId, quantity);
-        } else {
-            throw new BookNotInOrderException(bookId, existingOrderEntity.getId());
-        }
-    }
+  }
 }

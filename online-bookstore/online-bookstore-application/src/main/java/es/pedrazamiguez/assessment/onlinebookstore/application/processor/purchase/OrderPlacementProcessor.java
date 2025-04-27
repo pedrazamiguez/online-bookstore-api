@@ -13,21 +13,21 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class OrderPlacementProcessor implements PurchaseProcessor {
 
-    private final OrderRepository orderRepository;
+  private final OrderRepository orderRepository;
 
-    @Override
-    public void process(final PurchaseContext context) {
-        final Order existingOrder = context.getExistingOrder();
-        log.info("Placing order for orderId {}", existingOrder.getId());
+  @Override
+  public void process(final PurchaseContext context) {
+    final Order existingOrder = context.getExistingOrder();
+    log.info("Placing order for orderId {}", existingOrder.getId());
 
-        final Order purchasedOrder =
-                this.orderRepository.purchaseOrder(
-                        existingOrder, context.getPaymentMethod(), context.getShippingAddress());
+    final Order purchasedOrder =
+        this.orderRepository.purchaseOrder(
+            existingOrder, context.getPaymentMethod(), context.getShippingAddress());
 
-        context.setPurchasedOrder(purchasedOrder);
-        context.setTotalAmount(purchasedOrder.getTotalPrice());
+    context.setPurchasedOrder(purchasedOrder);
+    context.setTotalAmount(purchasedOrder.getTotalPrice());
 
-        log.info("Order placed for orderId {}", purchasedOrder.getId());
-        context.setOrderPlaced(true);
-    }
+    log.info("Order placed for orderId {}", purchasedOrder.getId());
+    context.setOrderPlaced(true);
+  }
 }

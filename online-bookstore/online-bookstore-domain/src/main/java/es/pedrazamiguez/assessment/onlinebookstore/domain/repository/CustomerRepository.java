@@ -5,5 +5,5 @@ import java.util.Optional;
 
 public interface CustomerRepository {
 
-    Optional<Customer> findCustomerByUsername(String username);
+  Optional<Customer> findCustomerByUsername(String username);
 }

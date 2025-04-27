@@ -5,5 +5,5 @@ import es.pedrazamiguez.assessment.onlinebookstore.domain.model.PayableAmount;
 
 public interface CalculateSubtotalAdapter {
 
-    PayableAmount calculateSubtotal(OrderItem orderItem);
+  PayableAmount calculateSubtotal(OrderItem orderItem);
 }

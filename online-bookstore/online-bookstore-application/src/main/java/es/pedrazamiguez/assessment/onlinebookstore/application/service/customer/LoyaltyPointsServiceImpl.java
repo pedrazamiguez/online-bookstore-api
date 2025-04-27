@@ -7,10 +7,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class LoyaltyPointsServiceImpl implements LoyaltyPointsService {
 
-    @Override
-    public Long calculateLoyaltyPoints(final Order order) {
-        return order.getLines().stream()
-                .map(line -> line.getAllocation().getCopies())
-                .reduce(0L, Long::sum);
-    }
+  @Override
+  public Long calculateLoyaltyPoints(final Order order) {
+    return order.getLines().stream()
+        .map(line -> line.getAllocation().getCopies())
+        .reduce(0L, Long::sum);
+  }
 }

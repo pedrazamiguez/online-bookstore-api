@@ -5,5 +5,5 @@ import java.math.BigDecimal;
 
 public interface PaymentService {
 
-    void processPayment(BigDecimal amount, PaymentMethod paymentMethod, Long orderId);
+  void processPayment(BigDecimal amount, PaymentMethod paymentMethod, Long orderId);
 }

@@ -11,22 +11,22 @@ import org.hibernate.envers.Audited;
 @Audited
 @Entity
 @Table(
-        name = "book_copies",
-        indexes = {
-            @Index(name = "idx_book_copies_book_id", columnList = "book_id"),
-            @Index(name = "idx_book_copies_status", columnList = "status"),
-        })
+    name = "book_copies",
+    indexes = {
+      @Index(name = "idx_book_copies_book_id", columnList = "book_id"),
+      @Index(name = "idx_book_copies_status", columnList = "status"),
+    })
 public class BookCopyEntity extends AuditEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.SEQUENCE)
+  private Long id;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "book_id")
-    private BookEntity book;
+  @ManyToOne(optional = false)
+  @JoinColumn(name = "book_id")
+  private BookEntity book;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private BookCopyStatus status;
+  @Enumerated(EnumType.STRING)
+  @Column(nullable = false)
+  private BookCopyStatus status;
 }

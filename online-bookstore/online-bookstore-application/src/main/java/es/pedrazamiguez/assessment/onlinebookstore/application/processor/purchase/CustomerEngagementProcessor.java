@@ -12,15 +12,15 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class CustomerEngagementProcessor implements PurchaseProcessor {
 
-    private final LoyaltyPointRepository loyaltyPointRepository;
+  private final LoyaltyPointRepository loyaltyPointRepository;
 
-    @Override
-    public void process(final PurchaseContext context) {
-        log.info("Saving earned loyalty points for user: {}", context.getUsername());
-        final String username = context.getUsername();
-        final Long orderId = context.getPurchasedOrder().getId();
-        final Long loyaltyPoints = context.getLoyaltyPointsEarned();
+  @Override
+  public void process(final PurchaseContext context) {
+    log.info("Saving earned loyalty points for user: {}", context.getUsername());
+    final String username = context.getUsername();
+    final Long orderId = context.getPurchasedOrder().getId();
+    final Long loyaltyPoints = context.getLoyaltyPointsEarned();
 
-        this.loyaltyPointRepository.addLoyaltyPoints(username, orderId, loyaltyPoints);
-    }
+    this.loyaltyPointRepository.addLoyaltyPoints(username, orderId, loyaltyPoints);
+  }
 }

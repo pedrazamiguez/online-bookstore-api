@@ -4,5 +4,5 @@ import es.pedrazamiguez.assessment.onlinebookstore.domain.model.Order;
 
 public interface LoyaltyPointsService {
 
-    Long calculateLoyaltyPoints(Order order);
+  Long calculateLoyaltyPoints(Order order);
 }

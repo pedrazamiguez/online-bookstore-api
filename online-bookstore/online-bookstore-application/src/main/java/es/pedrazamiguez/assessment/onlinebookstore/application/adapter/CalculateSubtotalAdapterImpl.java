@@ -18,62 +18,59 @@ import org.springframework.util.ObjectUtils;
 @Component
 public class CalculateSubtotalAdapterImpl implements CalculateSubtotalAdapter {
 
-    private final Map<String, SubtotalPriceService> strategiesByBookType;
+  private final Map<String, SubtotalPriceService> strategiesByBookType;
 
-    public CalculateSubtotalAdapterImpl(final List<SubtotalPriceService> strategies) {
-        if (strategies == null) {
-            throw new IllegalArgumentException("Strategies list cannot be null");
-        }
-
-        // Validate for null elements
-        strategies.forEach(
-                strategy -> {
-                    if (Objects.isNull(strategy)) {
-                        throw new IllegalArgumentException(
-                                "Strategies list cannot contain null elements");
-                    }
-                });
-
-        this.strategiesByBookType =
-                strategies.stream()
-                        .collect(
-                                Collectors.toMap(
-                                        SubtotalPriceService::getBookTypeCode,
-                                        Function.identity(),
-                                        (existing, replacement) -> {
-                                            throw new IllegalArgumentException(
-                                                    "Duplicate book type code: "
-                                                            + existing.getBookTypeCode());
-                                        }));
+  public CalculateSubtotalAdapterImpl(final List<SubtotalPriceService> strategies) {
+    if (strategies == null) {
+      throw new IllegalArgumentException("Strategies list cannot be null");
     }
 
-    @Override
-    public PayableAmount calculateSubtotal(final OrderItem orderItem) {
-        if (orderItem == null
-                || orderItem.getAllocation() == null
-                || orderItem.getAllocation().getBook() == null) {
-            throw new IllegalArgumentException("Order item or its allocation/book cannot be null");
-        }
+    // Validate for null elements
+    strategies.forEach(
+        strategy -> {
+          if (Objects.isNull(strategy)) {
+            throw new IllegalArgumentException("Strategies list cannot contain null elements");
+          }
+        });
 
-        final BookType bookType = orderItem.getAllocation().getBook().getType();
-        final String bookTypeCode = bookType != null ? bookType.getCode() : null;
-        final SubtotalPriceService subtotalPriceService =
-                bookTypeCode != null ? this.strategiesByBookType.get(bookTypeCode) : null;
+    this.strategiesByBookType =
+        strategies.stream()
+            .collect(
+                Collectors.toMap(
+                    SubtotalPriceService::getBookTypeCode,
+                    Function.identity(),
+                    (existing, replacement) -> {
+                      throw new IllegalArgumentException(
+                          "Duplicate book type code: " + existing.getBookTypeCode());
+                    }));
+  }
 
-        log.info(
-                "Calculating subtotal for order item: {} with strategy: {}",
-                orderItem,
-                Objects.isNull(subtotalPriceService)
-                        ? "unknown"
-                        : subtotalPriceService.getClass().getSimpleName());
-
-        if (ObjectUtils.isEmpty(subtotalPriceService)) {
-            throw new IllegalArgumentException(
-                    String.format(
-                            "No price service found for book type: %s",
-                            bookType != null ? bookType : "null"));
-        }
-
-        return subtotalPriceService.calculateSubtotal(orderItem);
+  @Override
+  public PayableAmount calculateSubtotal(final OrderItem orderItem) {
+    if (orderItem == null
+        || orderItem.getAllocation() == null
+        || orderItem.getAllocation().getBook() == null) {
+      throw new IllegalArgumentException("Order item or its allocation/book cannot be null");
     }
+
+    final BookType bookType = orderItem.getAllocation().getBook().getType();
+    final String bookTypeCode = bookType != null ? bookType.getCode() : null;
+    final SubtotalPriceService subtotalPriceService =
+        bookTypeCode != null ? this.strategiesByBookType.get(bookTypeCode) : null;
+
+    log.info(
+        "Calculating subtotal for order item: {} with strategy: {}",
+        orderItem,
+        Objects.isNull(subtotalPriceService)
+            ? "unknown"
+            : subtotalPriceService.getClass().getSimpleName());
+
+    if (ObjectUtils.isEmpty(subtotalPriceService)) {
+      throw new IllegalArgumentException(
+          String.format(
+              "No price service found for book type: %s", bookType != null ? bookType : "null"));
+    }
+
+    return subtotalPriceService.calculateSubtotal(orderItem);
+  }
 }

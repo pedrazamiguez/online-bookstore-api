@@ -247,7 +247,6 @@
                             </includes>
                             <googleJavaFormat>
                                 <version>${google-java-format.version}</version>
-                                <style>AOSP</style>
                             </googleJavaFormat>
                             <importOrder/>
                             <removeUnusedImports/>

@@ -14,23 +14,22 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class InventoryUpdateProcessor implements PurchaseProcessor {
 
-    private final BookCopyRepository bookCopyRepository;
+  private final BookCopyRepository bookCopyRepository;
 
-    @Override
-    public void process(final PurchaseContext context) {
-        final var purchasedOrder = context.getExistingOrder();
+  @Override
+  public void process(final PurchaseContext context) {
+    final var purchasedOrder = context.getExistingOrder();
 
-        log.info("Updating inventory for orderId {}", purchasedOrder.getId());
-        purchasedOrder
-                .getLines()
-                .forEach(
-                        orderItem -> {
-                            final Long bookId = orderItem.getAllocation().getBook().getId();
-                            final Long copies = orderItem.getAllocation().getCopies();
-                            this.bookCopyRepository.updateCopiesStatus(
-                                    bookId, copies, BookCopyStatus.SOLD);
-                        });
+    log.info("Updating inventory for orderId {}", purchasedOrder.getId());
+    purchasedOrder
+        .getLines()
+        .forEach(
+            orderItem -> {
+              final Long bookId = orderItem.getAllocation().getBook().getId();
+              final Long copies = orderItem.getAllocation().getCopies();
+              this.bookCopyRepository.updateCopiesStatus(bookId, copies, BookCopyStatus.SOLD);
+            });
 
-        context.setStatus(PurchaseStatus.SUCCESS);
-    }
+    context.setStatus(PurchaseStatus.SUCCESS);
+  }
 }

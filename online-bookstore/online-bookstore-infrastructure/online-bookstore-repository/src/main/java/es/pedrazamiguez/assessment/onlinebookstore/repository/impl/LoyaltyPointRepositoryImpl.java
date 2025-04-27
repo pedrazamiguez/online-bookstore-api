@@ -21,43 +21,43 @@ import org.springframework.stereotype.Repository;
 @RequiredArgsConstructor
 public class LoyaltyPointRepositoryImpl implements LoyaltyPointRepository {
 
-    private final CustomerJpaRepository customerJpaRepository;
+  private final CustomerJpaRepository customerJpaRepository;
 
-    private final OrderJpaRepository orderJpaRepository;
+  private final OrderJpaRepository orderJpaRepository;
 
-    private final LoyaltyPointJpaRepository loyaltyPointJpaRepository;
+  private final LoyaltyPointJpaRepository loyaltyPointJpaRepository;
 
-    private final LoyaltyPointMapper loyaltyPointMapper;
+  private final LoyaltyPointMapper loyaltyPointMapper;
 
-    @Override
-    public void addLoyaltyPoints(final String username, final Long orderId, final Long points) {
-        log.info("Adding loyalty points for user: {} with points: {}", username, points);
+  @Override
+  public void addLoyaltyPoints(final String username, final Long orderId, final Long points) {
+    log.info("Adding loyalty points for user: {} with points: {}", username, points);
 
-        final CustomerEntity customerEntity =
-                this.customerJpaRepository
-                        .findByUsername(username)
-                        .orElseThrow(() -> new CustomerNotFoundException(username));
+    final CustomerEntity customerEntity =
+        this.customerJpaRepository
+            .findByUsername(username)
+            .orElseThrow(() -> new CustomerNotFoundException(username));
 
-        final OrderEntity orderEntity =
-                this.orderJpaRepository
-                        .findById(orderId)
-                        .orElseThrow(() -> new OrderNotFoundException(orderId));
+    final OrderEntity orderEntity =
+        this.orderJpaRepository
+            .findById(orderId)
+            .orElseThrow(() -> new OrderNotFoundException(orderId));
 
-        final List<LoyaltyPointEntity> loyaltyPointsToSave =
-                this.loyaltyPointMapper.toEarnedLoyaltyPoints(customerEntity, orderEntity, points);
-        this.loyaltyPointJpaRepository.saveAll(loyaltyPointsToSave);
-    }
+    final List<LoyaltyPointEntity> loyaltyPointsToSave =
+        this.loyaltyPointMapper.toEarnedLoyaltyPoints(customerEntity, orderEntity, points);
+    this.loyaltyPointJpaRepository.saveAll(loyaltyPointsToSave);
+  }
 
-    @Override
-    public void redeemLoyaltyPoints(final String username, final Long orderId, final Long points) {
-        throw new UnsupportedOperationException(
-                "Redeeming loyalty points is not supported in this implementation.");
-    }
+  @Override
+  public void redeemLoyaltyPoints(final String username, final Long orderId, final Long points) {
+    throw new UnsupportedOperationException(
+        "Redeeming loyalty points is not supported in this implementation.");
+  }
 
-    @Override
-    public Long getLoyaltyPoints(final String username) {
-        log.info("Getting earned loyalty points for user: {}", username);
-        return this.loyaltyPointJpaRepository.countLoyaltyPointsByCustomerUsernameAndStatusIn(
-                username, LoyaltyPointStatus.EARNED.name());
-    }
+  @Override
+  public Long getLoyaltyPoints(final String username) {
+    log.info("Getting earned loyalty points for user: {}", username);
+    return this.loyaltyPointJpaRepository.countLoyaltyPointsByCustomerUsernameAndStatusIn(
+        username, LoyaltyPointStatus.EARNED.name());
+  }
 }

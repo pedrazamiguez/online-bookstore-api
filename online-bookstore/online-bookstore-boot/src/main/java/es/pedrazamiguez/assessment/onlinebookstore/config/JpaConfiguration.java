@@ -11,14 +11,14 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 @EnableJpaAuditing(auditorAwareRef = "auditorProvider")
 public class JpaConfiguration {
 
-    private final SecurityService securityService;
+  private final SecurityService securityService;
 
-    public JpaConfiguration(final SecurityService securityService) {
-        this.securityService = securityService;
-    }
+  public JpaConfiguration(final SecurityService securityService) {
+    this.securityService = securityService;
+  }
 
-    @Bean
-    public AuditorAware<String> auditorProvider() {
-        return () -> Optional.of(this.securityService.getCurrentUserName());
-    }
+  @Bean
+  public AuditorAware<String> auditorProvider() {
+    return () -> Optional.of(this.securityService.getCurrentUserName());
+  }
 }

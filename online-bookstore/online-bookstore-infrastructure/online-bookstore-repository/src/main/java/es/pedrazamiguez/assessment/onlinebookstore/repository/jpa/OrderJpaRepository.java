@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface OrderJpaRepository extends JpaRepository<OrderEntity, Long> {
 
-    Optional<OrderEntity> findOneByCustomer_usernameAndStatusOrderByUpdatedAtDesc(
-            String username, OrderStatus status);
+  Optional<OrderEntity> findOneByCustomer_usernameAndStatusOrderByUpdatedAtDesc(
+      String username, OrderStatus status);
 }

@@ -4,5 +4,5 @@ import es.pedrazamiguez.assessment.onlinebookstore.domain.model.PurchaseContext;
 
 public interface PurchaseProcessor {
 
-    void process(PurchaseContext context);
+  void process(PurchaseContext context);
 }

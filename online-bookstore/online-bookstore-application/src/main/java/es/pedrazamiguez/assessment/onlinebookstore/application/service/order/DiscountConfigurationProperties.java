@@ -12,20 +12,20 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "pricing.discount")
 public class DiscountConfigurationProperties {
 
-    private Long defaultMinimumCopies;
-    private Regular regular;
-    private OldEdition oldEdition;
+  private Long defaultMinimumCopies;
+  private Regular regular;
+  private OldEdition oldEdition;
 
-    @Getter
-    @Setter
-    public static class Regular {
-        private BigDecimal bundle;
-    }
+  @Getter
+  @Setter
+  public static class Regular {
+    private BigDecimal bundle;
+  }
 
-    @Getter
-    @Setter
-    public static class OldEdition {
-        private BigDecimal defaultDiscount;
-        private BigDecimal bundle;
-    }
+  @Getter
+  @Setter
+  public static class OldEdition {
+    private BigDecimal defaultDiscount;
+    private BigDecimal bundle;
+  }
 }

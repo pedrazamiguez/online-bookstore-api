@@ -4,5 +4,5 @@ import es.pedrazamiguez.assessment.onlinebookstore.domain.model.Order;
 
 public interface CurrentOrderService {
 
-    Order getOrCreateOrder(String username);
+  Order getOrCreateOrder(String username);
 }

@@ -15,34 +15,34 @@ import org.hibernate.envers.Audited;
 @Audited
 @Entity
 @Table(
-        name = "orders",
-        indexes = {
-            @Index(name = "idx_orders_customer_id", columnList = "customer_id"),
-            @Index(name = "idx_orders_status", columnList = "status"),
-        })
+    name = "orders",
+    indexes = {
+      @Index(name = "idx_orders_customer_id", columnList = "customer_id"),
+      @Index(name = "idx_orders_status", columnList = "status"),
+    })
 public class OrderEntity extends AuditEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.SEQUENCE)
+  private Long id;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "customer_id")
-    private CustomerEntity customer;
+  @ManyToOne(optional = false)
+  @JoinColumn(name = "customer_id")
+  private CustomerEntity customer;
 
-    @Column(nullable = false, precision = 10, scale = 4)
-    private BigDecimal totalPrice;
+  @Column(nullable = false, precision = 10, scale = 4)
+  private BigDecimal totalPrice;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private OrderStatus status;
+  @Enumerated(EnumType.STRING)
+  @Column(nullable = false)
+  private OrderStatus status;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<OrderItemEntity> items = new ArrayList<>();
+  @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+  private List<OrderItemEntity> items = new ArrayList<>();
 
-    @Enumerated(EnumType.STRING)
-    @Column
-    private PaymentMethod paymentMethod;
+  @Enumerated(EnumType.STRING)
+  @Column
+  private PaymentMethod paymentMethod;
 
-    @Column private String shippingAddress;
+  @Column private String shippingAddress;
 }

@@ -5,6 +5,6 @@ import lombok.Data;
 
 @Data
 public class PayableAmount {
-    private BigDecimal discount;
-    private BigDecimal subtotal;
+  private BigDecimal discount;
+  private BigDecimal subtotal;
 }
