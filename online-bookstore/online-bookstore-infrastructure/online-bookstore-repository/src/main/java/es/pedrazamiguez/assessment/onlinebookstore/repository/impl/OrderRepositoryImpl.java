@@ -102,7 +102,7 @@ public class OrderRepositoryImpl implements OrderRepository {
       final Order order, final PaymentMethod paymentMethod, final String shippingAddress) {
 
     final Long orderId = order.getId();
-    log.info("Purchasing order for orderId: {}", order);
+    log.info("Purchasing order for: {}", order);
 
     final OrderEntity existingOrderEntity =
         this.orderJpaRepository

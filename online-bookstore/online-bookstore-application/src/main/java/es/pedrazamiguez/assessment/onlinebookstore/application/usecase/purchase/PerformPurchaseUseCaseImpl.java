@@ -29,6 +29,7 @@ public class PerformPurchaseUseCaseImpl implements PerformPurchaseUseCase {
 
     final PurchaseContext purchaseContext =
         this.purchaseChainCoordinator.executeChain(username, paymentMethod, shippingAddress);
-    return purchaseContext.getPurchasedOrder();
+
+    return this.purchaseChainCoordinator.getPurchasedOrder(purchaseContext);
   }
 }
