@@ -8,14 +8,19 @@ import es.pedrazamiguez.assessment.onlinebookstore.domain.processor.PurchaseProc
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-@RequiredArgsConstructor
 public class PurchaseChainCoordinator {
 
   private final List<PurchaseProcessor> processors;
+
+  public PurchaseChainCoordinator(
+      @Qualifier("orderedPurchaseProcessors") final List<PurchaseProcessor> processors) {
+    this.processors = processors;
+  }
 
   public PurchaseContext executeChain(
       final String username, final PaymentMethod paymentMethod, final String shippingAddress) {
