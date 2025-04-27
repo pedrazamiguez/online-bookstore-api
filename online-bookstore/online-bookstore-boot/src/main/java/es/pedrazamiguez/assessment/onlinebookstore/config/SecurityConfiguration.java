@@ -1,8 +1,14 @@
 package es.pedrazamiguez.assessment.onlinebookstore.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -28,6 +34,12 @@ public class SecurityConfiguration {
 
   private static final String SUPER_SECRET_PASSWORD = "12345678";
 
+  private final ObjectMapper objectMapper;
+
+  public SecurityConfiguration(final ObjectMapper objectMapper) {
+    this.objectMapper = objectMapper;
+  }
+
   @Bean
   public SecurityFilterChain securityFilterChain(final HttpSecurity http) throws Exception {
     http.sessionManagement(
@@ -50,6 +62,21 @@ public class SecurityConfiguration {
                     // All other requests
                     .anyRequest()
                     .authenticated())
+        .exceptionHandling(
+            exception ->
+                exception.authenticationEntryPoint(
+                    (request, response, authException) -> {
+                      response.setStatus(HttpStatus.UNAUTHORIZED.value());
+                      response.setContentType(MediaType.APPLICATION_JSON.toString());
+
+                      final Map<String, Object> body = new HashMap<>();
+                      body.put("status", HttpStatus.UNAUTHORIZED.name());
+                      body.put("message", "Authentication required");
+                      body.put("path", request.getRequestURI());
+                      body.put("timestamp", LocalDateTime.now());
+
+                      this.objectMapper.writeValue(response.getOutputStream(), body);
+                    }))
         .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin))
         .csrf(AbstractHttpConfigurer::disable)
         .httpBasic(Customizer.withDefaults())
