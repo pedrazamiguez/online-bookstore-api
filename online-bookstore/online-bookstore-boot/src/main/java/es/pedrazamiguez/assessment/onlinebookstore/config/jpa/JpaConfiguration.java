@@ -1,4 +1,4 @@
-package es.pedrazamiguez.assessment.onlinebookstore.config;
+package es.pedrazamiguez.assessment.onlinebookstore.config.jpa;
 
 import es.pedrazamiguez.assessment.onlinebookstore.domain.service.security.SecurityService;
 import java.util.Optional;

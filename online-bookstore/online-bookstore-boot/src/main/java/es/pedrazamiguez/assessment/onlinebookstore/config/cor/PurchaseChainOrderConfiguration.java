@@ -1,4 +1,4 @@
-package es.pedrazamiguez.assessment.onlinebookstore.config;
+package es.pedrazamiguez.assessment.onlinebookstore.config.cor;
 
 import es.pedrazamiguez.assessment.onlinebookstore.application.processor.purchase.*;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.processor.PurchaseProcessor;
