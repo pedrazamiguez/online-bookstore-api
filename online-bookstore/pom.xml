@@ -78,6 +78,7 @@
             **/entity/**,
             **/model/**,
             **/dto/**,
+            **/exception/**,
             **/*Application.java
         </sonar.exclusions>
     </properties>

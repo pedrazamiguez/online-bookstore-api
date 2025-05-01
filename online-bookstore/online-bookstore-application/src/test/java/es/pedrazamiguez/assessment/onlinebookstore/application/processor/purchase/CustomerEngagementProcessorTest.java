@@ -1,11 +1,9 @@
 package es.pedrazamiguez.assessment.onlinebookstore.application.processor.purchase;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatCode;
-import static org.instancio.Select.field;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.model.Order;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.model.PurchaseContext;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.repository.LoyaltyPointRepository;
 import org.instancio.Instancio;
@@ -25,14 +23,7 @@ class CustomerEngagementProcessorTest {
   @Test
   void givenOrder_whenProcess_thenEngageCustomer() {
     // GIVEN
-    final var existingOrder =
-        Instancio.of(Order.class)
-            .generate(field(Order::getLines), gen -> gen.collection().size(3))
-            .create();
-    final var context =
-        Instancio.of(PurchaseContext.class)
-            .supply(field(PurchaseContext::getExistingOrder), gen -> existingOrder)
-            .create();
+    final var context = Instancio.create(PurchaseContext.class);
 
     // WHEN
     assertThatCode(() -> this.customerEngagementProcessor.process(context))

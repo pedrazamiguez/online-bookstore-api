@@ -1,4 +1,4 @@
-package es.pedrazamiguez.assessment.onlinebookstore.apirest.exception;
+package es.pedrazamiguez.assessment.onlinebookstore.apirest.handler;
 
 import es.pedrazamiguez.assessment.onlinebookstore.apirest.mapper.ErrorRestMapper;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.exception.*;

@@ -16,10 +16,10 @@ public class LoyaltyPointsCalculationProcessor implements PurchaseProcessor {
 
   @Override
   public void process(final PurchaseContext context) {
-    final var existingOrder = context.getExistingOrder();
+    final var purchasedOrder = context.getPurchasedOrder();
 
-    log.info("Calculating loyalty points for order: {}", existingOrder.getId());
-    final var loyaltyPoints = this.loyaltyPointsService.calculateLoyaltyPoints(existingOrder);
+    log.info("Calculating loyalty points for order: {}", purchasedOrder.getId());
+    final var loyaltyPoints = this.loyaltyPointsService.calculateLoyaltyPoints(purchasedOrder);
 
     log.info("Loyalty points calculated: {}", loyaltyPoints);
     context.setLoyaltyPointsEarned(loyaltyPoints);

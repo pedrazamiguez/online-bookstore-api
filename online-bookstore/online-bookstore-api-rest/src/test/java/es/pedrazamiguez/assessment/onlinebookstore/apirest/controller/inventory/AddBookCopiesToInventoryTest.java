@@ -7,8 +7,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 
 import es.pedrazamiguez.assessment.onlinebookstore.apirest.controller.InventoryController;
 import es.pedrazamiguez.assessment.onlinebookstore.apirest.controller.inventory.base.BaseInventoryTestController;
-import es.pedrazamiguez.assessment.onlinebookstore.apirest.exception.BookstoreExceptionHandler;
-import es.pedrazamiguez.assessment.onlinebookstore.apirest.exception.RestExceptionHandler;
+import es.pedrazamiguez.assessment.onlinebookstore.apirest.handler.BookstoreExceptionHandler;
+import es.pedrazamiguez.assessment.onlinebookstore.apirest.handler.RestExceptionHandler;
 import es.pedrazamiguez.assessment.onlinebookstore.apirest.mapper.ErrorRestMapper;
 import es.pedrazamiguez.assessment.onlinebookstore.apirest.mapper.InventoryRestMapper;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.exception.BookNotFoundException;
