@@ -99,7 +99,7 @@ class BookCopyRepositoryImplTest {
               BookCopyRepositoryImplTest.this.bookId))
           .thenReturn(Optional.empty());
 
-      // WHEN & THEN
+      // WHEN
       assertThatThrownBy(
               () ->
                   BookCopyRepositoryImplTest.this.bookCopyRepository.addCopies(
@@ -107,6 +107,7 @@ class BookCopyRepositoryImplTest {
           .isInstanceOf(BookNotFoundException.class)
           .hasMessageContaining(BookCopyRepositoryImplTest.this.bookId.toString());
 
+      // THEN
       verify(BookCopyRepositoryImplTest.this.bookJpaRepository)
           .findById(BookCopyRepositoryImplTest.this.bookId);
       verifyNoInteractions(
