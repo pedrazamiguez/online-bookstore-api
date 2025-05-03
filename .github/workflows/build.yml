@@ -28,14 +28,14 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/.sonar/cache
-          key: ${{ runner.os }}-sonar-${{ hashFiles('**/pom.xml') }}
+          key: ${{ runner.os }}-sonar-${{ hashFiles('online-bookstore/pom.xml') }}
           restore-keys: ${{ runner.os }}-sonar-
 
       - name: Cache Maven packages
         uses: actions/cache@v4
         with:
           path: ~/.m2
-          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          key: ${{ runner.os }}-m2-${{ hashFiles('online-bookstore/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2-
 
       - name: Build and analyze with SonarQube
@@ -43,6 +43,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed for PR information
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}   # SonarQube authentication token
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}  # Your SonarQube instance URL
+        working-directory: online-bookstore  # Set working directory to the folder containing pom.xml
         run: |
           mvn -B clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
             -Dsonar.projectKey=Online-Bookstore \
