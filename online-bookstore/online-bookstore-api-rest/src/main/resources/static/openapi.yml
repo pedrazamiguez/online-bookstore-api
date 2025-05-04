@@ -992,6 +992,17 @@ paths:
                 message: "Access denied"
                 path: "/v1/orders/current/books/1"
                 timestamp: "2025-04-19T02:25:11.675837"
+        '409':
+          description: Specified book not in current order
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                status: "CONFLICT"
+                message: "Book with id 151 not in order with id 1"
+                path: "/v1/orders/current/books/151"
+                timestamp: "2025-04-19T02:25:11.675837"
         '500':
           description: Unexpected error
           content:
