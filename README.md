@@ -200,3 +200,7 @@ dynamically depending on business rules or order properties.
 [![Coverage](https://cantalobos.mooo.com/api/project_badges/measure?project=Online-Bookstore&metric=coverage&token=sqb_f242deb02aec5f3fa2fe03b7c4adbed0286a8963)](https://cantalobos.mooo.com/dashboard?id=Online-Bookstore)
 [![Lines of Code](https://cantalobos.mooo.com/api/project_badges/measure?project=Online-Bookstore&metric=ncloc&token=sqb_f242deb02aec5f3fa2fe03b7c4adbed0286a8963)](https://cantalobos.mooo.com/dashboard?id=Online-Bookstore)
 [![Duplicated Lines (%)](https://cantalobos.mooo.com/api/project_badges/measure?project=Online-Bookstore&metric=duplicated_lines_density&token=sqb_f242deb02aec5f3fa2fe03b7c4adbed0286a8963)](https://cantalobos.mooo.com/dashboard?id=Online-Bookstore)
+
+[![Reliability Rating](https://cantalobos.mooo.com/api/project_badges/measure?project=Online-Bookstore&metric=reliability_rating&token=sqb_f242deb02aec5f3fa2fe03b7c4adbed0286a8963)](https://cantalobos.mooo.com/dashboard?id=Online-Bookstore)
+[![Security Rating](https://cantalobos.mooo.com/api/project_badges/measure?project=Online-Bookstore&metric=security_rating&token=sqb_f242deb02aec5f3fa2fe03b7c4adbed0286a8963)](https://cantalobos.mooo.com/dashboard?id=Online-Bookstore)
+[![Maintainability Rating](https://cantalobos.mooo.com/api/project_badges/measure?project=Online-Bookstore&metric=sqale_rating&token=sqb_f242deb02aec5f3fa2fe03b7c4adbed0286a8963)](https://cantalobos.mooo.com/dashboard?id=Online-Bookstore)
