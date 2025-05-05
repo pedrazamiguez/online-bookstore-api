@@ -7,6 +7,7 @@ import java.math.BigDecimal;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 @Slf4j
 @Service
@@ -18,6 +19,12 @@ public class FinalPriceServiceImpl implements FinalPriceService {
   @Override
   public void calculate(final Order order) {
     log.info("Calculating final price for orderId {}", order.getId());
+
+    if (CollectionUtils.isEmpty(order.getLines())) {
+      log.warn("Order {} has no lines to calculate final price", order.getId());
+      order.setTotalPrice(BigDecimal.ZERO);
+      return;
+    }
 
     final BigDecimal totalPrice =
         order.getLines().stream()

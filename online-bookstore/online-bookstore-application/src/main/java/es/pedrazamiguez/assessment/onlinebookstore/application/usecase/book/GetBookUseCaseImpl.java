@@ -15,7 +15,7 @@ public class GetBookUseCaseImpl implements GetBookUseCase {
   private final BookRepository bookRepository;
 
   @Override
-  public Book getBookDetails(Long bookId) {
+  public Book getBookDetails(final Long bookId) {
     log.info("Fetching book details for bookId: {}", bookId);
     return this.bookRepository.findById(bookId);
   }
