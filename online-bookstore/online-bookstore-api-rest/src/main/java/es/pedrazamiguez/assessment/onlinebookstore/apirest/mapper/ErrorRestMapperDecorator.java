@@ -90,7 +90,7 @@ public abstract class ErrorRestMapperDecorator implements ErrorRestMapper {
     return this.delegate.toDto(status, message, this.extractPath(request));
   }
 
-  private String extractPath(final WebRequest request) {
+  String extractPath(final WebRequest request) {
     final String desc = request.getDescription(false);
     return desc.startsWith("uri=") ? desc.substring(4) : desc;
   }
