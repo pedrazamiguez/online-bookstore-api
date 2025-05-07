@@ -3,13 +3,14 @@ package es.pedrazamiguez.assessment.onlinebookstore.repository.mapper;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.model.Order;
 import es.pedrazamiguez.assessment.onlinebookstore.domain.model.OrderItem;
 import es.pedrazamiguez.assessment.onlinebookstore.repository.entity.*;
-import java.math.BigDecimal;
+import es.pedrazamiguez.assessment.onlinebookstore.repository.helper.OrderCalculationHelper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
-import org.springframework.util.ObjectUtils;
 
-@Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
+@Mapper(
+    componentModel = MappingConstants.ComponentModel.SPRING,
+    imports = OrderCalculationHelper.class)
 public interface OrderEntityMapper {
 
   @Mapping(target = "lines", source = "items")
@@ -21,23 +22,8 @@ public interface OrderEntityMapper {
   @Mapping(target = "payableAmount.discount", source = "purchasedDiscountRate")
   @Mapping(
       target = "payableAmount.subtotal",
-      expression = "java( this.getSubTotal(orderItemEntity) )")
+      expression = "java( OrderCalculationHelper.calculateSubtotal(orderItemEntity) )")
   OrderItem orderItemEntityToOrderItem(OrderItemEntity orderItemEntity);
-
-  default BigDecimal getSubTotal(final OrderItemEntity orderItemEntity) {
-    if (ObjectUtils.isEmpty(orderItemEntity)) {
-      return BigDecimal.ZERO;
-    }
-
-    if (ObjectUtils.isEmpty(orderItemEntity.getPurchasedUnitPrice())) {
-      return BigDecimal.ZERO;
-    }
-
-    return orderItemEntity
-        .getPurchasedUnitPrice()
-        .multiply(new BigDecimal(orderItemEntity.getQuantity()))
-        .multiply(orderItemEntity.getPurchasedDiscountRate());
-  }
 
   @Mapping(target = "order.id", source = "orderId")
   @Mapping(target = "quantity", source = "allocation.copies")
