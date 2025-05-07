@@ -10,8 +10,8 @@ import es.pedrazamiguez.assessment.onlinebookstore.repository.entity.OrderEntity
 import es.pedrazamiguez.assessment.onlinebookstore.repository.jpa.CustomerJpaRepository;
 import es.pedrazamiguez.assessment.onlinebookstore.repository.jpa.LoyaltyPointJpaRepository;
 import es.pedrazamiguez.assessment.onlinebookstore.repository.jpa.OrderJpaRepository;
-import es.pedrazamiguez.assessment.onlinebookstore.repository.mapper.LoyaltyPointMapper;
 import java.util.List;
+import java.util.stream.LongStream;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
@@ -26,8 +26,6 @@ public class LoyaltyPointRepositoryImpl implements LoyaltyPointRepository {
   private final OrderJpaRepository orderJpaRepository;
 
   private final LoyaltyPointJpaRepository loyaltyPointJpaRepository;
-
-  private final LoyaltyPointMapper loyaltyPointMapper;
 
   @Override
   public void addLoyaltyPoints(final String username, final Long orderId, final Long points) {
@@ -44,7 +42,7 @@ public class LoyaltyPointRepositoryImpl implements LoyaltyPointRepository {
             .orElseThrow(() -> new OrderNotFoundException(orderId));
 
     final List<LoyaltyPointEntity> loyaltyPointsToSave =
-        this.loyaltyPointMapper.toEarnedLoyaltyPoints(customerEntity, orderEntity, points);
+        this.toEarnedLoyaltyPoints(customerEntity, orderEntity, points);
     this.loyaltyPointJpaRepository.saveAll(loyaltyPointsToSave);
   }
 
@@ -59,5 +57,20 @@ public class LoyaltyPointRepositoryImpl implements LoyaltyPointRepository {
     log.info("Getting earned loyalty points for user: {}", username);
     return this.loyaltyPointJpaRepository.countLoyaltyPointsByCustomerUsernameAndStatusIn(
         username, LoyaltyPointStatus.EARNED.name());
+  }
+
+  private List<LoyaltyPointEntity> toEarnedLoyaltyPoints(
+      final CustomerEntity customerEntity, final OrderEntity orderEntity, final Long points) {
+
+    return LongStream.range(0, points)
+        .mapToObj(
+            i -> {
+              final LoyaltyPointEntity loyaltyPointEntity = new LoyaltyPointEntity();
+              loyaltyPointEntity.setCustomer(customerEntity);
+              loyaltyPointEntity.setOrder(orderEntity);
+              loyaltyPointEntity.setStatus(LoyaltyPointStatus.EARNED);
+              return loyaltyPointEntity;
+            })
+        .toList();
   }
 }

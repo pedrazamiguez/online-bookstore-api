@@ -23,6 +23,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -37,6 +39,8 @@ class BookCopyRepositoryImplTest {
   @Mock private BookCopyJpaRepository bookCopyJpaRepository;
 
   @Mock private BookCopyEntityMapper bookCopyEntityMapper;
+
+  @Captor private ArgumentCaptor<List<BookCopyEntity>> bookCopiesCaptor;
 
   private BookEntity bookEntity;
   private Long bookId;
@@ -62,17 +66,10 @@ class BookCopyRepositoryImplTest {
     void shouldAddCopiesSuccessfully() {
       // GIVEN
       final Long copies = 5L;
-      final List<BookCopyEntity> bookCopies =
-          Instancio.ofList(BookCopyEntity.class).size(5).create();
 
       when(BookCopyRepositoryImplTest.this.bookJpaRepository.findById(
               BookCopyRepositoryImplTest.this.bookId))
           .thenReturn(Optional.of(BookCopyRepositoryImplTest.this.bookEntity));
-      when(BookCopyRepositoryImplTest.this.bookCopyEntityMapper.createBookCopies(
-              BookCopyRepositoryImplTest.this.bookEntity, copies))
-          .thenReturn(bookCopies);
-      when(BookCopyRepositoryImplTest.this.bookCopyJpaRepository.saveAll(bookCopies))
-          .thenReturn(bookCopies);
 
       // WHEN
       BookCopyRepositoryImplTest.this.bookCopyRepository.addCopies(
@@ -81,12 +78,20 @@ class BookCopyRepositoryImplTest {
       // THEN
       verify(BookCopyRepositoryImplTest.this.bookJpaRepository)
           .findById(BookCopyRepositoryImplTest.this.bookId);
-      verify(BookCopyRepositoryImplTest.this.bookCopyEntityMapper)
-          .createBookCopies(BookCopyRepositoryImplTest.this.bookEntity, copies);
-      verify(BookCopyRepositoryImplTest.this.bookCopyJpaRepository).saveAll(bookCopies);
+      verify(BookCopyRepositoryImplTest.this.bookCopyJpaRepository)
+          .saveAll(BookCopyRepositoryImplTest.this.bookCopiesCaptor.capture());
+
+      final List<BookCopyEntity> savedCopies =
+          BookCopyRepositoryImplTest.this.bookCopiesCaptor.getValue();
+      assertThat(savedCopies).hasSize(5);
+      savedCopies.forEach(
+          copy -> {
+            assertThat(copy.getBook()).isEqualTo(BookCopyRepositoryImplTest.this.bookEntity);
+            assertThat(copy.getStatus()).isEqualTo(BookCopyStatus.AVAILABLE);
+          });
+
       verifyNoMoreInteractions(
           BookCopyRepositoryImplTest.this.bookJpaRepository,
-          BookCopyRepositoryImplTest.this.bookCopyEntityMapper,
           BookCopyRepositoryImplTest.this.bookCopyJpaRepository);
     }
 
@@ -134,9 +139,6 @@ class BookCopyRepositoryImplTest {
               copies,
               BookCopyRepositoryImplTest.this.statusesForInventory))
           .thenReturn(bookCopies);
-      doNothing()
-          .when(BookCopyRepositoryImplTest.this.bookCopyEntityMapper)
-          .patchWithStatus(bookCopies, status);
       when(BookCopyRepositoryImplTest.this.bookCopyJpaRepository.saveAll(bookCopies))
           .thenReturn(bookCopies);
 
@@ -150,8 +152,6 @@ class BookCopyRepositoryImplTest {
               BookCopyRepositoryImplTest.this.bookId,
               copies,
               BookCopyRepositoryImplTest.this.statusesForInventory);
-      verify(BookCopyRepositoryImplTest.this.bookCopyEntityMapper)
-          .patchWithStatus(bookCopies, status);
       verify(BookCopyRepositoryImplTest.this.bookCopyJpaRepository).saveAll(bookCopies);
       verifyNoMoreInteractions(
           BookCopyRepositoryImplTest.this.bookCopyJpaRepository,
@@ -204,9 +204,6 @@ class BookCopyRepositoryImplTest {
       when(BookCopyRepositoryImplTest.this.bookCopyJpaRepository.findByUpdatedAtBeforeAndStatusIn(
               olderThan, BookCopyRepositoryImplTest.this.statusesForDeletion))
           .thenReturn(bookCopies);
-      doNothing()
-          .when(BookCopyRepositoryImplTest.this.bookCopyEntityMapper)
-          .patchWithStatus(bookCopies, BookCopyStatus.DELETED);
       when(BookCopyRepositoryImplTest.this.bookCopyJpaRepository.saveAll(bookCopies))
           .thenReturn(bookCopies);
 
@@ -217,8 +214,6 @@ class BookCopyRepositoryImplTest {
       verify(BookCopyRepositoryImplTest.this.bookCopyJpaRepository)
           .findByUpdatedAtBeforeAndStatusIn(
               olderThan, BookCopyRepositoryImplTest.this.statusesForDeletion);
-      verify(BookCopyRepositoryImplTest.this.bookCopyEntityMapper)
-          .patchWithStatus(bookCopies, BookCopyStatus.DELETED);
       verify(BookCopyRepositoryImplTest.this.bookCopyJpaRepository).saveAll(bookCopies);
       verifyNoMoreInteractions(
           BookCopyRepositoryImplTest.this.bookCopyJpaRepository,

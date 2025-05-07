@@ -13,6 +13,7 @@ import es.pedrazamiguez.assessment.onlinebookstore.repository.projection.Invento
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.LongStream;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
@@ -35,8 +36,7 @@ public class BookCopyRepositoryImpl implements BookCopyRepository {
     log.info("Adding {} copies of book with ID {}", copies, bookId);
 
     final BookEntity bookEntity = this.getBookEntity(bookId);
-    final List<BookCopyEntity> bookCopiesToSave =
-        this.bookCopyEntityMapper.createBookCopies(bookEntity, copies);
+    final List<BookCopyEntity> bookCopiesToSave = this.createBookCopies(bookEntity, copies);
 
     this.bookCopyJpaRepository.saveAll(bookCopiesToSave);
   }
@@ -52,7 +52,7 @@ public class BookCopyRepositoryImpl implements BookCopyRepository {
         this.bookCopyJpaRepository.findByBookIdAndStatusIn(bookId, copies, statusesForInventory);
 
     if (!CollectionUtils.isEmpty(bookCopiesToUpdate)) {
-      this.bookCopyEntityMapper.patchWithStatus(bookCopiesToUpdate, status);
+      this.patchWithStatus(bookCopiesToUpdate, status);
       this.bookCopyJpaRepository.saveAll(bookCopiesToUpdate);
     }
   }
@@ -66,7 +66,7 @@ public class BookCopyRepositoryImpl implements BookCopyRepository {
         this.bookCopyJpaRepository.findByUpdatedAtBeforeAndStatusIn(olderThan, statusesForDeletion);
 
     if (!CollectionUtils.isEmpty(bookCopiesToDelete)) {
-      this.bookCopyEntityMapper.patchWithStatus(bookCopiesToDelete, BookCopyStatus.DELETED);
+      this.patchWithStatus(bookCopiesToDelete, BookCopyStatus.DELETED);
       this.bookCopyJpaRepository.saveAll(bookCopiesToDelete);
     }
   }
@@ -114,5 +114,26 @@ public class BookCopyRepositoryImpl implements BookCopyRepository {
 
   private List<String> getStatusesForInventory() {
     return List.of(BookCopyStatus.AVAILABLE.name(), BookCopyStatus.RETURNED.name());
+  }
+
+  private List<BookCopyEntity> createBookCopies(final BookEntity bookEntity, final Long copies) {
+    return LongStream.range(0, copies)
+        .mapToObj(
+            i -> {
+              final BookCopyEntity bookCopyEntity = new BookCopyEntity();
+              bookCopyEntity.setBook(bookEntity);
+              this.patchWithStatus(bookCopyEntity, BookCopyStatus.AVAILABLE);
+              return bookCopyEntity;
+            })
+        .toList();
+  }
+
+  private void patchWithStatus(final BookCopyEntity bookCopyEntity, final BookCopyStatus status) {
+    bookCopyEntity.setStatus(status);
+  }
+
+  private void patchWithStatus(
+      final List<BookCopyEntity> bookCopyEntities, final BookCopyStatus status) {
+    bookCopyEntities.forEach(bookCopyEntity -> this.patchWithStatus(bookCopyEntity, status));
   }
 }
