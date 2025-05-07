@@ -7,4 +7,8 @@ import lombok.Data;
 public class PayableAmount {
   private BigDecimal discount;
   private BigDecimal subtotal;
+
+  public BigDecimal getDiscountPercentage() {
+    return BigDecimal.ONE.subtract(this.discount).multiply(BigDecimal.valueOf(100));
+  }
 }

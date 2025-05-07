@@ -5,11 +5,9 @@ import es.pedrazamiguez.assessment.onlinebookstore.domain.model.OrderItem;
 import es.pedrazamiguez.assessment.onlinebookstore.openapi.model.OrderDto;
 import es.pedrazamiguez.assessment.onlinebookstore.openapi.model.OrderItemDto;
 import es.pedrazamiguez.assessment.onlinebookstore.openapi.model.PurchaseRequestDto;
-import java.math.BigDecimal;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
-import org.mapstruct.Named;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface OrderRestMapper {
@@ -25,15 +23,9 @@ public interface OrderRestMapper {
   @Mapping(target = "discountRate", source = "payableAmount.discount")
   @Mapping(
       target = "discountPercentage",
-      source = "payableAmount.discount",
-      qualifiedByName = "discountPercentage")
+      expression = "java( orderItem.getPayableAmount().getDiscountPercentage() )")
   @Mapping(target = "subtotal", source = "payableAmount.subtotal")
   OrderItemDto orderItemToOrderItemDto(OrderItem orderItem);
 
   Order toDomain(PurchaseRequestDto purchaseRequestDto);
-
-  @Named("discountPercentage")
-  default BigDecimal getDiscountPercentage(final BigDecimal discountRate) {
-    return BigDecimal.ONE.subtract(discountRate).multiply(new BigDecimal("100.00"));
-  }
 }
