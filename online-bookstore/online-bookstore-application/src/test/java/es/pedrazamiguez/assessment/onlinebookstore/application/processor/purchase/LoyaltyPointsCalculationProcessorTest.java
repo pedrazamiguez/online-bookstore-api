@@ -31,7 +31,7 @@ class LoyaltyPointsCalculationProcessorTest {
             .create();
     final var context =
         Instancio.of(PurchaseContext.class)
-            .supply(field(PurchaseContext::getPurchasedOrder), gen -> purchasedOrder)
+            .set(field(PurchaseContext::getPurchasedOrder), purchasedOrder)
             .create();
 
     final var loyaltyPoints = 6L;

@@ -6,6 +6,7 @@ import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.when;
 
 import es.pedrazamiguez.assessment.onlinebookstore.domain.exception.CurrentUserNotFoundException;
+import org.instancio.Instancio;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -34,7 +35,7 @@ class SecurityServiceImplTest {
   @DisplayName("When user is authenticated, returns username")
   void givenAuthenticatedUser_whenGetCurrentUserName_thenReturnsUsername() {
     // GIVEN
-    final String expectedUsername = "testUser";
+    final String expectedUsername = Instancio.create(String.class);
     when(this.securityContext.getAuthentication()).thenReturn(this.authentication);
     when(this.authentication.isAuthenticated()).thenReturn(true);
     when(this.authentication.getName()).thenReturn(expectedUsername);

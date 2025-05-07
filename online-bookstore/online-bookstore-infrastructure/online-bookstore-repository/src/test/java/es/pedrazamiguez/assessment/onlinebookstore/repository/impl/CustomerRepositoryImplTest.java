@@ -31,10 +31,10 @@ class CustomerRepositoryImplTest {
     final String username = Instancio.create(String.class);
     final CustomerEntity customerEntity =
         Instancio.of(CustomerEntity.class)
-            .supply(field(CustomerEntity::getUsername), gen -> username)
+            .set(field(CustomerEntity::getUsername), username)
             .create();
     final Customer customer =
-        Instancio.of(Customer.class).supply(field(Customer::getUsername), gen -> username).create();
+        Instancio.of(Customer.class).set(field(Customer::getUsername), username).create();
 
     when(this.customerJpaRepository.findByUsername(username))
         .thenReturn(Optional.of(customerEntity));

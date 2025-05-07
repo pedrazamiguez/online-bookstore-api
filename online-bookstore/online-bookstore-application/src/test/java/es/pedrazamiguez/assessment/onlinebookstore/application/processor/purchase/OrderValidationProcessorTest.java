@@ -22,12 +22,10 @@ class OrderValidationProcessorTest {
   void givenOrderWithNoItems_whenProcess_thenThrowException() {
     // GIVEN
     final var existingOrder =
-        Instancio.of(Order.class)
-            .supply(field(Order::getLines), gen -> Collections.emptyList())
-            .create();
+        Instancio.of(Order.class).set(field(Order::getLines), Collections.emptyList()).create();
     final var context =
         Instancio.of(PurchaseContext.class)
-            .supply(field(PurchaseContext::getExistingOrder), gen -> existingOrder)
+            .set(field(PurchaseContext::getExistingOrder), existingOrder)
             .create();
 
     // WHEN
@@ -46,7 +44,7 @@ class OrderValidationProcessorTest {
             .create();
     final var context =
         Instancio.of(PurchaseContext.class)
-            .supply(field(PurchaseContext::getExistingOrder), gen -> existingOrder)
+            .set(field(PurchaseContext::getExistingOrder), existingOrder)
             .create();
 
     // WHEN

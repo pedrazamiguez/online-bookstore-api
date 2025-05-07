@@ -18,9 +18,7 @@ public abstract class BaseInventoryTestData {
   }
 
   protected AllocationDto givenAllocationDto(final Long copies) {
-    return Instancio.of(AllocationDto.class)
-        .supply(field(AllocationDto::getCopies), gen -> copies)
-        .create();
+    return Instancio.of(AllocationDto.class).set(field(AllocationDto::getCopies), copies).create();
   }
 
   protected Book givenBook(final Long bookId) {
@@ -31,15 +29,15 @@ public abstract class BaseInventoryTestData {
 
   protected BookAllocation givenBookAllocation(final Long bookId, final Long copies) {
     return Instancio.of(BookAllocation.class)
-        .supply(field(BookAllocation::getBook), gen -> this.givenBook(bookId))
-        .supply(field(BookAllocation::getCopies), gen -> copies)
+        .set(field(BookAllocation::getBook), this.givenBook(bookId))
+        .set(field(BookAllocation::getCopies), copies)
         .create();
   }
 
   protected InventoryItemDto givenInventoryItemDto(final Long bookId, final Long copies) {
     return Instancio.of(InventoryItemDto.class)
-        .supply(field(InventoryItemDto::getBookId), gen -> bookId)
-        .supply(field(InventoryItemDto::getCopies), gen -> copies)
+        .set(field(InventoryItemDto::getBookId), bookId)
+        .set(field(InventoryItemDto::getCopies), copies)
         .create();
   }
 }

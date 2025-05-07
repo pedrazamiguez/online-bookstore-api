@@ -34,7 +34,7 @@ class InventoryUpdateProcessorTest {
             .create();
     final var context =
         Instancio.of(PurchaseContext.class)
-            .supply(field(PurchaseContext::getExistingOrder), gen -> existingOrder)
+            .set(field(PurchaseContext::getExistingOrder), existingOrder)
             .create();
 
     // WHEN

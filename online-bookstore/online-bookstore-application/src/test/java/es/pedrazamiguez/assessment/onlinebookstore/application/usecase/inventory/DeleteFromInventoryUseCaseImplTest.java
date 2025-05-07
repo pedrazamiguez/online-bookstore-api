@@ -34,11 +34,11 @@ class DeleteFromInventoryUseCaseImplTest {
 
     final BookAllocation bookAllocation =
         Instancio.of(BookAllocation.class)
-            .supply(field(BookAllocation::getCopies), gen -> copies)
-            .supply(
+            .set(field(BookAllocation::getCopies), copies)
+            .set(
                 field(BookAllocation::getBook),
-                gen -> Instancio.of(Book.class).supply(field(Book::getId), g -> bookId).create())
-            .supply(field(BookAllocation::getStatus), gen -> BookCopyStatus.DELETED)
+                Instancio.of(Book.class).set(field(Book::getId), bookId).create())
+            .set(field(BookAllocation::getStatus), BookCopyStatus.DELETED)
             .create();
 
     when(this.bookCopyRepository.getInventoryDetailsByBookId(bookId))

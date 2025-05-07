@@ -30,7 +30,7 @@ class CurrentCustomerServiceImplTest {
     // GIVEN
     final String username = Instancio.create(String.class);
     final Customer customer =
-        Instancio.of(Customer.class).supply(field(Customer::getUsername), gen -> username).create();
+        Instancio.of(Customer.class).set(field(Customer::getUsername), username).create();
 
     when(this.securityService.getCurrentUserName()).thenReturn(username);
     when(this.customerRepository.findCustomerByUsername(username))

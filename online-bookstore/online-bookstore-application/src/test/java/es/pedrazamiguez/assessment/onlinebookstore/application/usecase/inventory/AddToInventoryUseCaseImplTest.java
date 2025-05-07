@@ -72,9 +72,9 @@ class AddToInventoryUseCaseImplTest {
 
   private BookAllocation createBookAllocation(final Long copies) {
     return Instancio.of(BookAllocation.class)
-        .supply(
+        .set(
             field(BookAllocation::getBook),
-            () -> Instancio.of(Book.class).set(field(Book::getId), BOOK_ID).create())
+            Instancio.of(Book.class).set(field(Book::getId), BOOK_ID).create())
         .set(field(BookAllocation::getCopies), copies)
         .create();
   }

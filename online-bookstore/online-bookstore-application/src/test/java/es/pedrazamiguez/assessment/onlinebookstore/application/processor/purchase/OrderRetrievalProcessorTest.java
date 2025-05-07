@@ -28,8 +28,8 @@ class OrderRetrievalProcessorTest {
     final var currentUser = Instancio.create(String.class);
     final var context =
         Instancio.of(PurchaseContext.class)
-            .supply(field(PurchaseContext::getUsername), gen -> currentUser)
-            .supply(field(PurchaseContext::getExistingOrder), gen -> null)
+            .set(field(PurchaseContext::getUsername), currentUser)
+            .ignore(field(PurchaseContext::getExistingOrder))
             .create();
 
     final Order existingOrder =

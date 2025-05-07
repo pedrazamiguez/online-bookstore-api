@@ -34,15 +34,15 @@ class PerformPurchaseUseCaseImplTest {
 
     final Order purchasedOrder =
         Instancio.of(Order.class)
-            .supply(field(Order::getPaymentMethod), gen -> paymentMethod)
-            .supply(field(Order::getShippingAddress), gen -> shippingAddress)
+            .set(field(Order::getPaymentMethod), paymentMethod)
+            .set(field(Order::getShippingAddress), shippingAddress)
             .create();
     final PurchaseContext purchaseContext =
         Instancio.of(PurchaseContext.class)
-            .supply(field(PurchaseContext::getUsername), gen -> username)
-            .supply(field(PurchaseContext::getPaymentMethod), gen -> paymentMethod)
-            .supply(field(PurchaseContext::getShippingAddress), gen -> shippingAddress)
-            .supply(field(PurchaseContext::getPurchasedOrder), gen -> purchasedOrder)
+            .set(field(PurchaseContext::getUsername), username)
+            .set(field(PurchaseContext::getPaymentMethod), paymentMethod)
+            .set(field(PurchaseContext::getShippingAddress), shippingAddress)
+            .set(field(PurchaseContext::getPurchasedOrder), purchasedOrder)
             .create();
 
     when(this.securityService.getCurrentUserName()).thenReturn(username);

@@ -18,7 +18,7 @@ public abstract class BaseBooksTestData {
 
   protected Book givenBook(final Long bookId) {
     return Instancio.of(Book.class)
-        .supply(field(Book::getId), gen -> bookId)
+        .set(field(Book::getId), bookId)
         .supply(field(Book::getYearPublished), gen -> gen.intRange(1800, 2500))
         .create();
   }
@@ -31,7 +31,7 @@ public abstract class BaseBooksTestData {
 
   protected BookDto givenBookDto(final Long bookId) {
     return Instancio.of(BookDto.class)
-        .supply(field(BookDto::getId), gen -> bookId)
+        .set(field(BookDto::getId), bookId)
         .supply(field(BookDto::getYear), gen -> gen.intRange(1800, 2500))
         .create();
   }

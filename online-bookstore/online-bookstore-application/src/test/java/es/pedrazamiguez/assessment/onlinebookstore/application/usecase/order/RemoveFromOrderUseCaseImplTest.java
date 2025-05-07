@@ -54,7 +54,7 @@ class RemoveFromOrderUseCaseImplTest {
   @DisplayName("removeFromOrder returns empty when no lines remain")
   void shouldReturnEmpty_whenNoLinesRemain() {
     // GIVEN
-    final String username = "testuser";
+    final String username = Instancio.create(String.class);
     final Long bookId = 1L;
     final Long copies = 2L;
     final Order existingOrder =
@@ -109,7 +109,7 @@ class RemoveFromOrderUseCaseImplTest {
   @DisplayName("removeFromOrder handles zero copies")
   void shouldHandleZeroCopies() {
     // GIVEN
-    final String username = "testuser";
+    final String username = Instancio.create(String.class);
     final Long bookId = 1L;
     final Long copies = 0L;
     final Order existingOrder =
@@ -164,7 +164,7 @@ class RemoveFromOrderUseCaseImplTest {
   @DisplayName("removeFromOrder handles non-existent book")
   void shouldHandleNonExistentBook() {
     // GIVEN
-    final String username = "testuser";
+    final String username = Instancio.create(String.class);
     final Long bookId = 1L;
     final Long copies = 2L;
     final Order existingOrder =
@@ -219,7 +219,7 @@ class RemoveFromOrderUseCaseImplTest {
   @DisplayName("removeFromOrder propagates repository exception")
   void shouldPropagateException_whenRepositoryFails() {
     // GIVEN
-    final String username = "testuser";
+    final String username = Instancio.create(String.class);
     final Long bookId = 1L;
     final Long copies = 2L;
     final Order existingOrder =
@@ -271,7 +271,7 @@ class RemoveFromOrderUseCaseImplTest {
   @DisplayName("removeFromOrder propagates final price service exception")
   void shouldPropagateException_whenFinalPriceServiceFails() {
     // GIVEN
-    final String username = "testuser";
+    final String username = Instancio.create(String.class);
     final Long bookId = 1L;
     final Long copies = 2L;
     final Order existingOrder =

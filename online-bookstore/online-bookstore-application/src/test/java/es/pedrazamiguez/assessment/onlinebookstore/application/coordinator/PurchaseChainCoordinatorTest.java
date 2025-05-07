@@ -38,7 +38,7 @@ class PurchaseChainCoordinatorTest {
   @Test
   void givenValidInput_whenExecuteChain_thenAllProcessorsRunAndContextIsUpdated() {
     // GIVEN
-    final String username = "testUser";
+    final String username = Instancio.create(String.class);
     final PaymentMethod paymentMethod = PaymentMethod.CREDIT_CARD;
     final String shippingAddress = "123 Main St";
     final var purchasedOrder =
@@ -78,7 +78,7 @@ class PurchaseChainCoordinatorTest {
   void
       givenProcessorThrowsException_whenExecuteChain_thenThrowsPurchaseExceptionAndSetsFailedStatus() {
     // GIVEN
-    final String username = "testUser";
+    final String username = Instancio.create(String.class);
     final PaymentMethod paymentMethod = PaymentMethod.PAYPAL;
     final String shippingAddress = "456 Elm St";
     final String errorMessage = "Order validation failed";
@@ -115,7 +115,7 @@ class PurchaseChainCoordinatorTest {
   @Test
   void givenUnsuccessfulContext_whenExecuteChain_thenStopsProcessing() {
     // GIVEN
-    final String username = "testUser";
+    final String username = Instancio.create(String.class);
     final PaymentMethod paymentMethod = PaymentMethod.CREDIT_CARD;
     final String shippingAddress = "789 Oak St";
 
