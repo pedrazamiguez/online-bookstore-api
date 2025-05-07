@@ -1,6 +1,6 @@
 package es.pedrazamiguez.assessment.onlinebookstore.repository.impl;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.instancio.Select.field;
 import static org.mockito.Mockito.*;
 
@@ -50,8 +50,7 @@ class CustomerRepositoryImplTest {
     final Optional<Customer> result = this.customerRepository.findCustomerByUsername(username);
 
     // THEN
-    assertThat(result).isPresent();
-    assertThat(result).contains(customer);
+    assertThat(result).isPresent().contains(customer);
     assertThat(result.get().getUsername()).isEqualTo(username);
 
     verify(this.customerJpaRepository).findByUsername(username);

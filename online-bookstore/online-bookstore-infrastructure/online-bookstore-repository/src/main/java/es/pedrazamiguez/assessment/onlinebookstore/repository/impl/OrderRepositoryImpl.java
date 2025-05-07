@@ -11,6 +11,8 @@ import es.pedrazamiguez.assessment.onlinebookstore.domain.repository.OrderReposi
 import es.pedrazamiguez.assessment.onlinebookstore.repository.entity.BookEntity;
 import es.pedrazamiguez.assessment.onlinebookstore.repository.entity.CustomerEntity;
 import es.pedrazamiguez.assessment.onlinebookstore.repository.entity.OrderEntity;
+import es.pedrazamiguez.assessment.onlinebookstore.repository.entity.OrderItemEntity;
+import es.pedrazamiguez.assessment.onlinebookstore.repository.handler.OrderEntityHandler;
 import es.pedrazamiguez.assessment.onlinebookstore.repository.jpa.BookJpaRepository;
 import es.pedrazamiguez.assessment.onlinebookstore.repository.jpa.CustomerJpaRepository;
 import es.pedrazamiguez.assessment.onlinebookstore.repository.jpa.OrderJpaRepository;
@@ -33,6 +35,8 @@ public class OrderRepositoryImpl implements OrderRepository {
 
   private final OrderEntityMapper orderEntityMapper;
 
+  private final OrderEntityHandler orderEntityHandler;
+
   @Override
   public Optional<Order> findCreatedOrderForCustomer(final String username) {
     log.info("Finding created order for customer: {}", username);
@@ -49,7 +53,7 @@ public class OrderRepositoryImpl implements OrderRepository {
             .findByUsername(username)
             .orElseThrow(() -> new CustomerNotFoundException(username));
 
-    final OrderEntity orderEntityToSave = this.orderEntityMapper.toNewOrderEntity(customerEntity);
+    final OrderEntity orderEntityToSave = this.orderEntityHandler.createNewOrder(customerEntity);
     final OrderEntity savedOrderEntity = this.orderJpaRepository.save(orderEntityToSave);
     return this.orderEntityMapper.toDomain(savedOrderEntity);
   }
@@ -109,8 +113,9 @@ public class OrderRepositoryImpl implements OrderRepository {
             .findById(orderId)
             .orElseThrow(() -> new OrderNotFoundException(orderId));
 
-    this.orderEntityMapper.patchOrderRequest(existingOrderEntity, paymentMethod, shippingAddress);
-    this.orderEntityMapper.patchOrderItems(existingOrderEntity, order);
+    this.orderEntityHandler.updateOrderPaymentAndShipping(
+        existingOrderEntity, paymentMethod, shippingAddress);
+    this.orderEntityHandler.syncOrderItemsWithDomain(existingOrderEntity, order);
     existingOrderEntity.setTotalPrice(order.getTotalPrice());
     existingOrderEntity.setStatus(OrderStatus.PURCHASED);
 
@@ -118,31 +123,33 @@ public class OrderRepositoryImpl implements OrderRepository {
     return this.orderEntityMapper.toDomain(savedOrderEntity);
   }
 
-  private boolean isBookInOrder(final OrderEntity orderEntity, final Long bookId) {
-    return orderEntity.getItems().stream()
-        .anyMatch(orderItem -> bookId.equals(orderItem.getBook().getId()));
-  }
-
   private void patchWithAddedItem(
       final OrderEntity existingOrderEntity, final Long bookId, final Long quantity) {
-    if (this.isBookInOrder(existingOrderEntity, bookId)) {
-      this.orderEntityMapper.patchAdditionWithExistingOrderItem(
-          existingOrderEntity, bookId, quantity);
-    } else {
-      final BookEntity bookEntity =
-          this.bookJpaRepository
-              .findById(bookId)
-              .orElseThrow(() -> new BookNotFoundException(bookId));
-      this.orderEntityMapper.patchAdditionWithNewOrderItem(
-          existingOrderEntity, bookEntity, quantity);
-    }
+
+    final BookEntity bookEntity =
+        existingOrderEntity.getItems().stream()
+            .map(OrderItemEntity::getBook)
+            .filter(book -> bookId.equals(book.getId()))
+            .findFirst()
+            .orElseGet(
+                () ->
+                    this.bookJpaRepository
+                        .findById(bookId)
+                        .orElseThrow(() -> new BookNotFoundException(bookId)));
+
+    this.orderEntityHandler.addToOrder(existingOrderEntity, bookEntity, quantity);
   }
 
   private void patchWithDeletedItem(
       final OrderEntity existingOrderEntity, final Long bookId, final Long quantity) {
-    if (this.isBookInOrder(existingOrderEntity, bookId)) {
-      this.orderEntityMapper.patchSubstractionWithExistingOrderItem(
-          existingOrderEntity, bookId, quantity);
+
+    final Optional<OrderItemEntity> existingItemOpt =
+        existingOrderEntity.getItems().stream()
+            .filter(item -> bookId.equals(item.getBook().getId()))
+            .findFirst();
+
+    if (existingItemOpt.isPresent()) {
+      this.orderEntityHandler.removeFromOrder(existingOrderEntity, bookId, quantity);
     } else {
       throw new BookNotInOrderException(bookId, existingOrderEntity.getId());
     }

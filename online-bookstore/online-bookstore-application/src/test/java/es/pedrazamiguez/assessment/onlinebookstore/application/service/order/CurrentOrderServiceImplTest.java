@@ -1,6 +1,6 @@
 package es.pedrazamiguez.assessment.onlinebookstore.application.service.order;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
 import es.pedrazamiguez.assessment.onlinebookstore.domain.model.Order;

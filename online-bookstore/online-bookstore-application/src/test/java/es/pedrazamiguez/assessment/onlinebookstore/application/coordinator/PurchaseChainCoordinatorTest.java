@@ -1,7 +1,7 @@
 package es.pedrazamiguez.assessment.onlinebookstore.application.coordinator;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.InstanceOfAssertFactories.type;
 import static org.instancio.Select.field;
 import static org.mockito.Mockito.*;

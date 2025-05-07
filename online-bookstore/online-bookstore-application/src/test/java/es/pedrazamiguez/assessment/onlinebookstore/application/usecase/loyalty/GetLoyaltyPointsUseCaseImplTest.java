@@ -1,6 +1,6 @@
 package es.pedrazamiguez.assessment.onlinebookstore.application.usecase.loyalty;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.instancio.Select.all;
 import static org.mockito.Mockito.*;
 

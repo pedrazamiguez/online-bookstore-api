@@ -1,6 +1,6 @@
 package es.pedrazamiguez.assessment.onlinebookstore.application.usecase.purchase;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.mockito.Mockito.verify;
 

@@ -16,6 +16,7 @@ import es.pedrazamiguez.assessment.onlinebookstore.repository.entity.BookEntity;
 import es.pedrazamiguez.assessment.onlinebookstore.repository.entity.CustomerEntity;
 import es.pedrazamiguez.assessment.onlinebookstore.repository.entity.OrderEntity;
 import es.pedrazamiguez.assessment.onlinebookstore.repository.entity.OrderItemEntity;
+import es.pedrazamiguez.assessment.onlinebookstore.repository.handler.OrderEntityHandler;
 import es.pedrazamiguez.assessment.onlinebookstore.repository.jpa.BookJpaRepository;
 import es.pedrazamiguez.assessment.onlinebookstore.repository.jpa.CustomerJpaRepository;
 import es.pedrazamiguez.assessment.onlinebookstore.repository.jpa.OrderJpaRepository;
@@ -44,6 +45,8 @@ class OrderRepositoryImplTest {
   @Mock private BookJpaRepository bookJpaRepository;
 
   @Mock private OrderEntityMapper orderEntityMapper;
+
+  @Mock private OrderEntityHandler orderEntityHandler;
 
   private String username;
   private Long orderId;
@@ -148,7 +151,7 @@ class OrderRepositoryImplTest {
       when(OrderRepositoryImplTest.this.customerJpaRepository.findByUsername(
               OrderRepositoryImplTest.this.username))
           .thenReturn(Optional.of(OrderRepositoryImplTest.this.customerEntity));
-      when(OrderRepositoryImplTest.this.orderEntityMapper.toNewOrderEntity(
+      when(OrderRepositoryImplTest.this.orderEntityHandler.createNewOrder(
               OrderRepositoryImplTest.this.customerEntity))
           .thenReturn(newOrderEntity);
       when(OrderRepositoryImplTest.this.orderJpaRepository.save(newOrderEntity))
@@ -166,8 +169,8 @@ class OrderRepositoryImplTest {
       assertThat(result).isEqualTo(OrderRepositoryImplTest.this.order);
       verify(OrderRepositoryImplTest.this.customerJpaRepository)
           .findByUsername(OrderRepositoryImplTest.this.username);
-      verify(OrderRepositoryImplTest.this.orderEntityMapper)
-          .toNewOrderEntity(OrderRepositoryImplTest.this.customerEntity);
+      verify(OrderRepositoryImplTest.this.orderEntityHandler)
+          .createNewOrder(OrderRepositoryImplTest.this.customerEntity);
       verify(OrderRepositoryImplTest.this.orderJpaRepository).save(newOrderEntity);
       verify(OrderRepositoryImplTest.this.orderEntityMapper)
           .toDomain(OrderRepositoryImplTest.this.orderEntity);
@@ -218,8 +221,8 @@ class OrderRepositoryImplTest {
               OrderRepositoryImplTest.this.bookId))
           .thenReturn(Optional.of(OrderRepositoryImplTest.this.bookEntity));
       doNothing()
-          .when(OrderRepositoryImplTest.this.orderEntityMapper)
-          .patchAdditionWithNewOrderItem(
+          .when(OrderRepositoryImplTest.this.orderEntityHandler)
+          .addToOrder(
               OrderRepositoryImplTest.this.orderEntity,
               OrderRepositoryImplTest.this.bookEntity,
               OrderRepositoryImplTest.this.quantity);
@@ -246,8 +249,8 @@ class OrderRepositoryImplTest {
           .findById(OrderRepositoryImplTest.this.orderId);
       verify(OrderRepositoryImplTest.this.bookJpaRepository)
           .findById(OrderRepositoryImplTest.this.bookId);
-      verify(OrderRepositoryImplTest.this.orderEntityMapper)
-          .patchAdditionWithNewOrderItem(
+      verify(OrderRepositoryImplTest.this.orderEntityHandler)
+          .addToOrder(
               OrderRepositoryImplTest.this.orderEntity,
               OrderRepositoryImplTest.this.bookEntity,
               OrderRepositoryImplTest.this.quantity);
@@ -270,10 +273,10 @@ class OrderRepositoryImplTest {
               OrderRepositoryImplTest.this.orderId))
           .thenReturn(Optional.of(OrderRepositoryImplTest.this.orderEntity));
       doNothing()
-          .when(OrderRepositoryImplTest.this.orderEntityMapper)
-          .patchAdditionWithExistingOrderItem(
+          .when(OrderRepositoryImplTest.this.orderEntityHandler)
+          .addToOrder(
               OrderRepositoryImplTest.this.orderEntity,
-              OrderRepositoryImplTest.this.bookId,
+              OrderRepositoryImplTest.this.bookEntity,
               OrderRepositoryImplTest.this.quantity);
       when(OrderRepositoryImplTest.this.orderJpaRepository.save(
               OrderRepositoryImplTest.this.orderEntity))
@@ -300,10 +303,10 @@ class OrderRepositoryImplTest {
       assertThat(result).isEqualTo(OrderRepositoryImplTest.this.order);
       verify(OrderRepositoryImplTest.this.orderJpaRepository)
           .findById(OrderRepositoryImplTest.this.orderId);
-      verify(OrderRepositoryImplTest.this.orderEntityMapper)
-          .patchAdditionWithExistingOrderItem(
+      verify(OrderRepositoryImplTest.this.orderEntityHandler)
+          .addToOrder(
               OrderRepositoryImplTest.this.orderEntity,
-              OrderRepositoryImplTest.this.bookId,
+              OrderRepositoryImplTest.this.bookEntity,
               OrderRepositoryImplTest.this.quantity);
       verify(OrderRepositoryImplTest.this.orderJpaRepository)
           .save(OrderRepositoryImplTest.this.orderEntity);
@@ -389,8 +392,8 @@ class OrderRepositoryImplTest {
               OrderRepositoryImplTest.this.orderId))
           .thenReturn(Optional.of(OrderRepositoryImplTest.this.orderEntity));
       doNothing()
-          .when(OrderRepositoryImplTest.this.orderEntityMapper)
-          .patchSubstractionWithExistingOrderItem(
+          .when(OrderRepositoryImplTest.this.orderEntityHandler)
+          .removeFromOrder(
               OrderRepositoryImplTest.this.orderEntity,
               OrderRepositoryImplTest.this.bookId,
               OrderRepositoryImplTest.this.quantity);
@@ -419,8 +422,8 @@ class OrderRepositoryImplTest {
       assertThat(result).isEqualTo(OrderRepositoryImplTest.this.order);
       verify(OrderRepositoryImplTest.this.orderJpaRepository)
           .findById(OrderRepositoryImplTest.this.orderId);
-      verify(OrderRepositoryImplTest.this.orderEntityMapper)
-          .patchSubstractionWithExistingOrderItem(
+      verify(OrderRepositoryImplTest.this.orderEntityHandler)
+          .removeFromOrder(
               OrderRepositoryImplTest.this.orderEntity,
               OrderRepositoryImplTest.this.bookId,
               OrderRepositoryImplTest.this.quantity);
@@ -565,12 +568,12 @@ class OrderRepositoryImplTest {
               OrderRepositoryImplTest.this.orderId))
           .thenReturn(Optional.of(OrderRepositoryImplTest.this.orderEntity));
       doNothing()
-          .when(OrderRepositoryImplTest.this.orderEntityMapper)
-          .patchOrderRequest(
+          .when(OrderRepositoryImplTest.this.orderEntityHandler)
+          .updateOrderPaymentAndShipping(
               OrderRepositoryImplTest.this.orderEntity, paymentMethod, shippingAddress);
       doNothing()
-          .when(OrderRepositoryImplTest.this.orderEntityMapper)
-          .patchOrderItems(
+          .when(OrderRepositoryImplTest.this.orderEntityHandler)
+          .syncOrderItemsWithDomain(
               OrderRepositoryImplTest.this.orderEntity, OrderRepositoryImplTest.this.order);
       when(OrderRepositoryImplTest.this.orderJpaRepository.save(
               OrderRepositoryImplTest.this.orderEntity))
@@ -592,11 +595,11 @@ class OrderRepositoryImplTest {
           .isEqualTo(OrderRepositoryImplTest.this.order.getTotalPrice());
       verify(OrderRepositoryImplTest.this.orderJpaRepository)
           .findById(OrderRepositoryImplTest.this.orderId);
-      verify(OrderRepositoryImplTest.this.orderEntityMapper)
-          .patchOrderRequest(
+      verify(OrderRepositoryImplTest.this.orderEntityHandler)
+          .updateOrderPaymentAndShipping(
               OrderRepositoryImplTest.this.orderEntity, paymentMethod, shippingAddress);
-      verify(OrderRepositoryImplTest.this.orderEntityMapper)
-          .patchOrderItems(
+      verify(OrderRepositoryImplTest.this.orderEntityHandler)
+          .syncOrderItemsWithDomain(
               OrderRepositoryImplTest.this.orderEntity, OrderRepositoryImplTest.this.order);
       verify(OrderRepositoryImplTest.this.orderJpaRepository)
           .save(OrderRepositoryImplTest.this.orderEntity);
