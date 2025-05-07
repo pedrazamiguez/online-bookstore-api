@@ -53,6 +53,10 @@ which can be redeemed for discounts or perks, enhancing user engagement and rete
 - **Swagger UI:** [http://localhost:8080/swagger-ui](http://localhost:8080/swagger-ui)  
   Use this interface to explore and test the API endpoints.
 
+- **Postman Collection:** (Alternative to Swagger)
+  A Postman collection is included in the `dist/postman` directory: [OnlineBookstoreAPI.postman_collection.json](dist/postman/OnlineBookstoreAPI.postman_collection.json).  
+  You can import it into [Postman](https://www.postman.com/downloads/) to quickly test the API endpoints.
+
 - **Authentication:** All endpoints are secured with Basic Auth.  
   Use one of the test users below to authenticate:
 
@@ -192,8 +196,8 @@ dynamically depending on business rules or order properties.
 - Real-time inventory synchronization to prevent overselling and streamline restocking operations
 - Integration with external book metadata providers (e.g., ISBN DB)
 - Loyalty program rules engine for advanced reward systems
-- Implementation of customer loyalty point accumulation and redemption logic
-- Expansion of test coverage, including unit tests and end-to-end integration tests across critical flows
+- Implementation of customer loyalty point redemption logic
+- Expansion of end-to-end integration tests across critical flows
 
 ## SonarQube metrics
 
