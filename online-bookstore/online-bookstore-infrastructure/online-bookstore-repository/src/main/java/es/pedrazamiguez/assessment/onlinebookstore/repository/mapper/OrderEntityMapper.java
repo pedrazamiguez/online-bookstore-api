@@ -19,17 +19,6 @@ public interface OrderEntityMapper {
   @Mapping(target = "lines", source = "items")
   Order toDomain(OrderEntity orderEntity);
 
-  @Mapping(target = "items", source = "lines")
-  OrderEntity toEntity(Order order);
-
-  default Long mapOrderItemId(final OrderItemId value) {
-    if (ObjectUtils.isEmpty(value)) {
-      return null;
-    }
-
-    return value.getOrderId();
-  }
-
   @Mapping(target = "orderId", source = "order.id")
   @Mapping(target = "allocation.copies", source = "quantity")
   @Mapping(target = "allocation.book", source = "book")
@@ -38,18 +27,6 @@ public interface OrderEntityMapper {
       target = "payableAmount.subtotal",
       expression = "java( this.getSubTotal(orderItemEntity) )")
   OrderItem orderItemEntityToOrderItem(OrderItemEntity orderItemEntity);
-
-  default BigDecimal getBookPrice(final OrderItemEntity orderItemEntity) {
-    if (ObjectUtils.isEmpty(orderItemEntity)) {
-      return BigDecimal.ZERO;
-    }
-
-    if (ObjectUtils.isEmpty(orderItemEntity.getPurchasedUnitPrice())) {
-      return orderItemEntity.getBook().getPrice();
-    }
-
-    return orderItemEntity.getPurchasedUnitPrice();
-  }
 
   default BigDecimal getSubTotal(final OrderItemEntity orderItemEntity) {
     if (ObjectUtils.isEmpty(orderItemEntity)) {
