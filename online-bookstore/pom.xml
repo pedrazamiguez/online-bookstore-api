@@ -10,7 +10,7 @@
         <relativePath/>
     </parent>
 
-    <groupId>es.pedrazamiguez.api</groupId>
+    <groupId>es.pedrazamiguez</groupId>
     <artifactId>online-bookstore</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>

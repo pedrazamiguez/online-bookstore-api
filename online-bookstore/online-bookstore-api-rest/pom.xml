@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>es.pedrazamiguez.api</groupId>
+        <groupId>es.pedrazamiguez</groupId>
         <artifactId>online-bookstore</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
@@ -112,8 +112,8 @@
                                 <library>spring-boot</library>
                                 <useSpringBoot3>true</useSpringBoot3>
                                 <dateLibrary>java8</dateLibrary>
-                                <apiPackage>es.pedrazamiguez.api.onlinebookstore.openapi.api</apiPackage>
-                                <modelPackage>es.pedrazamiguez.api.onlinebookstore.openapi.model</modelPackage>
+                                <apiPackage>es.pedrazamiguez.onlinebookstore.openapi</apiPackage>
+                                <modelPackage>es.pedrazamiguez.onlinebookstore.openapi.model</modelPackage>
                             </configOptions>
                             <typeMappings>
                                 <typeMapping>OffsetDateTime=LocalDateTime</typeMapping>
