@@ -18,5 +18,4 @@ public class RequestLoggingConfiguration {
     loggingFilter.setAfterMessagePrefix("REQUEST DATA: ");
     return loggingFilter;
   }
-
 }
