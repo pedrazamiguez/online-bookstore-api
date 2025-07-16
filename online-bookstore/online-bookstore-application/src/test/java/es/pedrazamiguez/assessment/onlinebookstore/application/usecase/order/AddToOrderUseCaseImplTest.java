@@ -1,17 +1,17 @@
-package es.pedrazamiguez.assessment.onlinebookstore.application.usecase.order;
+package es.pedrazamiguez.api.onlinebookstore.application.usecase.order;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.instancio.Select.field;
 import static org.mockito.Mockito.*;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.exception.BookNotFoundException;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.model.Order;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.repository.OrderRepository;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.service.book.AvailableBookCopiesService;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.service.order.CurrentOrderService;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.service.order.FinalPriceService;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.service.security.SecurityService;
+import es.pedrazamiguez.api.onlinebookstore.domain.exception.BookNotFoundException;
+import es.pedrazamiguez.api.onlinebookstore.domain.model.Order;
+import es.pedrazamiguez.api.onlinebookstore.domain.repository.OrderRepository;
+import es.pedrazamiguez.api.onlinebookstore.domain.service.book.AvailableBookCopiesService;
+import es.pedrazamiguez.api.onlinebookstore.domain.service.order.CurrentOrderService;
+import es.pedrazamiguez.api.onlinebookstore.domain.service.order.FinalPriceService;
+import es.pedrazamiguez.api.onlinebookstore.domain.service.security.SecurityService;
 import org.instancio.Instancio;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

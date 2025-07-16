@@ -1,4 +1,4 @@
-package es.pedrazamiguez.assessment.onlinebookstore.apirest.controller.inventory;
+package es.pedrazamiguez.api.onlinebookstore.apirest.controller.inventory;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -6,16 +6,16 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 
-import es.pedrazamiguez.assessment.onlinebookstore.apirest.controller.InventoryController;
-import es.pedrazamiguez.assessment.onlinebookstore.apirest.controller.inventory.base.BaseInventoryTestController;
-import es.pedrazamiguez.assessment.onlinebookstore.apirest.handler.BookstoreExceptionHandler;
-import es.pedrazamiguez.assessment.onlinebookstore.apirest.handler.RestExceptionHandler;
-import es.pedrazamiguez.assessment.onlinebookstore.apirest.mapper.ErrorRestMapper;
-import es.pedrazamiguez.assessment.onlinebookstore.apirest.mapper.InventoryRestMapper;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.exception.BookNotFoundException;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.model.BookAllocation;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.usecase.inventory.DeleteFromInventoryUseCase;
-import es.pedrazamiguez.assessment.onlinebookstore.openapi.model.InventoryItemDto;
+import es.pedrazamiguez.api.onlinebookstore.apirest.controller.InventoryController;
+import es.pedrazamiguez.api.onlinebookstore.apirest.controller.inventory.base.BaseInventoryTestController;
+import es.pedrazamiguez.api.onlinebookstore.apirest.handler.BookstoreExceptionHandler;
+import es.pedrazamiguez.api.onlinebookstore.apirest.handler.RestExceptionHandler;
+import es.pedrazamiguez.api.onlinebookstore.apirest.mapper.ErrorRestMapper;
+import es.pedrazamiguez.api.onlinebookstore.apirest.mapper.InventoryRestMapper;
+import es.pedrazamiguez.api.onlinebookstore.domain.exception.BookNotFoundException;
+import es.pedrazamiguez.api.onlinebookstore.domain.model.BookAllocation;
+import es.pedrazamiguez.api.onlinebookstore.domain.usecase.inventory.DeleteFromInventoryUseCase;
+import es.pedrazamiguez.api.onlinebookstore.openapi.model.InventoryItemDto;
 import java.util.Optional;
 import org.instancio.Instancio;
 import org.junit.jupiter.api.BeforeEach;

@@ -22,8 +22,8 @@ which can be redeemed for discounts or perks, enhancing user engagement and rete
 1. **Clone the repository:**
 
     ```bash
-    git clone https://github.com/pedrazamiguez/online-bookstore-assessment.git
-    cd online-bookstore-assessment/online-bookstore
+    git clone https://github.com/pedrazamiguez/online-bookstore-api.git
+    cd online-bookstore-api/online-bookstore
     ```
 
 2. **Build and test the entire project using the Maven Wrapper:**

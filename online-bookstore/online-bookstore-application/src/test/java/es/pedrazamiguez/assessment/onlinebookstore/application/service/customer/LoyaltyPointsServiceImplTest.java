@@ -1,11 +1,11 @@
-package es.pedrazamiguez.assessment.onlinebookstore.application.service.customer;
+package es.pedrazamiguez.api.onlinebookstore.application.service.customer;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.model.BookAllocation;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.model.Order;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.model.OrderItem;
+import es.pedrazamiguez.api.onlinebookstore.domain.model.BookAllocation;
+import es.pedrazamiguez.api.onlinebookstore.domain.model.Order;
+import es.pedrazamiguez.api.onlinebookstore.domain.model.OrderItem;
 import java.util.Arrays;
 import java.util.Collections;
 import org.instancio.Instancio;

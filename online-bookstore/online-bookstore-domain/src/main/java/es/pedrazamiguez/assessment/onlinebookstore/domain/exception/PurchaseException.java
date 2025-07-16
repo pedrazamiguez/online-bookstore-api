@@ -1,6 +1,6 @@
-package es.pedrazamiguez.assessment.onlinebookstore.domain.exception;
+package es.pedrazamiguez.api.onlinebookstore.domain.exception;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.model.PurchaseContext;
+import es.pedrazamiguez.api.onlinebookstore.domain.model.PurchaseContext;
 import lombok.Getter;
 
 @Getter

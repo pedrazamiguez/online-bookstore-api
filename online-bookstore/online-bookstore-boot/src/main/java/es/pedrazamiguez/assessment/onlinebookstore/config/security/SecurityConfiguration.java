@@ -1,4 +1,4 @@
-package es.pedrazamiguez.assessment.onlinebookstore.config.security;
+package es.pedrazamiguez.api.onlinebookstore.config.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Bean;

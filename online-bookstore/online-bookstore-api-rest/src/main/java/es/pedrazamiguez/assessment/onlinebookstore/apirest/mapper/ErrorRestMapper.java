@@ -1,6 +1,6 @@
-package es.pedrazamiguez.assessment.onlinebookstore.apirest.mapper;
+package es.pedrazamiguez.api.onlinebookstore.apirest.mapper;
 
-import es.pedrazamiguez.assessment.onlinebookstore.openapi.model.ErrorDto;
+import es.pedrazamiguez.api.onlinebookstore.openapi.model.ErrorDto;
 import jakarta.validation.ConstraintViolationException;
 import org.mapstruct.DecoratedWith;
 import org.mapstruct.Mapper;

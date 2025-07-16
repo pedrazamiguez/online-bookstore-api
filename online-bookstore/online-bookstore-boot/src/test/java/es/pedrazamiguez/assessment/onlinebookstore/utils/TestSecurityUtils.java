@@ -1,4 +1,4 @@
-package es.pedrazamiguez.assessment.onlinebookstore.utils;
+package es.pedrazamiguez.api.onlinebookstore.utils;
 
 import java.util.List;
 import java.util.stream.Stream;

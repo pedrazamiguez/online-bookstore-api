@@ -1,9 +1,9 @@
-package es.pedrazamiguez.assessment.onlinebookstore.application.processor.purchase;
+package es.pedrazamiguez.api.onlinebookstore.application.processor.purchase;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.model.OrderItem;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.model.PurchaseContext;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.processor.PurchaseProcessor;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.service.book.AvailableBookCopiesService;
+import es.pedrazamiguez.api.onlinebookstore.domain.model.OrderItem;
+import es.pedrazamiguez.api.onlinebookstore.domain.model.PurchaseContext;
+import es.pedrazamiguez.api.onlinebookstore.domain.processor.PurchaseProcessor;
+import es.pedrazamiguez.api.onlinebookstore.domain.service.book.AvailableBookCopiesService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

@@ -1,11 +1,11 @@
-package es.pedrazamiguez.assessment.onlinebookstore.application.service.security;
+package es.pedrazamiguez.api.onlinebookstore.application.service.security;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.when;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.exception.CurrentUserNotFoundException;
+import es.pedrazamiguez.api.onlinebookstore.domain.exception.CurrentUserNotFoundException;
 import org.instancio.Instancio;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;

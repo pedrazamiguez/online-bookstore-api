@@ -1,7 +1,7 @@
-package es.pedrazamiguez.assessment.onlinebookstore.repository.jpa;
+package es.pedrazamiguez.api.onlinebookstore.repository.jpa;
 
-import es.pedrazamiguez.assessment.onlinebookstore.repository.entity.BookCopyEntity;
-import es.pedrazamiguez.assessment.onlinebookstore.repository.projection.InventoryDetailsQueryResult;
+import es.pedrazamiguez.api.onlinebookstore.repository.entity.BookCopyEntity;
+import es.pedrazamiguez.api.onlinebookstore.repository.projection.InventoryDetailsQueryResult;
 import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -1,10 +1,10 @@
-package es.pedrazamiguez.assessment.onlinebookstore.application.adapter;
+package es.pedrazamiguez.api.onlinebookstore.application.adapter;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.adapter.CalculateSubtotalAdapter;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.model.BookType;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.model.OrderItem;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.model.PayableAmount;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.service.order.SubtotalPriceService;
+import es.pedrazamiguez.api.onlinebookstore.domain.adapter.CalculateSubtotalAdapter;
+import es.pedrazamiguez.api.onlinebookstore.domain.model.BookType;
+import es.pedrazamiguez.api.onlinebookstore.domain.model.OrderItem;
+import es.pedrazamiguez.api.onlinebookstore.domain.model.PayableAmount;
+import es.pedrazamiguez.api.onlinebookstore.domain.service.order.SubtotalPriceService;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;

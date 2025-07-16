@@ -1,22 +1,22 @@
-package es.pedrazamiguez.assessment.onlinebookstore.application.usecase.purchase;
+package es.pedrazamiguez.api.onlinebookstore.application.usecase.purchase;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.mockito.Mockito.verify;
 
-import es.pedrazamiguez.assessment.onlinebookstore.application.coordinator.PurchaseChainCoordinator;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.enums.OrderStatus;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.enums.PaymentMethod;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.enums.PurchaseStatus;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.exception.OrderNotFoundException;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.model.Order;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.model.PurchaseContext;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.usecase.loyalty.GetLoyaltyPointsUseCase;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.usecase.order.AddToOrderUseCase;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.usecase.purchase.PerformPurchaseUseCase;
-import es.pedrazamiguez.assessment.onlinebookstore.repository.entity.OrderEntity;
-import es.pedrazamiguez.assessment.onlinebookstore.repository.jpa.OrderJpaRepository;
-import es.pedrazamiguez.assessment.onlinebookstore.utils.TestSecurityUtils;
+import es.pedrazamiguez.api.onlinebookstore.application.coordinator.PurchaseChainCoordinator;
+import es.pedrazamiguez.api.onlinebookstore.domain.enums.OrderStatus;
+import es.pedrazamiguez.api.onlinebookstore.domain.enums.PaymentMethod;
+import es.pedrazamiguez.api.onlinebookstore.domain.enums.PurchaseStatus;
+import es.pedrazamiguez.api.onlinebookstore.domain.exception.OrderNotFoundException;
+import es.pedrazamiguez.api.onlinebookstore.domain.model.Order;
+import es.pedrazamiguez.api.onlinebookstore.domain.model.PurchaseContext;
+import es.pedrazamiguez.api.onlinebookstore.domain.usecase.loyalty.GetLoyaltyPointsUseCase;
+import es.pedrazamiguez.api.onlinebookstore.domain.usecase.order.AddToOrderUseCase;
+import es.pedrazamiguez.api.onlinebookstore.domain.usecase.purchase.PerformPurchaseUseCase;
+import es.pedrazamiguez.api.onlinebookstore.repository.entity.OrderEntity;
+import es.pedrazamiguez.api.onlinebookstore.repository.jpa.OrderJpaRepository;
+import es.pedrazamiguez.api.onlinebookstore.utils.TestSecurityUtils;
 import java.util.HashMap;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;

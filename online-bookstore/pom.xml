@@ -10,13 +10,13 @@
         <relativePath/>
     </parent>
 
-    <groupId>es.pedrazamiguez.assessment</groupId>
+    <groupId>es.pedrazamiguez.api</groupId>
     <artifactId>online-bookstore</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>online-bookstore</name>
-    <description>Online Bookstore Assessment</description>
+    <description>Online Bookstore API</description>
     <inceptionYear>2025</inceptionYear>
 
     <developers>
@@ -38,10 +38,10 @@
     </licenses>
 
     <scm>
-        <connection>scm:git:https://github.com/pedrazamiguez/online-bookstore-assessment.git</connection>
-        <developerConnection>scm:git:https://github.com/pedrazamiguez/online-bookstore-assessment.git
+        <connection>scm:git:https://github.com/pedrazamiguez/online-bookstore-api.git</connection>
+        <developerConnection>scm:git:https://github.com/pedrazamiguez/online-bookstore-api.git
         </developerConnection>
-        <url>https://github.com/pedrazamiguez/online-bookstore-assessment</url>
+        <url>https://github.com/pedrazamiguez/online-bookstore-api</url>
         <tag>HEAD</tag>
     </scm>
 

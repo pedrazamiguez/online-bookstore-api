@@ -7,7 +7,7 @@ Make sure you have Docker installed and running on your machine.
 1. **Navigate to the SonarQube docker-compose.yml file:**
 
     ```bash
-    cd online-bookstore-assessment/dist/sonarqube
+    cd online-bookstore-api/dist/sonarqube
     ```
 
 2. **Run docker-compose.yml:**

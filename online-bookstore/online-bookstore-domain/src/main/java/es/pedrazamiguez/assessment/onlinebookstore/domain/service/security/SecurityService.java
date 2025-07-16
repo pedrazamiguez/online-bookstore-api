@@ -1,4 +1,4 @@
-package es.pedrazamiguez.assessment.onlinebookstore.domain.service.security;
+package es.pedrazamiguez.api.onlinebookstore.domain.service.security;
 
 public interface SecurityService {
 

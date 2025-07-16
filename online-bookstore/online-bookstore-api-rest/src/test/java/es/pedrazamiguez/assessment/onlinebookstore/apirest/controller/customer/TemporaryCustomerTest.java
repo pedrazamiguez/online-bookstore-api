@@ -1,4 +1,4 @@
-package es.pedrazamiguez.assessment.onlinebookstore.apirest.controller.customer;
+package es.pedrazamiguez.api.onlinebookstore.apirest.controller.customer;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.any;
@@ -7,11 +7,11 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
-import es.pedrazamiguez.assessment.onlinebookstore.apirest.controller.CustomerController;
-import es.pedrazamiguez.assessment.onlinebookstore.apirest.controller.customer.base.BaseCustomerTestController;
-import es.pedrazamiguez.assessment.onlinebookstore.apirest.handler.BookstoreExceptionHandler;
-import es.pedrazamiguez.assessment.onlinebookstore.apirest.handler.RestExceptionHandler;
-import es.pedrazamiguez.assessment.onlinebookstore.apirest.mapper.ErrorRestMapper;
+import es.pedrazamiguez.api.onlinebookstore.apirest.controller.CustomerController;
+import es.pedrazamiguez.api.onlinebookstore.apirest.controller.customer.base.BaseCustomerTestController;
+import es.pedrazamiguez.api.onlinebookstore.apirest.handler.BookstoreExceptionHandler;
+import es.pedrazamiguez.api.onlinebookstore.apirest.handler.RestExceptionHandler;
+import es.pedrazamiguez.api.onlinebookstore.apirest.mapper.ErrorRestMapper;
 import org.apache.commons.lang3.NotImplementedException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

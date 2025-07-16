@@ -1,6 +1,6 @@
-package es.pedrazamiguez.assessment.onlinebookstore.apirest.mapper;
+package es.pedrazamiguez.api.onlinebookstore.apirest.mapper;
 
-import es.pedrazamiguez.assessment.onlinebookstore.openapi.model.LoyaltyPointsDto;
+import es.pedrazamiguez.api.onlinebookstore.openapi.model.LoyaltyPointsDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;

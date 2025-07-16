@@ -1,4 +1,4 @@
-package es.pedrazamiguez.assessment.onlinebookstore.domain.enums;
+package es.pedrazamiguez.api.onlinebookstore.domain.enums;
 
 public enum OrderStatus {
   CREATED,

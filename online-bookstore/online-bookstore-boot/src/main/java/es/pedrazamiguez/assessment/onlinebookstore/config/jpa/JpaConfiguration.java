@@ -1,6 +1,6 @@
-package es.pedrazamiguez.assessment.onlinebookstore.config.jpa;
+package es.pedrazamiguez.api.onlinebookstore.config.jpa;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.service.security.SecurityService;
+import es.pedrazamiguez.api.onlinebookstore.domain.service.security.SecurityService;
 import java.util.Optional;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

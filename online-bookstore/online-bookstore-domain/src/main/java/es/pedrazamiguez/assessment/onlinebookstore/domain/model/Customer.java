@@ -1,4 +1,4 @@
-package es.pedrazamiguez.assessment.onlinebookstore.domain.model;
+package es.pedrazamiguez.api.onlinebookstore.domain.model;
 
 import lombok.Data;
 

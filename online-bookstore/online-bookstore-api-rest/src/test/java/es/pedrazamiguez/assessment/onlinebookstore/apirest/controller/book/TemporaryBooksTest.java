@@ -1,4 +1,4 @@
-package es.pedrazamiguez.assessment.onlinebookstore.apirest.controller.book;
+package es.pedrazamiguez.api.onlinebookstore.apirest.controller.book;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -10,15 +10,15 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 
-import es.pedrazamiguez.assessment.onlinebookstore.apirest.controller.BooksController;
-import es.pedrazamiguez.assessment.onlinebookstore.apirest.controller.book.base.BaseBooksTestController;
-import es.pedrazamiguez.assessment.onlinebookstore.apirest.handler.BookstoreExceptionHandler;
-import es.pedrazamiguez.assessment.onlinebookstore.apirest.handler.RestExceptionHandler;
-import es.pedrazamiguez.assessment.onlinebookstore.apirest.mapper.BookRestMapper;
-import es.pedrazamiguez.assessment.onlinebookstore.apirest.mapper.ErrorRestMapper;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.usecase.book.AddBookUseCase;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.usecase.book.GetBookUseCase;
-import es.pedrazamiguez.assessment.onlinebookstore.openapi.model.BookRequestDto;
+import es.pedrazamiguez.api.onlinebookstore.apirest.controller.BooksController;
+import es.pedrazamiguez.api.onlinebookstore.apirest.controller.book.base.BaseBooksTestController;
+import es.pedrazamiguez.api.onlinebookstore.apirest.handler.BookstoreExceptionHandler;
+import es.pedrazamiguez.api.onlinebookstore.apirest.handler.RestExceptionHandler;
+import es.pedrazamiguez.api.onlinebookstore.apirest.mapper.BookRestMapper;
+import es.pedrazamiguez.api.onlinebookstore.apirest.mapper.ErrorRestMapper;
+import es.pedrazamiguez.api.onlinebookstore.domain.usecase.book.AddBookUseCase;
+import es.pedrazamiguez.api.onlinebookstore.domain.usecase.book.GetBookUseCase;
+import es.pedrazamiguez.api.onlinebookstore.openapi.model.BookRequestDto;
 import org.apache.commons.lang3.NotImplementedException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

@@ -1,9 +1,9 @@
-package es.pedrazamiguez.assessment.onlinebookstore.application.service.book;
+package es.pedrazamiguez.api.onlinebookstore.application.service.book;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.exception.NotEnoughBookCopiesException;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.model.BookAllocation;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.repository.BookCopyRepository;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.service.book.AvailableBookCopiesService;
+import es.pedrazamiguez.api.onlinebookstore.domain.exception.NotEnoughBookCopiesException;
+import es.pedrazamiguez.api.onlinebookstore.domain.model.BookAllocation;
+import es.pedrazamiguez.api.onlinebookstore.domain.repository.BookCopyRepository;
+import es.pedrazamiguez.api.onlinebookstore.domain.service.book.AvailableBookCopiesService;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

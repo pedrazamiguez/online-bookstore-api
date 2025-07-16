@@ -1,11 +1,11 @@
-package es.pedrazamiguez.assessment.onlinebookstore.application.usecase.order;
+package es.pedrazamiguez.api.onlinebookstore.application.usecase.order;
 
 import static org.mockito.Mockito.*;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.model.Order;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.repository.OrderRepository;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.service.order.CurrentOrderService;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.service.security.SecurityService;
+import es.pedrazamiguez.api.onlinebookstore.domain.model.Order;
+import es.pedrazamiguez.api.onlinebookstore.domain.repository.OrderRepository;
+import es.pedrazamiguez.api.onlinebookstore.domain.service.order.CurrentOrderService;
+import es.pedrazamiguez.api.onlinebookstore.domain.service.security.SecurityService;
 import org.instancio.Instancio;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

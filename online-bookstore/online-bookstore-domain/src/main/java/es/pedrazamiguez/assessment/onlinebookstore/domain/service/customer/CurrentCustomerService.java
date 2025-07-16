@@ -1,6 +1,6 @@
-package es.pedrazamiguez.assessment.onlinebookstore.domain.service.customer;
+package es.pedrazamiguez.api.onlinebookstore.domain.service.customer;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.model.Customer;
+import es.pedrazamiguez.api.onlinebookstore.domain.model.Customer;
 
 public interface CurrentCustomerService {
 

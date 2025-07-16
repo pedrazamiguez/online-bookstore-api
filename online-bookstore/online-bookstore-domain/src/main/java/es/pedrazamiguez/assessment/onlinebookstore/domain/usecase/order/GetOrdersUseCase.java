@@ -1,3 +1,3 @@
-package es.pedrazamiguez.assessment.onlinebookstore.domain.usecase.order;
+package es.pedrazamiguez.api.onlinebookstore.domain.usecase.order;
 
 public interface GetOrdersUseCase {}

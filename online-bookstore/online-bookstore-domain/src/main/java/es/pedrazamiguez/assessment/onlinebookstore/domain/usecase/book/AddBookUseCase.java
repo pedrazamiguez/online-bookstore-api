@@ -1,6 +1,6 @@
-package es.pedrazamiguez.assessment.onlinebookstore.domain.usecase.book;
+package es.pedrazamiguez.api.onlinebookstore.domain.usecase.book;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.model.Book;
+import es.pedrazamiguez.api.onlinebookstore.domain.model.Book;
 
 @FunctionalInterface
 public interface AddBookUseCase {

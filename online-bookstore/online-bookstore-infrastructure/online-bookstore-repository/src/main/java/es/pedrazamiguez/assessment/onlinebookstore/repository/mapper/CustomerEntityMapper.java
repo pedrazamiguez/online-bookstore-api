@@ -1,7 +1,7 @@
-package es.pedrazamiguez.assessment.onlinebookstore.repository.mapper;
+package es.pedrazamiguez.api.onlinebookstore.repository.mapper;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.model.Customer;
-import es.pedrazamiguez.assessment.onlinebookstore.repository.entity.CustomerEntity;
+import es.pedrazamiguez.api.onlinebookstore.domain.model.Customer;
+import es.pedrazamiguez.api.onlinebookstore.repository.entity.CustomerEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants;
 

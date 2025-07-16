@@ -1,11 +1,11 @@
-package es.pedrazamiguez.assessment.onlinebookstore.application.usecase.inventory;
+package es.pedrazamiguez.api.onlinebookstore.application.usecase.inventory;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.model.BookAllocation;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.repository.BookCopyRepository;
+import es.pedrazamiguez.api.onlinebookstore.domain.model.BookAllocation;
+import es.pedrazamiguez.api.onlinebookstore.domain.repository.BookCopyRepository;
 import java.util.List;
 import org.instancio.Instancio;
 import org.junit.jupiter.api.extension.ExtendWith;

@@ -1,7 +1,7 @@
-package es.pedrazamiguez.assessment.onlinebookstore.domain.repository;
+package es.pedrazamiguez.api.onlinebookstore.domain.repository;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.enums.PaymentMethod;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.model.Order;
+import es.pedrazamiguez.api.onlinebookstore.domain.enums.PaymentMethod;
+import es.pedrazamiguez.api.onlinebookstore.domain.model.Order;
 import java.util.Optional;
 
 public interface OrderRepository {

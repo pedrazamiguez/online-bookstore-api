@@ -1,15 +1,15 @@
-package es.pedrazamiguez.assessment.onlinebookstore.repository.impl;
+package es.pedrazamiguez.api.onlinebookstore.repository.impl;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.*;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.exception.BookAlreadyExistsException;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.exception.BookNotFoundException;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.model.Book;
-import es.pedrazamiguez.assessment.onlinebookstore.repository.entity.BookEntity;
-import es.pedrazamiguez.assessment.onlinebookstore.repository.jpa.BookJpaRepository;
-import es.pedrazamiguez.assessment.onlinebookstore.repository.mapper.BookEntityMapper;
+import es.pedrazamiguez.api.onlinebookstore.domain.exception.BookAlreadyExistsException;
+import es.pedrazamiguez.api.onlinebookstore.domain.exception.BookNotFoundException;
+import es.pedrazamiguez.api.onlinebookstore.domain.model.Book;
+import es.pedrazamiguez.api.onlinebookstore.repository.entity.BookEntity;
+import es.pedrazamiguez.api.onlinebookstore.repository.jpa.BookJpaRepository;
+import es.pedrazamiguez.api.onlinebookstore.repository.mapper.BookEntityMapper;
 import java.util.Optional;
 import org.instancio.Instancio;
 import org.instancio.Select;

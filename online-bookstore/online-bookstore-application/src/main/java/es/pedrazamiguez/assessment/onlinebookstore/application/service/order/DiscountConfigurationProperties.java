@@ -1,4 +1,4 @@
-package es.pedrazamiguez.assessment.onlinebookstore.application.service.order;
+package es.pedrazamiguez.api.onlinebookstore.application.service.order;
 
 import java.math.BigDecimal;
 import lombok.Getter;

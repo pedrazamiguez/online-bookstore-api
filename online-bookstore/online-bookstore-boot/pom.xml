@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>es.pedrazamiguez.assessment</groupId>
+        <groupId>es.pedrazamiguez.api</groupId>
         <artifactId>online-bookstore</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
@@ -66,7 +66,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>es.pedrazamiguez.assessment.onlinebookstore.OnlineBookstoreApplication</mainClass>
+                    <mainClass>es.pedrazamiguez.api.onlinebookstore.OnlineBookstoreApplication</mainClass>
                     <layout>JAR</layout>
                 </configuration>
                 <executions>

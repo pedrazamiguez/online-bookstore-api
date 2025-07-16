@@ -1,6 +1,6 @@
-package es.pedrazamiguez.assessment.onlinebookstore.domain.service.order;
+package es.pedrazamiguez.api.onlinebookstore.domain.service.order;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.model.Order;
+import es.pedrazamiguez.api.onlinebookstore.domain.model.Order;
 
 public interface CurrentOrderService {
 

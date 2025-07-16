@@ -1,6 +1,6 @@
-package es.pedrazamiguez.assessment.onlinebookstore.domain.model;
+package es.pedrazamiguez.api.onlinebookstore.domain.model;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.enums.BookCopyStatus;
+import es.pedrazamiguez.api.onlinebookstore.domain.enums.BookCopyStatus;
 import lombok.Data;
 
 @Data

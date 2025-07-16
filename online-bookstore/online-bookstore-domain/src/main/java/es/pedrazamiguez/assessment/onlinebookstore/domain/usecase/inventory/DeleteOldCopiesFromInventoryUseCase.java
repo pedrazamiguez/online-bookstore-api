@@ -1,4 +1,4 @@
-package es.pedrazamiguez.assessment.onlinebookstore.domain.usecase.inventory;
+package es.pedrazamiguez.api.onlinebookstore.domain.usecase.inventory;
 
 import java.time.LocalDateTime;
 

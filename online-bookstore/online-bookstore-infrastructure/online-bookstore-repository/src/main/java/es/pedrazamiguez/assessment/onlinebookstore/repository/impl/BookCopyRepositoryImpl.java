@@ -1,15 +1,15 @@
-package es.pedrazamiguez.assessment.onlinebookstore.repository.impl;
+package es.pedrazamiguez.api.onlinebookstore.repository.impl;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.enums.BookCopyStatus;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.exception.BookNotFoundException;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.model.BookAllocation;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.repository.BookCopyRepository;
-import es.pedrazamiguez.assessment.onlinebookstore.repository.entity.BookCopyEntity;
-import es.pedrazamiguez.assessment.onlinebookstore.repository.entity.BookEntity;
-import es.pedrazamiguez.assessment.onlinebookstore.repository.jpa.BookCopyJpaRepository;
-import es.pedrazamiguez.assessment.onlinebookstore.repository.jpa.BookJpaRepository;
-import es.pedrazamiguez.assessment.onlinebookstore.repository.mapper.BookCopyEntityMapper;
-import es.pedrazamiguez.assessment.onlinebookstore.repository.projection.InventoryDetailsQueryResult;
+import es.pedrazamiguez.api.onlinebookstore.domain.enums.BookCopyStatus;
+import es.pedrazamiguez.api.onlinebookstore.domain.exception.BookNotFoundException;
+import es.pedrazamiguez.api.onlinebookstore.domain.model.BookAllocation;
+import es.pedrazamiguez.api.onlinebookstore.domain.repository.BookCopyRepository;
+import es.pedrazamiguez.api.onlinebookstore.repository.entity.BookCopyEntity;
+import es.pedrazamiguez.api.onlinebookstore.repository.entity.BookEntity;
+import es.pedrazamiguez.api.onlinebookstore.repository.jpa.BookCopyJpaRepository;
+import es.pedrazamiguez.api.onlinebookstore.repository.jpa.BookJpaRepository;
+import es.pedrazamiguez.api.onlinebookstore.repository.mapper.BookCopyEntityMapper;
+import es.pedrazamiguez.api.onlinebookstore.repository.projection.InventoryDetailsQueryResult;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;

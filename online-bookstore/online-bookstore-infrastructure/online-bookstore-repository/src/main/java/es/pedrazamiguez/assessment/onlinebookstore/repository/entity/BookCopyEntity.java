@@ -1,6 +1,6 @@
-package es.pedrazamiguez.assessment.onlinebookstore.repository.entity;
+package es.pedrazamiguez.api.onlinebookstore.repository.entity;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.enums.BookCopyStatus;
+import es.pedrazamiguez.api.onlinebookstore.domain.enums.BookCopyStatus;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

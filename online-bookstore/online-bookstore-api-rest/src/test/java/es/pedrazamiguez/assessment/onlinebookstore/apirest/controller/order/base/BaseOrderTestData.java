@@ -1,11 +1,11 @@
-package es.pedrazamiguez.assessment.onlinebookstore.apirest.controller.order.base;
+package es.pedrazamiguez.api.onlinebookstore.apirest.controller.order.base;
 
 import static org.instancio.Select.field;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.model.Order;
-import es.pedrazamiguez.assessment.onlinebookstore.openapi.model.AllocationDto;
-import es.pedrazamiguez.assessment.onlinebookstore.openapi.model.OrderDto;
-import es.pedrazamiguez.assessment.onlinebookstore.openapi.model.PurchaseRequestDto;
+import es.pedrazamiguez.api.onlinebookstore.domain.model.Order;
+import es.pedrazamiguez.api.onlinebookstore.openapi.model.AllocationDto;
+import es.pedrazamiguez.api.onlinebookstore.openapi.model.OrderDto;
+import es.pedrazamiguez.api.onlinebookstore.openapi.model.PurchaseRequestDto;
 import java.util.Optional;
 import org.instancio.Instancio;
 

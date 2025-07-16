@@ -1,19 +1,19 @@
-package es.pedrazamiguez.assessment.onlinebookstore.apirest.controller.book;
+package es.pedrazamiguez.api.onlinebookstore.apirest.controller.book;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
-import es.pedrazamiguez.assessment.onlinebookstore.apirest.controller.BooksController;
-import es.pedrazamiguez.assessment.onlinebookstore.apirest.controller.book.base.BaseBooksTestController;
-import es.pedrazamiguez.assessment.onlinebookstore.apirest.handler.BookstoreExceptionHandler;
-import es.pedrazamiguez.assessment.onlinebookstore.apirest.handler.RestExceptionHandler;
-import es.pedrazamiguez.assessment.onlinebookstore.apirest.mapper.BookRestMapper;
-import es.pedrazamiguez.assessment.onlinebookstore.apirest.mapper.ErrorRestMapper;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.model.Book;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.usecase.book.GetBookUseCase;
-import es.pedrazamiguez.assessment.onlinebookstore.openapi.model.BookDto;
+import es.pedrazamiguez.api.onlinebookstore.apirest.controller.BooksController;
+import es.pedrazamiguez.api.onlinebookstore.apirest.controller.book.base.BaseBooksTestController;
+import es.pedrazamiguez.api.onlinebookstore.apirest.handler.BookstoreExceptionHandler;
+import es.pedrazamiguez.api.onlinebookstore.apirest.handler.RestExceptionHandler;
+import es.pedrazamiguez.api.onlinebookstore.apirest.mapper.BookRestMapper;
+import es.pedrazamiguez.api.onlinebookstore.apirest.mapper.ErrorRestMapper;
+import es.pedrazamiguez.api.onlinebookstore.domain.model.Book;
+import es.pedrazamiguez.api.onlinebookstore.domain.usecase.book.GetBookUseCase;
+import es.pedrazamiguez.api.onlinebookstore.openapi.model.BookDto;
 import org.instancio.Instancio;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

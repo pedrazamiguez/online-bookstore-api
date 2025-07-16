@@ -1,8 +1,8 @@
-package es.pedrazamiguez.assessment.onlinebookstore.application.usecase.loyalty;
+package es.pedrazamiguez.api.onlinebookstore.application.usecase.loyalty;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.repository.LoyaltyPointRepository;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.service.security.SecurityService;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.usecase.loyalty.GetLoyaltyPointsUseCase;
+import es.pedrazamiguez.api.onlinebookstore.domain.repository.LoyaltyPointRepository;
+import es.pedrazamiguez.api.onlinebookstore.domain.service.security.SecurityService;
+import es.pedrazamiguez.api.onlinebookstore.domain.usecase.loyalty.GetLoyaltyPointsUseCase;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

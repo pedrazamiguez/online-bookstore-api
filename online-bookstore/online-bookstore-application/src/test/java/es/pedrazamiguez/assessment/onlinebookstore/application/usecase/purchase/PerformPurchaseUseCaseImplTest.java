@@ -1,14 +1,14 @@
-package es.pedrazamiguez.assessment.onlinebookstore.application.usecase.purchase;
+package es.pedrazamiguez.api.onlinebookstore.application.usecase.purchase;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.instancio.Select.field;
 import static org.mockito.Mockito.*;
 
-import es.pedrazamiguez.assessment.onlinebookstore.application.coordinator.PurchaseChainCoordinator;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.enums.PaymentMethod;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.model.Order;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.model.PurchaseContext;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.service.security.SecurityService;
+import es.pedrazamiguez.api.onlinebookstore.application.coordinator.PurchaseChainCoordinator;
+import es.pedrazamiguez.api.onlinebookstore.domain.enums.PaymentMethod;
+import es.pedrazamiguez.api.onlinebookstore.domain.model.Order;
+import es.pedrazamiguez.api.onlinebookstore.domain.model.PurchaseContext;
+import es.pedrazamiguez.api.onlinebookstore.domain.service.security.SecurityService;
 import org.instancio.Instancio;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

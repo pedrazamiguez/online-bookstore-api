@@ -1,10 +1,10 @@
-package es.pedrazamiguez.assessment.onlinebookstore.repository.handler;
+package es.pedrazamiguez.api.onlinebookstore.repository.handler;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.enums.OrderStatus;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.enums.PaymentMethod;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.model.Order;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.model.OrderItem;
-import es.pedrazamiguez.assessment.onlinebookstore.repository.entity.*;
+import es.pedrazamiguez.api.onlinebookstore.domain.enums.OrderStatus;
+import es.pedrazamiguez.api.onlinebookstore.domain.enums.PaymentMethod;
+import es.pedrazamiguez.api.onlinebookstore.domain.model.Order;
+import es.pedrazamiguez.api.onlinebookstore.domain.model.OrderItem;
+import es.pedrazamiguez.api.onlinebookstore.repository.entity.*;
 import java.math.BigDecimal;
 import java.util.Optional;
 import org.springframework.stereotype.Component;

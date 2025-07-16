@@ -1,9 +1,9 @@
-package es.pedrazamiguez.assessment.onlinebookstore.repository.helper;
+package es.pedrazamiguez.api.onlinebookstore.repository.helper;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.instancio.Select.field;
 
-import es.pedrazamiguez.assessment.onlinebookstore.repository.entity.OrderItemEntity;
+import es.pedrazamiguez.api.onlinebookstore.repository.entity.OrderItemEntity;
 import java.math.BigDecimal;
 import org.instancio.Instancio;
 import org.junit.jupiter.api.Test;

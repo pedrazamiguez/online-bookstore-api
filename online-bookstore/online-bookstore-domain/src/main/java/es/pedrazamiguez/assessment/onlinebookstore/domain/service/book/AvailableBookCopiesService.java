@@ -1,6 +1,6 @@
-package es.pedrazamiguez.assessment.onlinebookstore.domain.service.book;
+package es.pedrazamiguez.api.onlinebookstore.domain.service.book;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.exception.NotEnoughBookCopiesException;
+import es.pedrazamiguez.api.onlinebookstore.domain.exception.NotEnoughBookCopiesException;
 
 public interface AvailableBookCopiesService {
 

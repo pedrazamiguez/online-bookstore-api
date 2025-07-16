@@ -1,7 +1,7 @@
-package es.pedrazamiguez.assessment.onlinebookstore.apirest.handler;
+package es.pedrazamiguez.api.onlinebookstore.apirest.handler;
 
-import es.pedrazamiguez.assessment.onlinebookstore.apirest.mapper.ErrorRestMapper;
-import es.pedrazamiguez.assessment.onlinebookstore.openapi.model.ErrorDto;
+import es.pedrazamiguez.api.onlinebookstore.apirest.mapper.ErrorRestMapper;
+import es.pedrazamiguez.api.onlinebookstore.openapi.model.ErrorDto;
 import jakarta.validation.ConstraintViolationException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

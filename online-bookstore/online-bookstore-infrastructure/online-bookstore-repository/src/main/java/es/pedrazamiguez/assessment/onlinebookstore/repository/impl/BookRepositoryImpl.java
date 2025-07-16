@@ -1,12 +1,12 @@
-package es.pedrazamiguez.assessment.onlinebookstore.repository.impl;
+package es.pedrazamiguez.api.onlinebookstore.repository.impl;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.exception.BookAlreadyExistsException;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.exception.BookNotFoundException;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.model.Book;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.repository.BookRepository;
-import es.pedrazamiguez.assessment.onlinebookstore.repository.entity.BookEntity;
-import es.pedrazamiguez.assessment.onlinebookstore.repository.jpa.BookJpaRepository;
-import es.pedrazamiguez.assessment.onlinebookstore.repository.mapper.BookEntityMapper;
+import es.pedrazamiguez.api.onlinebookstore.domain.exception.BookAlreadyExistsException;
+import es.pedrazamiguez.api.onlinebookstore.domain.exception.BookNotFoundException;
+import es.pedrazamiguez.api.onlinebookstore.domain.model.Book;
+import es.pedrazamiguez.api.onlinebookstore.domain.repository.BookRepository;
+import es.pedrazamiguez.api.onlinebookstore.repository.entity.BookEntity;
+import es.pedrazamiguez.api.onlinebookstore.repository.jpa.BookJpaRepository;
+import es.pedrazamiguez.api.onlinebookstore.repository.mapper.BookEntityMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;

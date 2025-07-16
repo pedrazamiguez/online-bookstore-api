@@ -1,4 +1,4 @@
-package es.pedrazamiguez.assessment.onlinebookstore.apirest.controller;
+package es.pedrazamiguez.api.onlinebookstore.apirest.controller;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;

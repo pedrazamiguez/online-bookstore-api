@@ -1,9 +1,9 @@
-package es.pedrazamiguez.assessment.onlinebookstore.apirest.controller.customer.base;
+package es.pedrazamiguez.api.onlinebookstore.apirest.controller.customer.base;
 
 import static org.instancio.Select.all;
 import static org.instancio.Select.field;
 
-import es.pedrazamiguez.assessment.onlinebookstore.openapi.model.LoyaltyPointsDto;
+import es.pedrazamiguez.api.onlinebookstore.openapi.model.LoyaltyPointsDto;
 import org.instancio.Instancio;
 
 public abstract class BaseCustomerTestData {

@@ -1,4 +1,4 @@
-package es.pedrazamiguez.assessment.onlinebookstore.domain.service.shipping;
+package es.pedrazamiguez.api.onlinebookstore.domain.service.shipping;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

@@ -1,4 +1,4 @@
-package es.pedrazamiguez.assessment.onlinebookstore.config.security;
+package es.pedrazamiguez.api.onlinebookstore.config.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

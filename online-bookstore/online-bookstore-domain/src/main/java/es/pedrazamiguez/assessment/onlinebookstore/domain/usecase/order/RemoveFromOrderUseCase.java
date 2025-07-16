@@ -1,6 +1,6 @@
-package es.pedrazamiguez.assessment.onlinebookstore.domain.usecase.order;
+package es.pedrazamiguez.api.onlinebookstore.domain.usecase.order;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.model.Order;
+import es.pedrazamiguez.api.onlinebookstore.domain.model.Order;
 import java.util.Optional;
 
 @FunctionalInterface

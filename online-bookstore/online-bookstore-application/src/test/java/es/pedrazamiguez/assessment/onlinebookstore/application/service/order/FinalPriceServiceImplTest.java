@@ -1,14 +1,14 @@
-package es.pedrazamiguez.assessment.onlinebookstore.application.service.order;
+package es.pedrazamiguez.api.onlinebookstore.application.service.order;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.instancio.Select.field;
 import static org.mockito.Mockito.*;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.adapter.CalculateSubtotalAdapter;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.model.Order;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.model.OrderItem;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.model.PayableAmount;
+import es.pedrazamiguez.api.onlinebookstore.domain.adapter.CalculateSubtotalAdapter;
+import es.pedrazamiguez.api.onlinebookstore.domain.model.Order;
+import es.pedrazamiguez.api.onlinebookstore.domain.model.OrderItem;
+import es.pedrazamiguez.api.onlinebookstore.domain.model.PayableAmount;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Collections;

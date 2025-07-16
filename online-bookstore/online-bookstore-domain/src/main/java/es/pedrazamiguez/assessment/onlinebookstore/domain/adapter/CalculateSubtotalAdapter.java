@@ -1,7 +1,7 @@
-package es.pedrazamiguez.assessment.onlinebookstore.domain.adapter;
+package es.pedrazamiguez.api.onlinebookstore.domain.adapter;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.model.OrderItem;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.model.PayableAmount;
+import es.pedrazamiguez.api.onlinebookstore.domain.model.OrderItem;
+import es.pedrazamiguez.api.onlinebookstore.domain.model.PayableAmount;
 
 public interface CalculateSubtotalAdapter {
 

@@ -1,12 +1,12 @@
-package es.pedrazamiguez.assessment.onlinebookstore.apirest.controller;
+package es.pedrazamiguez.api.onlinebookstore.apirest.controller;
 
-import es.pedrazamiguez.assessment.onlinebookstore.apirest.mapper.BookRestMapper;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.model.Book;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.usecase.book.AddBookUseCase;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.usecase.book.GetBookUseCase;
-import es.pedrazamiguez.assessment.onlinebookstore.openapi.api.BookApi;
-import es.pedrazamiguez.assessment.onlinebookstore.openapi.model.BookDto;
-import es.pedrazamiguez.assessment.onlinebookstore.openapi.model.BookRequestDto;
+import es.pedrazamiguez.api.onlinebookstore.apirest.mapper.BookRestMapper;
+import es.pedrazamiguez.api.onlinebookstore.domain.model.Book;
+import es.pedrazamiguez.api.onlinebookstore.domain.usecase.book.AddBookUseCase;
+import es.pedrazamiguez.api.onlinebookstore.domain.usecase.book.GetBookUseCase;
+import es.pedrazamiguez.api.onlinebookstore.openapi.api.BookApi;
+import es.pedrazamiguez.api.onlinebookstore.openapi.model.BookDto;
+import es.pedrazamiguez.api.onlinebookstore.openapi.model.BookRequestDto;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.NotImplementedException;

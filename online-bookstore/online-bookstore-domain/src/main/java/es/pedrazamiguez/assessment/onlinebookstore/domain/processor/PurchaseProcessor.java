@@ -1,6 +1,6 @@
-package es.pedrazamiguez.assessment.onlinebookstore.domain.processor;
+package es.pedrazamiguez.api.onlinebookstore.domain.processor;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.model.PurchaseContext;
+import es.pedrazamiguez.api.onlinebookstore.domain.model.PurchaseContext;
 
 public interface PurchaseProcessor {
 

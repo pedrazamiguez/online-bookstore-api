@@ -1,4 +1,4 @@
-package es.pedrazamiguez.assessment.onlinebookstore.config.serialization;
+package es.pedrazamiguez.api.onlinebookstore.config.serialization;
 
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import java.math.BigDecimal;

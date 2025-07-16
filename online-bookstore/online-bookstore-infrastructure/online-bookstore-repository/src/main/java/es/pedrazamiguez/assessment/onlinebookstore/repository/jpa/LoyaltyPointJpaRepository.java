@@ -1,6 +1,6 @@
-package es.pedrazamiguez.assessment.onlinebookstore.repository.jpa;
+package es.pedrazamiguez.api.onlinebookstore.repository.jpa;
 
-import es.pedrazamiguez.assessment.onlinebookstore.repository.entity.LoyaltyPointEntity;
+import es.pedrazamiguez.api.onlinebookstore.repository.entity.LoyaltyPointEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

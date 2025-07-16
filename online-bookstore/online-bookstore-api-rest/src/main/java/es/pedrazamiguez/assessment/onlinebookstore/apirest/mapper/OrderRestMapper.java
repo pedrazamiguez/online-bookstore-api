@@ -1,10 +1,10 @@
-package es.pedrazamiguez.assessment.onlinebookstore.apirest.mapper;
+package es.pedrazamiguez.api.onlinebookstore.apirest.mapper;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.model.Order;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.model.OrderItem;
-import es.pedrazamiguez.assessment.onlinebookstore.openapi.model.OrderDto;
-import es.pedrazamiguez.assessment.onlinebookstore.openapi.model.OrderItemDto;
-import es.pedrazamiguez.assessment.onlinebookstore.openapi.model.PurchaseRequestDto;
+import es.pedrazamiguez.api.onlinebookstore.domain.model.Order;
+import es.pedrazamiguez.api.onlinebookstore.domain.model.OrderItem;
+import es.pedrazamiguez.api.onlinebookstore.openapi.model.OrderDto;
+import es.pedrazamiguez.api.onlinebookstore.openapi.model.OrderItemDto;
+import es.pedrazamiguez.api.onlinebookstore.openapi.model.PurchaseRequestDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;

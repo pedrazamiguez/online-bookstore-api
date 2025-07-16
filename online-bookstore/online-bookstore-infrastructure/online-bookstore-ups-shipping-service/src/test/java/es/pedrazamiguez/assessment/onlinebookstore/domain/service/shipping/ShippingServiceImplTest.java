@@ -1,4 +1,4 @@
-package es.pedrazamiguez.assessment.onlinebookstore.domain.service.shipping;
+package es.pedrazamiguez.api.onlinebookstore.domain.service.shipping;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

@@ -1,4 +1,4 @@
-package es.pedrazamiguez.assessment.onlinebookstore.repository.entity;
+package es.pedrazamiguez.api.onlinebookstore.repository.entity;
 
 import jakarta.persistence.*;
 import java.math.BigDecimal;

@@ -1,10 +1,10 @@
-package es.pedrazamiguez.assessment.onlinebookstore.application.service.customer;
+package es.pedrazamiguez.api.onlinebookstore.application.service.customer;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.exception.CustomerNotFoundException;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.model.Customer;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.repository.CustomerRepository;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.service.customer.CurrentCustomerService;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.service.security.SecurityService;
+import es.pedrazamiguez.api.onlinebookstore.domain.exception.CustomerNotFoundException;
+import es.pedrazamiguez.api.onlinebookstore.domain.model.Customer;
+import es.pedrazamiguez.api.onlinebookstore.domain.repository.CustomerRepository;
+import es.pedrazamiguez.api.onlinebookstore.domain.service.customer.CurrentCustomerService;
+import es.pedrazamiguez.api.onlinebookstore.domain.service.security.SecurityService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

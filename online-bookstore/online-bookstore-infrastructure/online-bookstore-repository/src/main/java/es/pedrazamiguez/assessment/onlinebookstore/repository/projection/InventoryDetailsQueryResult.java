@@ -1,4 +1,4 @@
-package es.pedrazamiguez.assessment.onlinebookstore.repository.projection;
+package es.pedrazamiguez.api.onlinebookstore.repository.projection;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;

@@ -1,14 +1,14 @@
-package es.pedrazamiguez.assessment.onlinebookstore.apirest.controller;
+package es.pedrazamiguez.api.onlinebookstore.apirest.controller;
 
-import es.pedrazamiguez.assessment.onlinebookstore.apirest.mapper.InventoryRestMapper;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.model.BookAllocation;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.usecase.inventory.AddToInventoryUseCase;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.usecase.inventory.DeleteFromInventoryUseCase;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.usecase.inventory.DeleteOldCopiesFromInventoryUseCase;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.usecase.inventory.GetInventoryStatusUseCase;
-import es.pedrazamiguez.assessment.onlinebookstore.openapi.api.InventoryApi;
-import es.pedrazamiguez.assessment.onlinebookstore.openapi.model.AllocationDto;
-import es.pedrazamiguez.assessment.onlinebookstore.openapi.model.InventoryItemDto;
+import es.pedrazamiguez.api.onlinebookstore.apirest.mapper.InventoryRestMapper;
+import es.pedrazamiguez.api.onlinebookstore.domain.model.BookAllocation;
+import es.pedrazamiguez.api.onlinebookstore.domain.usecase.inventory.AddToInventoryUseCase;
+import es.pedrazamiguez.api.onlinebookstore.domain.usecase.inventory.DeleteFromInventoryUseCase;
+import es.pedrazamiguez.api.onlinebookstore.domain.usecase.inventory.DeleteOldCopiesFromInventoryUseCase;
+import es.pedrazamiguez.api.onlinebookstore.domain.usecase.inventory.GetInventoryStatusUseCase;
+import es.pedrazamiguez.api.onlinebookstore.openapi.api.InventoryApi;
+import es.pedrazamiguez.api.onlinebookstore.openapi.model.AllocationDto;
+import es.pedrazamiguez.api.onlinebookstore.openapi.model.InventoryItemDto;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;

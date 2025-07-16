@@ -1,8 +1,8 @@
-package es.pedrazamiguez.assessment.onlinebookstore.application.service.order;
+package es.pedrazamiguez.api.onlinebookstore.application.service.order;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.model.OrderItem;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.model.PayableAmount;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.service.order.SubtotalPriceService;
+import es.pedrazamiguez.api.onlinebookstore.domain.model.OrderItem;
+import es.pedrazamiguez.api.onlinebookstore.domain.model.PayableAmount;
+import es.pedrazamiguez.api.onlinebookstore.domain.service.order.SubtotalPriceService;
 import java.math.BigDecimal;
 import lombok.RequiredArgsConstructor;
 

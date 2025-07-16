@@ -1,6 +1,6 @@
-package es.pedrazamiguez.assessment.onlinebookstore.domain.usecase.purchase;
+package es.pedrazamiguez.api.onlinebookstore.domain.usecase.purchase;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.model.Order;
+import es.pedrazamiguez.api.onlinebookstore.domain.model.Order;
 
 @FunctionalInterface
 public interface PerformPurchaseUseCase {

@@ -1,6 +1,6 @@
-package es.pedrazamiguez.assessment.onlinebookstore.domain.service.customer;
+package es.pedrazamiguez.api.onlinebookstore.domain.service.customer;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.model.Order;
+import es.pedrazamiguez.api.onlinebookstore.domain.model.Order;
 
 public interface LoyaltyPointsService {
 

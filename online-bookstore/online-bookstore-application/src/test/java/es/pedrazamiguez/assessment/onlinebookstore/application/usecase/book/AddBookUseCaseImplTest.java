@@ -1,10 +1,10 @@
-package es.pedrazamiguez.assessment.onlinebookstore.application.usecase.book;
+package es.pedrazamiguez.api.onlinebookstore.application.usecase.book;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.model.Book;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.repository.BookRepository;
+import es.pedrazamiguez.api.onlinebookstore.domain.model.Book;
+import es.pedrazamiguez.api.onlinebookstore.domain.repository.BookRepository;
 import org.instancio.Instancio;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

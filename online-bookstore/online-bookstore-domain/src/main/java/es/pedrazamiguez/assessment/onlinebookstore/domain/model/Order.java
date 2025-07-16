@@ -1,7 +1,7 @@
-package es.pedrazamiguez.assessment.onlinebookstore.domain.model;
+package es.pedrazamiguez.api.onlinebookstore.domain.model;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.enums.OrderStatus;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.enums.PaymentMethod;
+import es.pedrazamiguez.api.onlinebookstore.domain.enums.OrderStatus;
+import es.pedrazamiguez.api.onlinebookstore.domain.enums.PaymentMethod;
 import java.math.BigDecimal;
 import java.util.List;
 import lombok.Data;

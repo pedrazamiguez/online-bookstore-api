@@ -1,15 +1,15 @@
-package es.pedrazamiguez.assessment.onlinebookstore.repository.handler;
+package es.pedrazamiguez.api.onlinebookstore.repository.handler;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.instancio.Select.field;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.enums.OrderStatus;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.enums.PaymentMethod;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.model.*;
-import es.pedrazamiguez.assessment.onlinebookstore.repository.entity.BookEntity;
-import es.pedrazamiguez.assessment.onlinebookstore.repository.entity.CustomerEntity;
-import es.pedrazamiguez.assessment.onlinebookstore.repository.entity.OrderEntity;
-import es.pedrazamiguez.assessment.onlinebookstore.repository.entity.OrderItemEntity;
+import es.pedrazamiguez.api.onlinebookstore.domain.enums.OrderStatus;
+import es.pedrazamiguez.api.onlinebookstore.domain.enums.PaymentMethod;
+import es.pedrazamiguez.api.onlinebookstore.domain.model.*;
+import es.pedrazamiguez.api.onlinebookstore.repository.entity.BookEntity;
+import es.pedrazamiguez.api.onlinebookstore.repository.entity.CustomerEntity;
+import es.pedrazamiguez.api.onlinebookstore.repository.entity.OrderEntity;
+import es.pedrazamiguez.api.onlinebookstore.repository.entity.OrderItemEntity;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;

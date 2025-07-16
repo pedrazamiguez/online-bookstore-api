@@ -1,4 +1,4 @@
-package es.pedrazamiguez.assessment.onlinebookstore.domain.repository;
+package es.pedrazamiguez.api.onlinebookstore.domain.repository;
 
 public interface LoyaltyPointRepository {
 

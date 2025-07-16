@@ -1,6 +1,6 @@
-package es.pedrazamiguez.assessment.onlinebookstore.domain.usecase.inventory;
+package es.pedrazamiguez.api.onlinebookstore.domain.usecase.inventory;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.model.BookAllocation;
+import es.pedrazamiguez.api.onlinebookstore.domain.model.BookAllocation;
 import java.util.List;
 
 @FunctionalInterface

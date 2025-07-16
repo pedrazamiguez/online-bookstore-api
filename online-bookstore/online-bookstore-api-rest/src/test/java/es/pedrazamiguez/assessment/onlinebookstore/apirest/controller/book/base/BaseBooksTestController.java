@@ -1,9 +1,9 @@
-package es.pedrazamiguez.assessment.onlinebookstore.apirest.controller.book.base;
+package es.pedrazamiguez.api.onlinebookstore.apirest.controller.book.base;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import es.pedrazamiguez.assessment.onlinebookstore.apirest.controller.BooksController;
+import es.pedrazamiguez.api.onlinebookstore.apirest.controller.BooksController;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 

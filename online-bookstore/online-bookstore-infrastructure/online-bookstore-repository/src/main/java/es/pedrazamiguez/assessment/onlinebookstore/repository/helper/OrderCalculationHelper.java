@@ -1,6 +1,6 @@
-package es.pedrazamiguez.assessment.onlinebookstore.repository.helper;
+package es.pedrazamiguez.api.onlinebookstore.repository.helper;
 
-import es.pedrazamiguez.assessment.onlinebookstore.repository.entity.OrderItemEntity;
+import es.pedrazamiguez.api.onlinebookstore.repository.entity.OrderItemEntity;
 import java.math.BigDecimal;
 import org.springframework.util.ObjectUtils;
 

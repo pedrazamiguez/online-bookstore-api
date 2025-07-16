@@ -1,8 +1,8 @@
-package es.pedrazamiguez.assessment.onlinebookstore.application.usecase.book;
+package es.pedrazamiguez.api.onlinebookstore.application.usecase.book;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.model.Book;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.repository.BookRepository;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.usecase.book.GetBookUseCase;
+import es.pedrazamiguez.api.onlinebookstore.domain.model.Book;
+import es.pedrazamiguez.api.onlinebookstore.domain.repository.BookRepository;
+import es.pedrazamiguez.api.onlinebookstore.domain.usecase.book.GetBookUseCase;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

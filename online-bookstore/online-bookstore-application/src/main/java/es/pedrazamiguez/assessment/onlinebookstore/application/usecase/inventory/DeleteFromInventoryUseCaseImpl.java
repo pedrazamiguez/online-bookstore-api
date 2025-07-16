@@ -1,10 +1,10 @@
-package es.pedrazamiguez.assessment.onlinebookstore.application.usecase.inventory;
+package es.pedrazamiguez.api.onlinebookstore.application.usecase.inventory;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.enums.BookCopyStatus;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.model.BookAllocation;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.repository.BookCopyRepository;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.service.book.AvailableBookCopiesService;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.usecase.inventory.DeleteFromInventoryUseCase;
+import es.pedrazamiguez.api.onlinebookstore.domain.enums.BookCopyStatus;
+import es.pedrazamiguez.api.onlinebookstore.domain.model.BookAllocation;
+import es.pedrazamiguez.api.onlinebookstore.domain.repository.BookCopyRepository;
+import es.pedrazamiguez.api.onlinebookstore.domain.service.book.AvailableBookCopiesService;
+import es.pedrazamiguez.api.onlinebookstore.domain.usecase.inventory.DeleteFromInventoryUseCase;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

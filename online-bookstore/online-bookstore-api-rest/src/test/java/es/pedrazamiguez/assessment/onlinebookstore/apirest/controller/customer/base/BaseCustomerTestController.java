@@ -1,8 +1,8 @@
-package es.pedrazamiguez.assessment.onlinebookstore.apirest.controller.customer.base;
+package es.pedrazamiguez.api.onlinebookstore.apirest.controller.customer.base;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import es.pedrazamiguez.assessment.onlinebookstore.apirest.handler.BookstoreExceptionHandler;
-import es.pedrazamiguez.assessment.onlinebookstore.apirest.handler.RestExceptionHandler;
+import es.pedrazamiguez.api.onlinebookstore.apirest.handler.BookstoreExceptionHandler;
+import es.pedrazamiguez.api.onlinebookstore.apirest.handler.RestExceptionHandler;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 

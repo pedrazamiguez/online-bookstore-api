@@ -1,4 +1,4 @@
-package es.pedrazamiguez.assessment.onlinebookstore.domain.exception;
+package es.pedrazamiguez.api.onlinebookstore.domain.exception;
 
 import lombok.Getter;
 

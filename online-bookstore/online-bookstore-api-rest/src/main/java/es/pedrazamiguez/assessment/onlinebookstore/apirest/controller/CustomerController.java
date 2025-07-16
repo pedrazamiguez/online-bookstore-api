@@ -1,9 +1,9 @@
-package es.pedrazamiguez.assessment.onlinebookstore.apirest.controller;
+package es.pedrazamiguez.api.onlinebookstore.apirest.controller;
 
-import es.pedrazamiguez.assessment.onlinebookstore.apirest.mapper.CustomerRestMapper;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.usecase.loyalty.GetLoyaltyPointsUseCase;
-import es.pedrazamiguez.assessment.onlinebookstore.openapi.api.CustomerApi;
-import es.pedrazamiguez.assessment.onlinebookstore.openapi.model.LoyaltyPointsDto;
+import es.pedrazamiguez.api.onlinebookstore.apirest.mapper.CustomerRestMapper;
+import es.pedrazamiguez.api.onlinebookstore.domain.usecase.loyalty.GetLoyaltyPointsUseCase;
+import es.pedrazamiguez.api.onlinebookstore.openapi.api.CustomerApi;
+import es.pedrazamiguez.api.onlinebookstore.openapi.model.LoyaltyPointsDto;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.NotImplementedException;
 import org.springframework.http.ResponseEntity;

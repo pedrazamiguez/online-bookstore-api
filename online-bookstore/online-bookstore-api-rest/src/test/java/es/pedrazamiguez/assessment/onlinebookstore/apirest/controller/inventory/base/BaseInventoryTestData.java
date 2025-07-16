@@ -1,12 +1,12 @@
-package es.pedrazamiguez.assessment.onlinebookstore.apirest.controller.inventory.base;
+package es.pedrazamiguez.api.onlinebookstore.apirest.controller.inventory.base;
 
 import static org.instancio.Select.all;
 import static org.instancio.Select.field;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.model.Book;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.model.BookAllocation;
-import es.pedrazamiguez.assessment.onlinebookstore.openapi.model.AllocationDto;
-import es.pedrazamiguez.assessment.onlinebookstore.openapi.model.InventoryItemDto;
+import es.pedrazamiguez.api.onlinebookstore.domain.model.Book;
+import es.pedrazamiguez.api.onlinebookstore.domain.model.BookAllocation;
+import es.pedrazamiguez.api.onlinebookstore.openapi.model.AllocationDto;
+import es.pedrazamiguez.api.onlinebookstore.openapi.model.InventoryItemDto;
 import org.instancio.Instancio;
 
 public abstract class BaseInventoryTestData {

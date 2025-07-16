@@ -1,6 +1,6 @@
-package es.pedrazamiguez.assessment.onlinebookstore.repository.entity;
+package es.pedrazamiguez.api.onlinebookstore.repository.entity;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.enums.Genre;
+import es.pedrazamiguez.api.onlinebookstore.domain.enums.Genre;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import lombok.Data;

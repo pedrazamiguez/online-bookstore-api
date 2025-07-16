@@ -1,10 +1,10 @@
-package es.pedrazamiguez.assessment.onlinebookstore.apirest.controller.book.base;
+package es.pedrazamiguez.api.onlinebookstore.apirest.controller.book.base;
 
 import static org.instancio.Select.field;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.model.Book;
-import es.pedrazamiguez.assessment.onlinebookstore.openapi.model.BookDto;
-import es.pedrazamiguez.assessment.onlinebookstore.openapi.model.BookRequestDto;
+import es.pedrazamiguez.api.onlinebookstore.domain.model.Book;
+import es.pedrazamiguez.api.onlinebookstore.openapi.model.BookDto;
+import es.pedrazamiguez.api.onlinebookstore.openapi.model.BookRequestDto;
 import org.instancio.Instancio;
 
 public abstract class BaseBooksTestData {

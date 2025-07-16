@@ -1,9 +1,9 @@
-package es.pedrazamiguez.assessment.onlinebookstore.apirest.mapper;
+package es.pedrazamiguez.api.onlinebookstore.apirest.mapper;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
-import es.pedrazamiguez.assessment.onlinebookstore.openapi.model.ErrorDto;
+import es.pedrazamiguez.api.onlinebookstore.openapi.model.ErrorDto;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Path;

@@ -1,7 +1,7 @@
-package es.pedrazamiguez.assessment.onlinebookstore.application.usecase.inventory;
+package es.pedrazamiguez.api.onlinebookstore.application.usecase.inventory;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.repository.BookCopyRepository;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.usecase.inventory.DeleteOldCopiesFromInventoryUseCase;
+import es.pedrazamiguez.api.onlinebookstore.domain.repository.BookCopyRepository;
+import es.pedrazamiguez.api.onlinebookstore.domain.usecase.inventory.DeleteOldCopiesFromInventoryUseCase;
 import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -1,8 +1,8 @@
-package es.pedrazamiguez.assessment.onlinebookstore.domain.service.payment;
+package es.pedrazamiguez.api.onlinebookstore.domain.service.payment;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.enums.PaymentMethod;
+import es.pedrazamiguez.api.onlinebookstore.domain.enums.PaymentMethod;
 import java.math.BigDecimal;
 import nl.altindag.log.LogCaptor;
 import org.junit.jupiter.api.AfterEach;

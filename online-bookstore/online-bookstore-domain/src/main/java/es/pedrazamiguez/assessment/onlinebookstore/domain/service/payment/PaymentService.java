@@ -1,6 +1,6 @@
-package es.pedrazamiguez.assessment.onlinebookstore.domain.service.payment;
+package es.pedrazamiguez.api.onlinebookstore.domain.service.payment;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.enums.PaymentMethod;
+import es.pedrazamiguez.api.onlinebookstore.domain.enums.PaymentMethod;
 import java.math.BigDecimal;
 
 public interface PaymentService {

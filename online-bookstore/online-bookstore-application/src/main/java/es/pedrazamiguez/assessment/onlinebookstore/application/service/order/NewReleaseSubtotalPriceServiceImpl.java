@@ -1,6 +1,6 @@
-package es.pedrazamiguez.assessment.onlinebookstore.application.service.order;
+package es.pedrazamiguez.api.onlinebookstore.application.service.order;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.service.order.SubtotalPriceService;
+import es.pedrazamiguez.api.onlinebookstore.domain.service.order.SubtotalPriceService;
 import org.springframework.stereotype.Service;
 
 @Service

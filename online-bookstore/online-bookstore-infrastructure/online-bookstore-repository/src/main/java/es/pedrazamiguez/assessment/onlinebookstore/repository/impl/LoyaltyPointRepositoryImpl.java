@@ -1,15 +1,15 @@
-package es.pedrazamiguez.assessment.onlinebookstore.repository.impl;
+package es.pedrazamiguez.api.onlinebookstore.repository.impl;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.enums.LoyaltyPointStatus;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.exception.CustomerNotFoundException;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.exception.OrderNotFoundException;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.repository.LoyaltyPointRepository;
-import es.pedrazamiguez.assessment.onlinebookstore.repository.entity.CustomerEntity;
-import es.pedrazamiguez.assessment.onlinebookstore.repository.entity.LoyaltyPointEntity;
-import es.pedrazamiguez.assessment.onlinebookstore.repository.entity.OrderEntity;
-import es.pedrazamiguez.assessment.onlinebookstore.repository.jpa.CustomerJpaRepository;
-import es.pedrazamiguez.assessment.onlinebookstore.repository.jpa.LoyaltyPointJpaRepository;
-import es.pedrazamiguez.assessment.onlinebookstore.repository.jpa.OrderJpaRepository;
+import es.pedrazamiguez.api.onlinebookstore.domain.enums.LoyaltyPointStatus;
+import es.pedrazamiguez.api.onlinebookstore.domain.exception.CustomerNotFoundException;
+import es.pedrazamiguez.api.onlinebookstore.domain.exception.OrderNotFoundException;
+import es.pedrazamiguez.api.onlinebookstore.domain.repository.LoyaltyPointRepository;
+import es.pedrazamiguez.api.onlinebookstore.repository.entity.CustomerEntity;
+import es.pedrazamiguez.api.onlinebookstore.repository.entity.LoyaltyPointEntity;
+import es.pedrazamiguez.api.onlinebookstore.repository.entity.OrderEntity;
+import es.pedrazamiguez.api.onlinebookstore.repository.jpa.CustomerJpaRepository;
+import es.pedrazamiguez.api.onlinebookstore.repository.jpa.LoyaltyPointJpaRepository;
+import es.pedrazamiguez.api.onlinebookstore.repository.jpa.OrderJpaRepository;
 import java.util.List;
 import java.util.stream.LongStream;
 import lombok.RequiredArgsConstructor;

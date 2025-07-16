@@ -1,7 +1,7 @@
-package es.pedrazamiguez.assessment.onlinebookstore.application.service.customer;
+package es.pedrazamiguez.api.onlinebookstore.application.service.customer;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.model.Order;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.service.customer.LoyaltyPointsService;
+import es.pedrazamiguez.api.onlinebookstore.domain.model.Order;
+import es.pedrazamiguez.api.onlinebookstore.domain.service.customer.LoyaltyPointsService;
 import org.springframework.stereotype.Service;
 
 @Service

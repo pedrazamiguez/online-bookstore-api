@@ -1,14 +1,14 @@
-package es.pedrazamiguez.assessment.onlinebookstore.application.service.customer;
+package es.pedrazamiguez.api.onlinebookstore.application.service.customer;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.instancio.Select.field;
 import static org.mockito.Mockito.*;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.exception.CustomerNotFoundException;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.model.Customer;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.repository.CustomerRepository;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.service.security.SecurityService;
+import es.pedrazamiguez.api.onlinebookstore.domain.exception.CustomerNotFoundException;
+import es.pedrazamiguez.api.onlinebookstore.domain.model.Customer;
+import es.pedrazamiguez.api.onlinebookstore.domain.repository.CustomerRepository;
+import es.pedrazamiguez.api.onlinebookstore.domain.service.security.SecurityService;
 import java.util.Optional;
 import org.instancio.Instancio;
 import org.junit.jupiter.api.Test;

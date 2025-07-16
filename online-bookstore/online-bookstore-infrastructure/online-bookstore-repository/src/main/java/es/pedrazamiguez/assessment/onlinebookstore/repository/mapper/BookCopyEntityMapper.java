@@ -1,7 +1,7 @@
-package es.pedrazamiguez.assessment.onlinebookstore.repository.mapper;
+package es.pedrazamiguez.api.onlinebookstore.repository.mapper;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.model.BookAllocation;
-import es.pedrazamiguez.assessment.onlinebookstore.repository.projection.InventoryDetailsQueryResult;
+import es.pedrazamiguez.api.onlinebookstore.domain.model.BookAllocation;
+import es.pedrazamiguez.api.onlinebookstore.repository.projection.InventoryDetailsQueryResult;
 import java.util.List;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

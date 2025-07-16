@@ -1,11 +1,11 @@
-package es.pedrazamiguez.assessment.onlinebookstore.application.usecase.loyalty;
+package es.pedrazamiguez.api.onlinebookstore.application.usecase.loyalty;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.instancio.Select.all;
 import static org.mockito.Mockito.*;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.repository.LoyaltyPointRepository;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.service.security.SecurityService;
+import es.pedrazamiguez.api.onlinebookstore.domain.repository.LoyaltyPointRepository;
+import es.pedrazamiguez.api.onlinebookstore.domain.service.security.SecurityService;
 import org.instancio.Instancio;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

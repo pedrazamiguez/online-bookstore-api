@@ -1,7 +1,7 @@
-package es.pedrazamiguez.assessment.onlinebookstore.config.cor;
+package es.pedrazamiguez.api.onlinebookstore.config.cor;
 
-import es.pedrazamiguez.assessment.onlinebookstore.application.processor.purchase.*;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.processor.PurchaseProcessor;
+import es.pedrazamiguez.api.onlinebookstore.application.processor.purchase.*;
+import es.pedrazamiguez.api.onlinebookstore.domain.processor.PurchaseProcessor;
 import java.util.List;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

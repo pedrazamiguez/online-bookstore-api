@@ -1,9 +1,9 @@
-package es.pedrazamiguez.assessment.onlinebookstore.repository.impl;
+package es.pedrazamiguez.api.onlinebookstore.repository.impl;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.model.Customer;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.repository.CustomerRepository;
-import es.pedrazamiguez.assessment.onlinebookstore.repository.jpa.CustomerJpaRepository;
-import es.pedrazamiguez.assessment.onlinebookstore.repository.mapper.CustomerEntityMapper;
+import es.pedrazamiguez.api.onlinebookstore.domain.model.Customer;
+import es.pedrazamiguez.api.onlinebookstore.domain.repository.CustomerRepository;
+import es.pedrazamiguez.api.onlinebookstore.repository.jpa.CustomerJpaRepository;
+import es.pedrazamiguez.api.onlinebookstore.repository.mapper.CustomerEntityMapper;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

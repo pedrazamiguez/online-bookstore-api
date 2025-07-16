@@ -1,7 +1,7 @@
-package es.pedrazamiguez.assessment.onlinebookstore.repository.entity;
+package es.pedrazamiguez.api.onlinebookstore.repository.entity;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.enums.OrderStatus;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.enums.PaymentMethod;
+import es.pedrazamiguez.api.onlinebookstore.domain.enums.OrderStatus;
+import es.pedrazamiguez.api.onlinebookstore.domain.enums.PaymentMethod;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;

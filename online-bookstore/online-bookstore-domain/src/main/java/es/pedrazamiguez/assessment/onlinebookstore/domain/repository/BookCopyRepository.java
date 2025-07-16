@@ -1,7 +1,7 @@
-package es.pedrazamiguez.assessment.onlinebookstore.domain.repository;
+package es.pedrazamiguez.api.onlinebookstore.domain.repository;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.enums.BookCopyStatus;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.model.BookAllocation;
+import es.pedrazamiguez.api.onlinebookstore.domain.enums.BookCopyStatus;
+import es.pedrazamiguez.api.onlinebookstore.domain.model.BookAllocation;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;

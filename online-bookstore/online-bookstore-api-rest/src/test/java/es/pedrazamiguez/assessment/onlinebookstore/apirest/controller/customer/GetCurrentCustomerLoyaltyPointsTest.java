@@ -1,17 +1,17 @@
-package es.pedrazamiguez.assessment.onlinebookstore.apirest.controller.customer;
+package es.pedrazamiguez.api.onlinebookstore.apirest.controller.customer;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
-import es.pedrazamiguez.assessment.onlinebookstore.apirest.controller.CustomerController;
-import es.pedrazamiguez.assessment.onlinebookstore.apirest.controller.customer.base.BaseCustomerTestController;
-import es.pedrazamiguez.assessment.onlinebookstore.apirest.handler.BookstoreExceptionHandler;
-import es.pedrazamiguez.assessment.onlinebookstore.apirest.handler.RestExceptionHandler;
-import es.pedrazamiguez.assessment.onlinebookstore.apirest.mapper.CustomerRestMapper;
-import es.pedrazamiguez.assessment.onlinebookstore.apirest.mapper.ErrorRestMapper;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.usecase.loyalty.GetLoyaltyPointsUseCase;
-import es.pedrazamiguez.assessment.onlinebookstore.openapi.model.LoyaltyPointsDto;
+import es.pedrazamiguez.api.onlinebookstore.apirest.controller.CustomerController;
+import es.pedrazamiguez.api.onlinebookstore.apirest.controller.customer.base.BaseCustomerTestController;
+import es.pedrazamiguez.api.onlinebookstore.apirest.handler.BookstoreExceptionHandler;
+import es.pedrazamiguez.api.onlinebookstore.apirest.handler.RestExceptionHandler;
+import es.pedrazamiguez.api.onlinebookstore.apirest.mapper.CustomerRestMapper;
+import es.pedrazamiguez.api.onlinebookstore.apirest.mapper.ErrorRestMapper;
+import es.pedrazamiguez.api.onlinebookstore.domain.usecase.loyalty.GetLoyaltyPointsUseCase;
+import es.pedrazamiguez.api.onlinebookstore.openapi.model.LoyaltyPointsDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

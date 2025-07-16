@@ -1,6 +1,6 @@
-package es.pedrazamiguez.assessment.onlinebookstore.domain.repository;
+package es.pedrazamiguez.api.onlinebookstore.domain.repository;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.model.Book;
+import es.pedrazamiguez.api.onlinebookstore.domain.model.Book;
 
 public interface BookRepository {
 

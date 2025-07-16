@@ -1,12 +1,12 @@
-package es.pedrazamiguez.assessment.onlinebookstore.application.usecase.order;
+package es.pedrazamiguez.api.onlinebookstore.application.usecase.order;
 
-import es.pedrazamiguez.assessment.onlinebookstore.domain.model.Order;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.repository.OrderRepository;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.service.book.AvailableBookCopiesService;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.service.order.CurrentOrderService;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.service.order.FinalPriceService;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.service.security.SecurityService;
-import es.pedrazamiguez.assessment.onlinebookstore.domain.usecase.order.RemoveFromOrderUseCase;
+import es.pedrazamiguez.api.onlinebookstore.domain.model.Order;
+import es.pedrazamiguez.api.onlinebookstore.domain.repository.OrderRepository;
+import es.pedrazamiguez.api.onlinebookstore.domain.service.book.AvailableBookCopiesService;
+import es.pedrazamiguez.api.onlinebookstore.domain.service.order.CurrentOrderService;
+import es.pedrazamiguez.api.onlinebookstore.domain.service.order.FinalPriceService;
+import es.pedrazamiguez.api.onlinebookstore.domain.service.security.SecurityService;
+import es.pedrazamiguez.api.onlinebookstore.domain.usecase.order.RemoveFromOrderUseCase;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
